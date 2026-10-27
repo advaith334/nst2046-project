@@ -1,0 +1,23 @@
+# Difficulty screen. After the pilot hit ceiling, screen harder items and the pilot candidates
+# with their evidence as written and with it removed, on no_belief vs stored_incorrect only.
+# Items where some model isn't at ceiling, or where the stored belief moves the answer or its
+# probability, go forward. Read the result with `memsyco screen runs/<id> --config config/calibration.yaml`.
+name: calibration
+models_file: config/models.yaml
+model_set: pilot
+case_files:
+  - data/cases/candidates.yaml
+  - data/cases/calibration.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+evidence_modes: [as_written, none]
+# One rep: this is a screen, and two reps would cost ~$1.40 vs ~$0.70.
+reps: 1
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

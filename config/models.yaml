@@ -1,6 +1,10 @@
 # Model registry. Slugs checked against the OpenRouter catalogue on 2026-10-27
 # (`uv run memsyco list-models --search <name>`). LP = provider returns logprobs.
 #
+# Each model is pinned to one host with no fallbacks: hosts differ in quantisation and in
+# whether they return logprobs, and the smoke test saw one model routed to three hosts.
+# If a pinned host is down, trials are logged as errors and re-run on resume.
+#
 # OpenRouter currently serves no base (non-instruction-tuned) models. For the base vs
 # instruct pair, run a base model locally behind an OpenAI-compatible server (e.g. Ollama)
 # with mode: completion, and set base_url in the run config.
@@ -8,16 +12,24 @@
 sets:
   # Milestone 2 first pass: 3 contrasting models (frontier closed / large open / small open).
   pilot: [claude-sonnet, qwen-large, llama-8b]
-  # Proposed main set (4-6, per feedback): add a second frontier API and a small sibling of
-  # qwen-large for a within-family size contrast. Swap in a local base model when available.
-  main: [claude-sonnet, gpt-terra, qwen-large, qwen-small, llama-8b]
+  # Main run (6 contrasting models, per feedback): the susceptible Mistral Nemo and its larger,
+  # newer sibling; two other small non-reasoning models; a small reasoning model; one frontier
+  # API. Qwen3.5-397B is left out for cost (it matched Claude at ceiling in every screen).
+  # No base model: OpenRouter serves none.
+  main: [mistral-nemo, mistral-small, llama-8b, gemma-moe, qwen-small, claude-sonnet]
+  # Long-tail screen: the two frontier models plus four small open models, since Claude and
+  # Qwen-397B stayed at ceiling on every pilot and calibration item.
+  small: [gemma-moe, qwen-small, mistral-nemo]
+  longtail: [claude-sonnet, qwen-large, llama-8b, gemma-moe, qwen-small, mistral-nemo]
 
 models:
   - alias: claude-sonnet
     slug: anthropic/claude-sonnet-5.5
     family: claude
     size: frontier
-    notes: "No logprobs via OpenRouter."
+    notes: "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default."
+    extra_body:
+      provider: {order: [Anthropic], allow_fallbacks: false}
   - alias: gpt-terra
     slug: openai/gpt-6.1-terra
     family: gpt
@@ -27,17 +39,46 @@ models:
     slug: qwen/qwen3.5-397b-a17b
     family: qwen
     size: 397B MoE (17B active)
-    notes: "LP. May emit reasoning; reasoning text is logged separately."
+    notes: "LP on Alibaba. Reasons before answering; reasoning text is logged separately."
+    extra_body:
+      provider: {order: [Alibaba], allow_fallbacks: false}
   - alias: qwen-small
     slug: qwen/qwen3.5-9b
     family: qwen
     size: 9B
-    notes: "LP. Same generation as qwen-large."
+    notes: "LP on Parasail (bf16). Same generation as qwen-large. Reasons at length, so it gets a higher token limit."
+    extra_body:
+      provider: {order: [Parasail], allow_fallbacks: false}
+      # Overrides params.max_tokens: at 2000 it often ran out mid-reasoning with no answer.
+      max_tokens: 8000
+  - alias: gemma-moe
+    slug: google/gemma-4-26b-a4b-it
+    family: gemma
+    size: 26B MoE (4B active)
+    notes: "LP on Google's own host."
+    extra_body:
+      provider: {order: [Google], allow_fallbacks: false}
+  - alias: mistral-small
+    slug: mistralai/mistral-small-3.2-24b-instruct
+    family: mistral
+    size: 24B
+    notes: "LP on Parasail (bf16). Newer, larger sibling of mistral-nemo."
+    extra_body:
+      provider: {order: [Parasail], allow_fallbacks: false}
+  - alias: mistral-nemo
+    slug: mistralai/mistral-nemo
+    family: mistral
+    size: 12B
+    notes: "LP on Io Net (fp16). 2024 model."
+    extra_body:
+      provider: {order: [Io Net], allow_fallbacks: false}
   - alias: llama-8b
     slug: meta-llama/llama-3.1-8b-instruct
     family: llama
     size: 8B
-    notes: "LP. Older (2024) preference tuning."
+    notes: "Novita (fp8). Logprobs often do not match the text on Novita and are only the last token on CoreWeave, so option probabilities are mostly unavailable. Older (2024) preference tuning."
+    extra_body:
+      provider: {order: [Novita], allow_fallbacks: false}
   # Example local base model (not in any set yet):
   # - alias: llama-8b-base
   #   slug: llama3.1:8b-text-q8_0

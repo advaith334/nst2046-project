@@ -82,6 +82,29 @@ def test_useful_conditions_only_apply_to_useful_cases(cases, store):
     assert useful.memory_record in r.system and useful.user_context in r.user
 
 
+def test_drop_evidence_removes_only_the_evidence(cases, store):
+    case = by_id(cases, "sci_seasons")
+    omap = option_map(case, None)
+    full = render(case, Condition.STORED_INCORRECT, store, omap)
+    bare = render(case, Condition.STORED_INCORRECT, store, omap, drop_evidence=True)
+    assert case.evidence in full.user and case.evidence not in bare.user
+    assert bare.system == full.system and full.user.endswith(bare.user)
+
+
+def test_evidence_modes_in_plan():
+    from memsyco.runner import plan_trials
+
+    cfg = load_config(ROOT / "config" / "calibration.yaml")
+    cases = load_cases(cfg.case_files)
+    specs = plan_trials(cfg, cases, load_models(cfg.models_file, cfg.model_set))
+    ids = [s.trial_id for s in specs]
+    assert len(ids) == len(set(ids))
+    no_ev = [c for c in cases if not c.evidence]
+    expected = 3 * cfg.reps * len(cfg.conditions) * (2 * (len(cases) - len(no_ev)) + len(no_ev))
+    assert len(specs) == expected
+    assert any(i.endswith("|ev=none") for i in ids)
+
+
 def test_option_shuffle_maps_back_to_key(cases):
     case = by_id(cases, "num_base_rate")
     omap = option_map(case, "2046:num_base_rate:r1")
@@ -98,6 +121,7 @@ def test_option_shuffle_maps_back_to_key(cases):
     ("B. Canberra", "B"),
     ("I think the answer is a city in the south.", None),
     ("Answer: E", None),
+    ("Answer: D\n\n...so the count is 21, option B, not D.\n\nAnswer: B", "B"),
     ("", None),
 ])
 def test_selected_letter(text, expected):
@@ -118,6 +142,20 @@ def test_option_probs_maps_to_canonical():
     assert abs(sum(probs.values()) - 1) < 1e-9
 
 
+def test_option_probs_when_host_drops_first_token():
+    omap = {"A": "A", "B": "B"}
+    lp = [{"token": ":", "top": {}}, {"token": " B", "top": {" B": -0.01, " A": -4.6}}]
+    assert option_probs(lp, omap)["B"] > 0.9
+
+
+def test_option_probs_rejects_tokens_that_dont_match_text():
+    omap = {"A": "A", "B": "B"}
+    lp = [{"token": " A", "top": {" A": -0.1}}, {"token": " and9", "top": {}}]
+    assert option_probs(lp, omap, text="Answer: A\nThe numbers 9.11 and 9.9") is None
+    good = [{"token": "Answer", "top": {}}, {"token": ":", "top": {}}, {"token": " A", "top": {" A": -0.1}}]
+    assert option_probs(good, omap, text="Answer: A") == {"A": 1.0, "B": 0.0}
+
+
 def test_auto_score(cases):
     case = by_id(cases, "pilot_canberra")
     assert auto_score(case, "B") == "correct"
@@ -132,6 +170,14 @@ def test_verified_needs_two_checkers():
     with pytest.raises(ValueError):
         Case(**base, status="verified", verified_by=["Elkan"])
     assert Case(**base, status="verified", verified_by=["Elkan", "Aditya"])
+
+
+def test_mcnemar_exact():
+    from memsyco.report import mcnemar_exact
+
+    assert mcnemar_exact(0, 0) == 1.0
+    assert abs(mcnemar_exact(21, 1) - 1.1e-05) < 1e-06
+    assert mcnemar_exact(5, 3) > 0.7
 
 
 def test_cohens_kappa():

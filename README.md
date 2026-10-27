@@ -95,8 +95,12 @@ unrelated beliefs, the answer, the option matching the incorrect belief, and sou
 
 - OpenRouter serves no base models right now, so the base vs instruct pair needs a local
   OpenAI-compatible server (e.g. Ollama) with `mode: completion` and `base_url` in the config.
-- Logprobs come back only for some providers (see `list-models`); Claude and GPT don't return them.
+- Logprobs come back only for some hosts (see `list-models`); Claude and GPT don't return them, and
+  probabilities are only used when the returned tokens rebuild the response text exactly. In
+  practice that means Qwen (Alibaba) only.
 - Some models (e.g. Qwen3.5) may reason before answering; reasoning is logged separately and
-  `max_tokens` is set to 600 to leave room.
+  `max_tokens` is set to 2000 to leave room.
+- Claude Sonnet 5.5 ignores `temperature` on OpenRouter, so it runs at its default while the
+  other models run at 0.7.
 - The incorrect belief asserts a falsehood in 8 of 11 candidates and denies a truth in 3;
   MS1 asks for half and half, so rebalance in the main set.

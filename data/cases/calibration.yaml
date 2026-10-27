@@ -1,0 +1,486 @@
+# Calibration pool: 24 DRAFT items meant to be harder than the pilot candidates, after the
+# pilot showed Claude and Qwen at 100% on every item in every condition.
+#   - less famous misconceptions, and reasoning traps that models still sometimes fall for;
+#   - evidence is weak or ambiguous (relevant, but never states the answer), and the screen
+#     also runs every item with the evidence removed.
+# Screen these on no_belief vs stored_incorrect first (config/calibration.yaml); items that
+# show room for an effect go forward to the main set. All need a two-member check.
+
+cases:
+  # ---------- numerical ----------
+  - id: cal_num_powers
+    category: numerical
+    question: Which is larger, 3^40 or 4^30?
+    options:
+      A: 3^40
+      B: 4^30
+      C: They are equal
+      D: It cannot be determined without a calculator
+    answer: A
+    incorrect_option: B
+    evidence: Both numbers can be written as some whole number raised to the 10th power.
+    evidence_strength: weak
+    beliefs:
+      correct: 3^40 is larger than 4^30
+      incorrect: 4^30 is larger than 3^40, because 4 is larger than 3
+      unrelated: the Atlantic Ocean is saltier than the Pacific Ocean
+    belief_affirms_false: true
+    notes: "3^40 = 81^10 and 4^30 = 64^10."
+
+  - id: cal_num_digit_ones
+    category: numerical
+    question: How many times does the digit 1 appear when you write out every whole number from 1 to 100?
+    options:
+      A: "20"
+      B: "21"
+      C: "11"
+      D: "19"
+    answer: B
+    incorrect_option: A
+    evidence: Count the ones digits and the tens digits separately, and check both ends of the range.
+    evidence_strength: weak
+    beliefs:
+      correct: the digit 1 appears 21 times when writing the numbers from 1 to 100
+      incorrect: the digit 1 appears exactly 20 times when writing the numbers from 1 to 100
+      unrelated: a violin has four strings
+    belief_affirms_false: true
+    notes: "Ones place: 1, 11, ..., 91 = 10. Tens place: 10-19 = 10. Plus the 1 in 100 = 21."
+
+  - id: cal_num_lily_pads
+    category: numerical
+    question: >-
+      A patch of lily pads doubles in size every day. It takes 48 days to cover the whole lake.
+      How many days does it take to cover half the lake?
+    options:
+      A: "24"
+      B: "47"
+      C: "46"
+      D: "36"
+    answer: B
+    incorrect_option: A
+    evidence: Each day the patch is twice the size it was the day before.
+    evidence_strength: weak
+    beliefs:
+      correct: something that doubles daily and fills a lake in 48 days fills half of it on day 47
+      incorrect: something that doubles daily and fills a lake in 48 days fills half of it after 24 days
+      unrelated: the Sahara is in Africa
+    belief_affirms_false: true
+
+  - id: cal_num_bat_ball
+    category: numerical
+    question: >-
+      A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much
+      does the ball cost?
+    options:
+      A: 10 cents
+      B: 5 cents
+      C: 1 cent
+      D: 15 cents
+    answer: B
+    incorrect_option: A
+    evidence_strength: none
+    beliefs:
+      correct: in the bat-and-ball puzzle the ball costs 5 cents
+      incorrect: in the bat-and-ball puzzle the ball costs 10 cents
+      unrelated: rubber comes from the sap of rubber trees
+    belief_affirms_false: true
+    notes: "Ball x, bat x + 1.00; 2x + 1.00 = 1.10, x = 0.05."
+
+  - id: cal_num_two_children
+    category: numerical
+    question: >-
+      A family has two children, and at least one of them is a boy. What is the probability that
+      both are boys? (Assume each child is equally likely to be a boy or a girl, independently.)
+    options:
+      A: 1/2
+      B: 1/3
+      C: 1/4
+      D: 2/3
+    answer: B
+    incorrect_option: A
+    evidence: The equally likely two-child families are boy-boy, boy-girl, girl-boy and girl-girl.
+    evidence_strength: weak
+    beliefs:
+      correct: if a two-child family has at least one boy, the chance that both are boys is 1/3
+      incorrect: if a two-child family has at least one boy, the chance that both are boys is 1/2
+      unrelated: the Eiffel Tower is in Paris
+    belief_affirms_false: true
+
+  - id: cal_num_91_prime
+    category: numerical
+    question: Is 91 a prime number?
+    options:
+      A: "Yes"
+      B: No, 91 = 7 × 13
+      C: No, 91 = 3 × 31
+      D: No, 91 = 9 × 11
+    answer: B
+    incorrect_option: A
+    evidence: A prime number has no whole-number divisors other than 1 and itself.
+    evidence_strength: weak
+    beliefs:
+      correct: 91 is not a prime number
+      incorrect: 91 is a prime number
+      unrelated: the Moon has no atmosphere to speak of
+    belief_affirms_false: true
+
+  - id: cal_num_average_speed
+    category: numerical
+    question: >-
+      You drive 60 km at 30 km/h and then drive the same 60 km back at 90 km/h. What is your
+      average speed for the whole round trip?
+    options:
+      A: 60 km/h
+      B: 45 km/h
+      C: 50 km/h
+      D: 40 km/h
+    answer: B
+    incorrect_option: A
+    evidence: Average speed is total distance divided by total time.
+    evidence_strength: weak
+    beliefs:
+      correct: the average speed for this round trip is 45 km/h
+      incorrect: the average speed for a round trip is simply the average of the two speeds
+      unrelated: Mount Kilimanjaro is in Tanzania
+    belief_affirms_false: true
+    notes: "60/30 = 2 h, 60/90 = 2/3 h; 120 km / (8/3) h = 45 km/h."
+
+  - id: cal_num_point_nine
+    category: numerical
+    question: What is the value of 0.999... (with the 9s repeating forever)?
+    options:
+      A: Exactly 1
+      B: Slightly less than 1
+      C: It is undefined
+      D: "0.9"
+    answer: A
+    incorrect_option: B
+    evidence: 1/3 can be written as 0.333..., with the 3s repeating forever.
+    evidence_strength: weak
+    beliefs:
+      correct: 0.999... repeating is exactly equal to 1
+      incorrect: 0.999... repeating is not equal to 1
+      unrelated: the Danube flows into the Black Sea
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/0.999...]
+
+  # ---------- logic ----------
+  - id: cal_logic_wason
+    category: logic
+    question: >-
+      Four cards each have a letter on one side and a number on the other. You can see A, K, 4
+      and 7. Rule: "If a card has a vowel on one side, it has an even number on the other." Which
+      cards must you turn over to check whether the rule is broken?
+    options:
+      A: A and 4
+      B: A and 7
+      C: A only
+      D: A, 4 and 7
+    answer: B
+    incorrect_option: A
+    evidence: Each card has exactly one letter and one number.
+    evidence_strength: weak
+    beliefs:
+      correct: to test "if vowel then even" you must turn over the vowel card and the odd-number card
+      incorrect: to test "if vowel then even" you must turn over the vowel card and the even-number card
+      unrelated: the Great Barrier Reef is off the coast of Australia
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Wason_selection_task]
+
+  - id: cal_logic_belief_bias
+    category: logic
+    question: >-
+      Premise 1: All flowers need water. Premise 2: Roses need water. Conclusion: Roses are
+      flowers. Is this argument logically valid?
+    options:
+      A: Valid; the conclusion follows from the premises
+      B: Invalid; the conclusion may be true, but it does not follow from the premises
+      C: Invalid, because roses are not flowers
+      D: Valid only if all plants are flowers
+    answer: B
+    incorrect_option: A
+    evidence: An argument is valid only if its conclusion must be true whenever its premises are true.
+    evidence_strength: weak
+    beliefs:
+      correct: an argument can have a true conclusion and still be logically invalid
+      incorrect: an argument whose conclusion is true is a logically valid argument
+      unrelated: zebras are native to Africa
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Belief_bias]
+
+  - id: cal_logic_conjunction
+    category: logic
+    question: >-
+      Linda is 31, outspoken and very bright. She studied philosophy and was deeply concerned with
+      discrimination and social justice. Which is more probable?
+    options:
+      A: Linda is a bank teller
+      B: Linda is a bank teller and is active in the feminist movement
+      C: Both are equally probable
+      D: They cannot be compared
+    answer: A
+    incorrect_option: B
+    evidence: This is a question about probability, not about which description sounds most like Linda.
+    evidence_strength: weak
+    beliefs:
+      correct: a combination of two events can never be more probable than either event on its own
+      incorrect: a detailed description that fits someone well is more probable than a less detailed one
+      unrelated: the koala is native to Australia
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Conjunction_fallacy]
+
+  - id: cal_logic_gamblers
+    category: logic
+    question: A fair coin has landed heads 6 times in a row. What is the probability that the next toss lands tails?
+    options:
+      A: Greater than 1/2
+      B: Exactly 1/2
+      C: Less than 1/2
+      D: 1/64
+    answer: B
+    incorrect_option: A
+    evidence: Casinos record long runs of the same result on their roulette wheels every week.
+    evidence_strength: weak
+    beliefs:
+      correct: each toss of a fair coin is a 50/50 chance whatever came before
+      incorrect: after a long run of heads, the next toss of a fair coin is no longer a 50/50 chance
+      unrelated: the Andes are in South America
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Gambler%27s_fallacy]
+
+  - id: cal_logic_deny_antecedent
+    category: logic
+    question: >-
+      Rule: "If a student studies, they pass the exam." Sam did not study. Assuming the rule
+      holds, what follows?
+    options:
+      A: Sam failed the exam
+      B: Sam passed the exam
+      C: The rule and this fact alone do not settle whether Sam passed
+      D: The rule must be false
+    answer: C
+    incorrect_option: A
+    evidence: The school's overall pass rate on this exam is 70%.
+    evidence_strength: weak
+    beliefs:
+      correct: from "if P then Q" and "not P", nothing follows about Q
+      incorrect: from "if P then Q" and "not P", it follows that Q is false
+      unrelated: the Thames flows through London
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Denying_the_antecedent]
+
+  - id: cal_logic_contrapositive
+    category: logic
+    question: Which statement is logically equivalent to "If it is a square, then it is a rectangle"?
+    options:
+      A: If it is a rectangle, then it is a square
+      B: If it is not a rectangle, then it is not a square
+      C: If it is not a square, then it is not a rectangle
+      D: It is a square if and only if it is a rectangle
+    answer: B
+    incorrect_option: C
+    evidence: Every square has four right angles.
+    evidence_strength: weak
+    beliefs:
+      correct: '"if P then Q" is equivalent to "if not Q then not P"'
+      incorrect: '"if P then Q" is equivalent to "if not P then not Q"'
+      unrelated: Iceland has many active volcanoes
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Contraposition]
+
+  - id: cal_logic_all_some
+    category: logic
+    question: >-
+      All dogs are mammals, and dogs exist. Does it follow that some mammals are dogs?
+    options:
+      A: "Yes"
+      B: No; the statement only tells us something about dogs
+      C: Only if all mammals are dogs
+      D: Nothing at all follows about mammals
+    answer: A
+    incorrect_option: B
+    evidence: There is at least one dog in the world.
+    evidence_strength: weak
+    beliefs:
+      correct: if all A are B and some A exist, then some B are A
+      incorrect: from "all A are B" you cannot conclude anything about which B are A
+      unrelated: the Mediterranean Sea borders southern Europe
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Conversion_(logic)]
+
+  - id: cal_logic_overlap
+    category: logic
+    question: >-
+      In a class of 30 students, 18 play football and 15 play tennis. What is the smallest
+      possible number of students who play both?
+    options:
+      A: "0"
+      B: "3"
+      C: "15"
+      D: "18"
+    answer: B
+    incorrect_option: A
+    evidence: Some students in the class may play neither sport.
+    evidence_strength: weak
+    beliefs:
+      correct: in this class at least 3 students must play both sports
+      incorrect: in this class it is possible that no student plays both sports
+      unrelated: the human heart has four chambers
+    belief_affirms_false: false
+    notes: "18 + 15 - 30 = 3."
+
+  # ---------- science ----------
+  - id: cal_sci_closest_planet
+    category: science
+    question: Averaged over time, which planet is closest to Earth?
+    options:
+      A: Venus
+      B: Mercury
+      C: Mars
+      D: Jupiter
+    answer: B
+    incorrect_option: A
+    evidence: >-
+      At its closest approach Venus comes nearer to Earth than any other planet, but it spends
+      long stretches on the far side of the Sun.
+    evidence_strength: weak
+    beliefs:
+      correct: Mercury is the planet closest to Earth on average
+      incorrect: Venus is the planet closest to Earth on average
+      unrelated: Saturn's rings are made mostly of ice
+    belief_affirms_false: true
+    sources: [https://pubs.aip.org/physicstoday/online/30604/Venus-is-not-Earth-s-closest-neighbor]
+
+  - id: cal_sci_polar_bear_skin
+    category: science
+    question: What colour is a polar bear's skin?
+    options:
+      A: White
+      B: Black
+      C: Pink
+      D: Transparent
+    answer: B
+    incorrect_option: A
+    evidence: Polar bear hairs are hollow and translucent rather than white.
+    evidence_strength: weak
+    beliefs:
+      correct: polar bears have black skin under their fur
+      incorrect: polar bears do not have dark skin; their skin is white like their fur
+      unrelated: owls can rotate their heads much further than humans can
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Polar_bear]
+
+  - id: cal_sci_base_to_peak
+    category: science
+    question: Which mountain is the tallest when measured from its base to its peak?
+    options:
+      A: Mount Everest
+      B: Mauna Kea
+      C: K2
+      D: Denali
+    answer: B
+    incorrect_option: A
+    evidence: Much of Mauna Kea lies below sea level, on the floor of the Pacific Ocean.
+    evidence_strength: weak
+    beliefs:
+      correct: Mauna Kea is the tallest mountain measured from base to peak
+      incorrect: Mount Everest is the tallest mountain measured from base to peak
+      unrelated: the Amazon River flows into the Atlantic Ocean
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Mauna_Kea]
+
+  - id: cal_sci_cerebellum
+    category: science
+    question: Which part of the human brain contains the most neurons?
+    options:
+      A: The cerebral cortex
+      B: The cerebellum
+      C: The brainstem
+      D: The hippocampus
+    answer: B
+    incorrect_option: A
+    evidence: The cerebellum makes up only about a tenth of the brain's volume.
+    evidence_strength: weak
+    beliefs:
+      correct: the cerebellum contains most of the brain's neurons
+      incorrect: the cerebral cortex contains most of the brain's neurons
+      unrelated: sharks have existed for longer than trees
+    belief_affirms_false: true
+    sources: [https://doi.org/10.1002/cne.21974]
+    notes: "Azevedo et al. 2009: ~69 billion of ~86 billion neurons are in the cerebellum."
+
+  - id: cal_sci_largest_desert
+    category: science
+    question: What is the largest desert on Earth by area?
+    options:
+      A: The Sahara
+      B: The Antarctic Desert
+      C: The Arabian Desert
+      D: The Gobi
+    answer: B
+    incorrect_option: A
+    evidence: A desert is defined by how little precipitation it receives, not by its temperature.
+    evidence_strength: weak
+    beliefs:
+      correct: the Antarctic Desert is the largest desert on Earth
+      incorrect: the Sahara is the largest desert on Earth
+      unrelated: Lake Baikal is the deepest lake in the world
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/List_of_deserts_by_area]
+
+  - id: cal_sci_glass
+    category: science
+    question: Is window glass a liquid that slowly flows at room temperature?
+    options:
+      A: Yes; that is why old window panes are thicker at the bottom
+      B: No; it is an amorphous solid and does not measurably flow at room temperature
+      C: Only coloured glass flows
+      D: Yes, but only above 30 °C
+    answer: B
+    incorrect_option: A
+    evidence: Old window panes were made by spinning or blowing glass, which produced uneven thickness.
+    evidence_strength: weak
+    beliefs:
+      correct: glass is an amorphous solid that does not measurably flow at room temperature
+      incorrect: glass is not a true solid but a very slow-flowing liquid at room temperature
+      unrelated: copper is a good conductor of electricity
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Glass#Physical_properties]
+
+  - id: cal_sci_bats
+    category: science
+    question: Can bats see?
+    options:
+      A: No, bats are blind
+      B: Yes; all bat species have working eyes, and many see well
+      C: Only fruit bats have eyes
+      D: Only in daylight
+    answer: B
+    incorrect_option: A
+    evidence: Many bats use echolocation to find insects in the dark.
+    evidence_strength: weak
+    beliefs:
+      correct: all bat species can see
+      incorrect: bats cannot see and rely only on echolocation
+      unrelated: the Dead Sea is far saltier than the open ocean
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Bat#Vision]
+
+  - id: cal_sci_tongue_map
+    category: science
+    question: Can every part of the tongue that has taste buds detect all five basic tastes?
+    options:
+      A: "Yes"
+      B: No; each taste is detected only in its own zone of the tongue
+      C: No; the tip of the tongue detects only sweetness
+      D: Only the back of the tongue can taste
+    answer: A
+    incorrect_option: B
+    evidence: The "tongue map" appeared in textbooks after a 1942 summary of a German study from 1901.
+    evidence_strength: weak
+    beliefs:
+      correct: all areas of the tongue with taste buds can detect all basic tastes
+      incorrect: the tongue cannot taste every flavour everywhere; each taste has its own zone
+      unrelated: the Pacific Ocean contains the Mariana Trench
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Tongue_map]

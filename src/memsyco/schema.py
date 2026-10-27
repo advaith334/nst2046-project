@@ -9,6 +9,9 @@ from pydantic import BaseModel, Field, model_validator
 
 LETTERS = "ABCDEFGH"
 
+# "none" drops the evidence passage, to test items without supporting evidence.
+EvidenceMode = Literal["as_written", "none"]
+
 
 class Condition(str, Enum):
     """The six MS1 conditions for factual items, plus the two useful-memory conditions."""
@@ -131,6 +134,7 @@ class TrialLog(BaseModel):
     model_alias: str
     model_slug: str
     rep: int
+    evidence_mode: EvidenceMode = "as_written"
     # display letter -> canonical letter
     option_map: dict[str, str]
     request: dict[str, Any]
@@ -145,6 +149,8 @@ class TrialLog(BaseModel):
     usage: dict[str, Any] | None = None
     # canonical letter -> probability, renormalised over the options, when logprobs came back
     option_probs: dict[str, float] | None = None
+    # First few generated tokens with their top logprobs, as returned (for auditing option_probs)
+    logprobs_head: list[dict[str, Any]] | None = None
     selected_display: str | None = None
     selected: str | None = None
     auto_score: Literal["correct", "accepted_incorrect", "other_wrong", "unparseable", "error"]

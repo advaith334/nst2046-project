@@ -1,4 +1,4 @@
-"""Command line: memsyco validate | render-prompts | run | report | rating-sheet | agreement | list-models."""
+"""Command line: memsyco validate | render-prompts | run | report | screen | rating-sheet | agreement | list-models."""
 
 from __future__ import annotations
 
@@ -66,7 +66,8 @@ def render_prompts(case_id: str = "pilot_canberra", useful_case_id: str = "usefu
 
 @app.command()
 def run(config: Path = DEFAULT_CONFIG, dry_run: bool = False, run_id: str | None = None,
-        limit: int | None = None, runs_dir: Path = Path("runs")) -> None:
+        limit: int | None = None, runs_dir: Path = Path("runs"),
+        max_cost: float | None = typer.Option(None, help="Stop once this many USD are spent (as reported by OpenRouter).")) -> None:
     """Run every trial in the config (resumes an existing run_id), then write the report."""
     from .client import FakeClient, OpenAICompatClient
     from .report import write_report
@@ -81,7 +82,7 @@ def run(config: Path = DEFAULT_CONFIG, dry_run: bool = False, run_id: str | None
     else:
         client = OpenAICompatClient(base_url=cfg.base_url) if cfg.base_url else OpenAICompatClient()
     out_dir = runs_dir / run_id
-    run_trials(cfg, cases, models, client, out_dir, run_id, limit=limit, dry_run=dry_run)
+    run_trials(cfg, cases, models, client, out_dir, run_id, limit=limit, dry_run=dry_run, max_cost=max_cost)
     write_report(out_dir, {c.id: c for c in cases})
     typer.echo(f"results in {out_dir}/ (summary.md, raw_table.csv, trials.jsonl)")
 
@@ -94,6 +95,18 @@ def report(run_dir: Path, config: Path = DEFAULT_CONFIG) -> None:
     _, cases = _all_cases(config)
     write_report(run_dir, {c.id: c for c in cases})
     typer.echo((run_dir / "summary.md").read_text())
+
+
+@app.command()
+def screen(run_dir: Path, config: Path = DEFAULT_CONFIG) -> None:
+    """Per-item screen: no_belief vs stored_incorrect for each model and evidence mode."""
+    from .report import load_trials, raw_table
+    from .screen import write_screen
+
+    _, cases = _all_cases(config)
+    raw = raw_table(load_trials(run_dir / "trials.jsonl"), {c.id: c for c in cases})
+    write_screen(run_dir, raw)
+    typer.echo((run_dir / "screen.md").read_text())
 
 
 @app.command("rating-sheet")

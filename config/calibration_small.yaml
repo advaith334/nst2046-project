@@ -1,0 +1,20 @@
+# The calibration and pilot-candidate items again, on the three new small models only (Llama
+# already ran them). These cost fractions of a cent per trial.
+name: calibration-small
+models_file: config/models.yaml
+model_set: small
+case_files:
+  - data/cases/candidates.yaml
+  - data/cases/calibration.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+evidence_modes: [as_written, none]
+reps: 1
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

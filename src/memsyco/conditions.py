@@ -55,7 +55,8 @@ def option_map(case: Case, seed: str | int | None) -> dict[str, str]:
     return {LETTERS[i]: c for i, c in enumerate(order)}
 
 
-def render(case: Case, condition: Condition, store: MemoryStore, omap: dict[str, str]) -> Rendered:
+def render(case: Case, condition: Condition, store: MemoryStore, omap: dict[str, str],
+           drop_evidence: bool = False) -> Rendered:
     if (case.kind == "factual") == (condition in USEFUL_CONDITIONS):
         raise ValueError(f"condition {condition.value} does not apply to {case.kind} case {case.id}")
     kind, is_labelled, stated = _PLAN[condition]
@@ -75,7 +76,7 @@ def render(case: Case, condition: Condition, store: MemoryStore, omap: dict[str,
         parts.append(template("stated_belief").format(belief=case.beliefs.incorrect))
     if case.user_context:
         parts.append(case.user_context)
-    if case.evidence:
+    if case.evidence and not drop_evidence:
         parts.append(template("evidence").format(evidence=case.evidence))
     options = "\n".join(f"{d}. {case.options[c]}" for d, c in omap.items())
     parts.append(template("question").format(question=case.question, options=options))

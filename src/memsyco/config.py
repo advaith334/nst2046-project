@@ -7,7 +7,7 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, Field
 
-from .schema import FACTUAL_CONDITIONS, Case, Condition, GenerationParams, ModelSpec
+from .schema import FACTUAL_CONDITIONS, Case, Condition, EvidenceMode, GenerationParams, ModelSpec
 
 
 class RunConfig(BaseModel):
@@ -17,6 +17,7 @@ class RunConfig(BaseModel):
     case_files: list[Path]
     useful_memory_files: list[Path] = Field(default_factory=list)
     conditions: list[Condition] = Field(default_factory=lambda: list(FACTUAL_CONDITIONS))
+    evidence_modes: list[EvidenceMode] = Field(default_factory=lambda: ["as_written"])
     reps: int = 2
     seed: int = 2046
     shuffle_options: bool = True

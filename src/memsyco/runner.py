@@ -15,7 +15,7 @@ from .conditions import label_on, option_map, render
 from .config import RunConfig
 from .memory import MemoryStore
 from .parse import auto_score, option_probs, selected_letter
-from .schema import USEFUL_CONDITIONS, Case, Condition, ModelSpec, TrialLog
+from .schema import USEFUL_CONDITIONS, Case, Condition, EvidenceMode, ModelSpec, TrialLog
 
 
 @dataclass
@@ -24,10 +24,12 @@ class TrialSpec:
     condition: Condition
     model: ModelSpec
     rep: int
+    evidence_mode: EvidenceMode = "as_written"
 
     @property
     def trial_id(self) -> str:
-        return f"{self.case.id}|{self.condition.value}|{self.model.alias}|r{self.rep}"
+        tid = f"{self.case.id}|{self.condition.value}|{self.model.alias}|r{self.rep}"
+        return tid if self.evidence_mode == "as_written" else f"{tid}|ev={self.evidence_mode}"
 
 
 def plan_trials(cfg: RunConfig, cases: list[Case], models: list[ModelSpec]) -> list[TrialSpec]:
@@ -35,9 +37,12 @@ def plan_trials(cfg: RunConfig, cases: list[Case], models: list[ModelSpec]) -> l
     for model in models:
         for case in cases:
             conditions = cfg.conditions if case.kind == "factual" else USEFUL_CONDITIONS
+            # Evidence modes only matter for items that have evidence.
+            modes = cfg.evidence_modes if case.evidence else ["as_written"]
             for condition in conditions:
-                for rep in range(1, cfg.reps + 1):
-                    specs.append(TrialSpec(case, condition, model, rep))
+                for mode in modes:
+                    for rep in range(1, cfg.reps + 1):
+                        specs.append(TrialSpec(case, condition, model, rep, mode))
     random.Random(cfg.seed).shuffle(specs)
     return specs
 
@@ -51,7 +56,7 @@ def option_seed(cfg: RunConfig, case: Case, rep: int) -> str | None:
 def run_trial(spec: TrialSpec, cfg: RunConfig, store: MemoryStore, client: Client, run_id: str) -> TrialLog:
     case, model = spec.case, spec.model
     omap = option_map(case, option_seed(cfg, case, spec.rep))
-    rendered = render(case, spec.condition, store, omap)
+    rendered = render(case, spec.condition, store, omap, drop_evidence=spec.evidence_mode == "none")
     completion_mode = model.mode == "completion"
     log = dict(
         run_id=run_id,
@@ -64,6 +69,7 @@ def run_trial(spec: TrialSpec, cfg: RunConfig, store: MemoryStore, client: Clien
         model_alias=model.alias,
         model_slug=model.slug,
         rep=spec.rep,
+        evidence_mode=spec.evidence_mode,
         option_map=omap,
         request=request_body(model, rendered, cfg.params),
         params=cfg.params,
@@ -85,7 +91,8 @@ def run_trial(spec: TrialSpec, cfg: RunConfig, store: MemoryStore, client: Clien
         reasoning_text=comp.reasoning,
         finish_reason=comp.finish_reason,
         usage=comp.usage,
-        option_probs=option_probs(comp.logprobs, omap, completion_mode),
+        option_probs=option_probs(comp.logprobs, omap, completion_mode, comp.text),
+        logprobs_head=comp.logprobs[:12] if comp.logprobs else None,
         selected_display=display,
         selected=selected,
         auto_score=auto_score(case, selected),
@@ -122,6 +129,7 @@ def run(
     run_id: str,
     limit: int | None = None,
     dry_run: bool = False,
+    max_cost: float | None = None,
 ) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     trials_path = out_dir / "trials.jsonl"
@@ -143,14 +151,24 @@ def run(
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(f"{len(specs)} trials planned, {len(done)} already done, running {len(todo)}")
 
-    errors = 0
+    errors, spent, stopped = 0, 0.0, False
     with open(trials_path, "a", encoding="utf-8") as f, ThreadPoolExecutor(cfg.max_workers) as pool:
         futures = [pool.submit(run_trial, s, cfg, store, client, run_id) for s in todo]
         for i, fut in enumerate(as_completed(futures), 1):
+            if fut.cancelled():
+                continue
             row = fut.result()
             errors += row.auto_score == "error"
+            spent += (row.usage or {}).get("cost") or 0.0
             f.write(row.model_dump_json() + "\n")
             f.flush()
+            if max_cost is not None and spent >= max_cost and not stopped:
+                # Let in-flight requests finish and be logged; drop the rest. Resume to continue.
+                stopped = True
+                for other in futures:
+                    other.cancel()
+                print(f"  stopping: spent ${spent:.3f} >= max cost ${max_cost:.2f}")
             if i % 25 == 0 or i == len(todo):
-                print(f"  {i}/{len(todo)} done ({errors} errors)")
+                print(f"  {i}/{len(todo)} done ({errors} errors, ${spent:.3f})")
+    print(f"spent ${spent:.3f} this session")
     return trials_path

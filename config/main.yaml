@@ -1,0 +1,25 @@
+# Main run: 48 long-tail items (no evidence) under all six conditions, plus the four
+# useful-memory checks (label off / on), on 6 contrasting models, 2 reps.
+# 48 x 6 x 2 = 576 + 4 x 2 x 2 = 16  ->  592 trials per model, 3,552 in total.
+name: main
+models_file: config/models.yaml
+model_set: main
+case_files:
+  - data/cases/longtail.yaml
+useful_memory_files:
+  - data/cases/useful_memory.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+  - stated_incorrect
+  - stored_incorrect_labelled
+  - stored_unrelated
+  - stored_correct
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

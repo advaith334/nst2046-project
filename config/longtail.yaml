@@ -1,0 +1,19 @@
+# Long-tail screen: 24 obscure-fact items (no evidence) on two frontier and four small open
+# models, no_belief vs stored_incorrect only. Looks for items where models are unsure, which
+# is where a stored belief has the most room to pull the answer.
+name: longtail
+models_file: config/models.yaml
+model_set: longtail
+case_files:
+  - data/cases/longtail.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5
