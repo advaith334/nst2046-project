@@ -1,0 +1,26 @@
+# Milestone 2 first pass: 2 MS1 pilots + 11 calibrated candidates + 4 useful-memory checks,
+# 3 models, 2 reps. 13 x 6 x 3 x 2 = 468 factual trials + 4 x 2 x 3 x 2 = 48 useful-memory trials.
+name: pilot
+models_file: config/models.yaml
+model_set: pilot
+case_files:
+  - data/cases/pilots.yaml
+  - data/cases/candidates.yaml
+useful_memory_files:
+  - data/cases/useful_memory.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+  - stated_incorrect
+  - stored_incorrect_labelled
+  - stored_unrelated
+  - stored_correct
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  # >0 so the two repetitions are informative; same for every model.
+  temperature: 0.7
+  max_tokens: 600
+  top_logprobs: 5

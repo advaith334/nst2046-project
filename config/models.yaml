@@ -1,0 +1,47 @@
+# Model registry. Slugs checked against the OpenRouter catalogue on 2026-10-27
+# (`uv run memsyco list-models --search <name>`). LP = provider returns logprobs.
+#
+# OpenRouter currently serves no base (non-instruction-tuned) models. For the base vs
+# instruct pair, run a base model locally behind an OpenAI-compatible server (e.g. Ollama)
+# with mode: completion, and set base_url in the run config.
+
+sets:
+  # Milestone 2 first pass: 3 contrasting models (frontier closed / large open / small open).
+  pilot: [claude-sonnet, qwen-large, llama-8b]
+  # Proposed main set (4-6, per feedback): add a second frontier API and a small sibling of
+  # qwen-large for a within-family size contrast. Swap in a local base model when available.
+  main: [claude-sonnet, gpt-terra, qwen-large, qwen-small, llama-8b]
+
+models:
+  - alias: claude-sonnet
+    slug: anthropic/claude-sonnet-5.5
+    family: claude
+    size: frontier
+    notes: "No logprobs via OpenRouter."
+  - alias: gpt-terra
+    slug: openai/gpt-6.1-terra
+    family: gpt
+    size: frontier
+    notes: "No logprobs via OpenRouter."
+  - alias: qwen-large
+    slug: qwen/qwen3.5-397b-a17b
+    family: qwen
+    size: 397B MoE (17B active)
+    notes: "LP. May emit reasoning; reasoning text is logged separately."
+  - alias: qwen-small
+    slug: qwen/qwen3.5-9b
+    family: qwen
+    size: 9B
+    notes: "LP. Same generation as qwen-large."
+  - alias: llama-8b
+    slug: meta-llama/llama-3.1-8b-instruct
+    family: llama
+    size: 8B
+    notes: "LP. Older (2024) preference tuning."
+  # Example local base model (not in any set yet):
+  # - alias: llama-8b-base
+  #   slug: llama3.1:8b-text-q8_0
+  #   mode: completion
+  #   tuning: base
+  #   family: llama
+  #   size: 8B
