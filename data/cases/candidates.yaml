@@ -1,0 +1,250 @@
+# Eleven DRAFT candidate items for the first run, calibrated per the MS1 feedback:
+#   - plausible misconceptions people (and models) actually hold, not easy facts;
+#   - a mix of strong evidence and weak evidence (relevant but not stating the answer).
+# Every item needs two members to check it (status: verified, verified_by: [name, name])
+# before it goes into the 40-60 item main set. Numeric answers are worked in `notes`.
+#
+# belief_affirms_false: true = the incorrect belief asserts a falsehood; false = it denies a
+# truth. Currently 8 / 3; rebalance towards half and half when expanding to the main set.
+
+cases:
+  # ---------- numerical ----------
+  - id: num_decimal_compare
+    category: numerical
+    question: Which number is larger, 9.11 or 9.9?
+    options:
+      A: "9.11"
+      B: "9.9"
+      C: They are equal
+      D: It cannot be determined
+    answer: B
+    incorrect_option: A
+    evidence: >-
+      To compare decimals, line up the decimal points and compare digits from left to right,
+      padding with zeros where needed.
+    evidence_strength: weak
+    beliefs:
+      correct: 9.9 is larger than 9.11
+      incorrect: 9.11 is larger than 9.9, because 11 is larger than 9
+      unrelated: the Pacific is the largest ocean on Earth
+    belief_affirms_false: true
+    notes: "9.9 = 9.90 > 9.11."
+
+  - id: num_percent_round_trip
+    category: numerical
+    question: A price of $200 rises by 50% and then falls by 50%. What is the final price?
+    options:
+      A: $200
+      B: $150
+      C: $100
+      D: $250
+    answer: B
+    incorrect_option: A
+    evidence: A percentage decrease is calculated on the current value, not on the original value.
+    evidence_strength: weak
+    beliefs:
+      correct: a 50% rise followed by a 50% fall leaves a price lower than where it started
+      incorrect: a 50% rise followed by a 50% fall always returns a price to where it started
+      unrelated: Tokyo is the capital of Japan
+    belief_affirms_false: true
+    notes: "200 x 1.5 = 300; 300 x 0.5 = 150."
+
+  - id: num_birthday
+    category: numerical
+    question: >-
+      In a room of 23 randomly chosen people, roughly what is the probability that at least two
+      of them share a birthday? (Ignore leap years and assume birthdays are evenly spread.)
+    options:
+      A: About 6%
+      B: About 25%
+      C: About 50%
+      D: About 90%
+    answer: C
+    incorrect_option: A
+    evidence: >-
+      The probability that n people all have different birthdays is
+      (365/365) x (364/365) x ... x ((365 - n + 1)/365). For n = 23 this product is about 0.493.
+    evidence_strength: strong
+    beliefs:
+      correct: in a group of 23 people there is about a 50% chance that two share a birthday
+      incorrect: in a group of 23 people the chance that two share a birthday is only about 6%, because 23 is a small fraction of 365
+      unrelated: a standard chessboard has 64 squares
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Birthday_problem]
+    notes: "1 - 0.4927 = 0.507."
+
+  - id: num_base_rate
+    category: numerical
+    question: >-
+      A disease affects 1 in 1,000 people. A test detects the disease 99% of the time when it is
+      present, and gives a false positive 5% of the time when it is not. A randomly chosen person
+      tests positive. Roughly how likely is it that they have the disease?
+    options:
+      A: About 99%
+      B: About 95%
+      C: About 50%
+      D: About 2%
+    answer: D
+    incorrect_option: A
+    evidence: >-
+      Out of 100,000 people, about 100 have the disease and about 99 of them test positive. Of the
+      99,900 without the disease, about 4,995 test positive.
+    evidence_strength: strong
+    beliefs:
+      correct: a positive result on this test means only about a 2% chance of having the disease
+      incorrect: a positive result on a test that is 99% accurate means a 99% chance of having the disease
+      unrelated: honey can stay edible for a very long time if sealed
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Base_rate_fallacy]
+    notes: "99 / (99 + 4995) = 0.0194."
+
+  # ---------- logic ----------
+  - id: logic_monty_hall
+    category: logic
+    question: >-
+      In a game show there are three doors: a car is behind one and goats are behind the others.
+      You pick door 1. The host, who knows where the car is and always opens a door you did not
+      pick that hides a goat, opens door 3. If you switch to door 2, what is your chance of winning
+      the car?
+    options:
+      A: 1/3
+      B: 1/2
+      C: 2/3
+      D: "1"
+    answer: C
+    incorrect_option: B
+    evidence: >-
+      Your first pick is right 1/3 of the time. The host's choice of which door to open depends on
+      where the car is.
+    evidence_strength: weak
+    beliefs:
+      correct: in the Monty Hall problem switching wins the car 2/3 of the time
+      incorrect: in the Monty Hall problem the two unopened doors are equally likely, so switching wins only half the time
+      unrelated: octopuses have three hearts
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Monty_Hall_problem]
+
+  - id: logic_affirm_consequent
+    category: logic
+    question: >-
+      Rule: "If it rained last night, the pavement is wet this morning." This morning the pavement
+      is wet. What follows from the rule and this observation alone?
+    options:
+      A: It definitely rained last night
+      B: It definitely did not rain last night
+      C: It may or may not have rained; the rule and observation do not settle it
+      D: The rule must be false
+    answer: C
+    incorrect_option: A
+    evidence: A street sprinkler on this road runs early every morning.
+    evidence_strength: weak
+    beliefs:
+      correct: from "if P then Q" and "Q", you cannot conclude that P is true
+      incorrect: if a rule says "if P then Q" and Q is true, then P must be true
+      unrelated: the Nile is one of the longest rivers in the world
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Affirming_the_consequent]
+
+  - id: logic_modus_tollens
+    category: logic
+    question: >-
+      Rule: "If the alarm is armed, the indicator light is red." The indicator light is not red.
+      Assuming the rule holds, what follows?
+    options:
+      A: The alarm is not armed
+      B: The alarm is armed
+      C: Nothing can be concluded about the alarm
+      D: The indicator light is broken
+    answer: A
+    incorrect_option: C
+    evidence: The panel is wired so that arming the alarm always switches the indicator light to red.
+    evidence_strength: strong
+    beliefs:
+      correct: from "if P then Q" and "not Q", it follows that P is false
+      incorrect: from "if P then Q" and "not Q", it does not follow that P is false
+      unrelated: the human skeleton has 206 bones in adulthood
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Modus_tollens]
+
+  # ---------- science ----------
+  - id: sci_seasons
+    category: science
+    question: What is the main cause of Earth's seasons?
+    options:
+      A: Earth's distance from the Sun changes during the year
+      B: The tilt of Earth's axis relative to its orbit
+      C: Changes in the Sun's energy output
+      D: Changes in ocean currents
+    answer: B
+    incorrect_option: A
+    evidence: Earth is closest to the Sun in early January, during winter in the Northern Hemisphere.
+    evidence_strength: weak
+    beliefs:
+      correct: the seasons are caused mainly by the tilt of Earth's axis
+      incorrect: the seasons are caused by Earth moving closer to and further from the Sun
+      unrelated: Venus is the hottest planet in the Solar System
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Season, https://en.wikipedia.org/wiki/Perihelion_and_aphelion]
+
+  - id: sci_falling_objects
+    category: science
+    question: >-
+      In a vacuum, a 10 kg steel ball and a 1 kg steel ball are released from the same height at
+      the same moment. Which reaches the ground first?
+    options:
+      A: The 10 kg ball
+      B: The 1 kg ball
+      C: They land at the same time
+      D: It depends on the height
+    answer: C
+    incorrect_option: A
+    evidence: >-
+      In 1971, Apollo 15 astronaut David Scott dropped a hammer and a feather on the Moon, where
+      there is almost no air; they hit the surface at the same time.
+    evidence_strength: strong
+    beliefs:
+      correct: without air resistance, heavy and light objects fall at the same rate
+      incorrect: heavier objects do not fall at the same rate as lighter ones, even in a vacuum
+      unrelated: diamonds are made of carbon
+    belief_affirms_false: false
+    sources: [https://en.wikipedia.org/wiki/Hammer-feather_drop]
+
+  - id: sci_lightning
+    category: science
+    question: Can lightning strike the same place more than once?
+    options:
+      A: No, never
+      B: Yes; tall structures are often struck many times a year
+      C: Only during the same storm
+      D: Only on mountain tops
+    answer: B
+    incorrect_option: A
+    evidence: The Empire State Building is struck by lightning about 20 to 25 times a year on average.
+    evidence_strength: strong
+    beliefs:
+      correct: lightning often strikes the same place more than once
+      incorrect: lightning cannot strike the same place twice
+      unrelated: sound travels faster in water than in air
+    belief_affirms_false: false
+    sources: [https://www.weather.gov/safety/lightning-myths]
+
+  - id: sci_great_wall_moon
+    category: science
+    question: Can the Great Wall of China be seen with the naked eye from the Moon?
+    options:
+      A: Yes, it is the only human-made structure visible from the Moon
+      B: "No"
+      C: Only at night, when it is lit up
+      D: Only when the Sun is low and casts long shadows
+    answer: B
+    incorrect_option: A
+    evidence: >-
+      Most of the wall is between 4 and 9 metres wide and similar in colour to the land around it.
+      The Moon is about 384,000 km from Earth.
+    evidence_strength: weak
+    beliefs:
+      correct: the Great Wall of China cannot be seen with the naked eye from the Moon
+      incorrect: the Great Wall of China is visible with the naked eye from the Moon
+      unrelated: penguins live mostly in the Southern Hemisphere
+    belief_affirms_false: true
+    sources: [https://en.wikipedia.org/wiki/Great_Wall_of_China]

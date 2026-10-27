@@ -1,0 +1,1 @@
+You are a helpful assistant. Answer the multiple-choice question below. Start your reply with a line of the form "Answer: X", where X is the letter of your chosen option, then give a short explanation.
