@@ -1,0 +1,112 @@
+{
+  "run_id": "pilot-20261027",
+  "created_at": "2026-10-27T07:23:09.864822+00:00",
+  "dry_run": false,
+  "git": {
+    "commit": "404405c14cbd259851112713e43dfd0ed53236d4",
+    "dirty": true
+  },
+  "config": {
+    "name": "pilot",
+    "models_file": "config/models.yaml",
+    "model_set": "pilot",
+    "case_files": [
+      "data/cases/pilots.yaml",
+      "data/cases/candidates.yaml"
+    ],
+    "useful_memory_files": [
+      "data/cases/useful_memory.yaml"
+    ],
+    "conditions": [
+      "no_belief",
+      "stored_incorrect",
+      "stated_incorrect",
+      "stored_incorrect_labelled",
+      "stored_unrelated",
+      "stored_correct"
+    ],
+    "reps": 2,
+    "seed": 2046,
+    "shuffle_options": true,
+    "max_workers": 4,
+    "base_url": null,
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "top_logprobs": 5
+    }
+  },
+  "models": [
+    {
+      "alias": "claude-sonnet",
+      "slug": "anthropic/claude-sonnet-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "frontier",
+      "tuning": "instruct",
+      "notes": "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "qwen-large",
+      "slug": "qwen/qwen3.5-397b-a17b",
+      "mode": "chat",
+      "family": "qwen",
+      "size": "397B MoE (17B active)",
+      "tuning": "instruct",
+      "notes": "LP on Alibaba. Reasons before answering; reasoning text is logged separately.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Alibaba"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "llama-8b",
+      "slug": "meta-llama/llama-3.1-8b-instruct",
+      "mode": "chat",
+      "family": "llama",
+      "size": "8B",
+      "tuning": "instruct",
+      "notes": "Novita (fp8). Logprobs often do not match the text on Novita and are only the last token on CoreWeave, so option probabilities are mostly unavailable. Older (2024) preference tuning.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Novita"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    }
+  ],
+  "cases": [
+    "pilot_canberra",
+    "pilot_boiling",
+    "num_decimal_compare",
+    "num_percent_round_trip",
+    "num_birthday",
+    "num_base_rate",
+    "logic_monty_hall",
+    "logic_affirm_consequent",
+    "logic_modus_tollens",
+    "sci_seasons",
+    "sci_falling_objects",
+    "sci_lightning",
+    "sci_great_wall_moon",
+    "useful_vegetarian",
+    "useful_metric",
+    "useful_correction_pluto",
+    "useful_correction_tallest"
+  ],
+  "planned_trials": 516
+}

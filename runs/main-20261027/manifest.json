@@ -1,0 +1,201 @@
+{
+  "run_id": "main-20261027",
+  "created_at": "2026-10-27T13:42:19.786902+00:00",
+  "dry_run": false,
+  "git": {
+    "commit": "9e374ef8a539d212382865dd986de285e6500be8",
+    "dirty": false
+  },
+  "config": {
+    "name": "main",
+    "models_file": "config/models.yaml",
+    "model_set": "main",
+    "case_files": [
+      "data/cases/longtail.yaml"
+    ],
+    "useful_memory_files": [
+      "data/cases/useful_memory.yaml"
+    ],
+    "conditions": [
+      "no_belief",
+      "stored_incorrect",
+      "stated_incorrect",
+      "stored_incorrect_labelled",
+      "stored_unrelated",
+      "stored_correct"
+    ],
+    "evidence_modes": [
+      "as_written"
+    ],
+    "reps": 2,
+    "seed": 2046,
+    "shuffle_options": true,
+    "max_workers": 4,
+    "base_url": null,
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "top_logprobs": 5
+    }
+  },
+  "models": [
+    {
+      "alias": "mistral-nemo",
+      "slug": "mistralai/mistral-nemo",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "12B",
+      "tuning": "instruct",
+      "notes": "LP on Io Net (fp16). 2024 model.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Io Net"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "mistral-small",
+      "slug": "mistralai/mistral-small-3.2-24b-instruct",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "24B",
+      "tuning": "instruct",
+      "notes": "LP on Parasail (bf16). Newer, larger sibling of mistral-nemo.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "llama-8b",
+      "slug": "meta-llama/llama-3.1-8b-instruct",
+      "mode": "chat",
+      "family": "llama",
+      "size": "8B",
+      "tuning": "instruct",
+      "notes": "Novita (fp8). Logprobs often do not match the text on Novita and are only the last token on CoreWeave, so option probabilities are mostly unavailable. Older (2024) preference tuning.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Novita"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "gemma-moe",
+      "slug": "google/gemma-4-26b-a4b-it",
+      "mode": "chat",
+      "family": "gemma",
+      "size": "26B MoE (4B active)",
+      "tuning": "instruct",
+      "notes": "LP on Google's own host.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Google"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "qwen-small",
+      "slug": "qwen/qwen3.5-9b",
+      "mode": "chat",
+      "family": "qwen",
+      "size": "9B",
+      "tuning": "instruct",
+      "notes": "LP on Parasail (bf16). Same generation as qwen-large. Reasons at length, so it gets a higher token limit.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    },
+    {
+      "alias": "claude-sonnet",
+      "slug": "anthropic/claude-sonnet-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "frontier",
+      "tuning": "instruct",
+      "notes": "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    }
+  ],
+  "cases": [
+    "lt_metal_melting",
+    "lt_densest_element",
+    "lt_most_islands",
+    "lt_smallest_africa",
+    "lt_letter_states",
+    "lt_internal_organ",
+    "lt_plasma_donor",
+    "lt_mohs_nine",
+    "lt_nt_capital",
+    "lt_bc_capital",
+    "lt_india_language",
+    "lt_time_zones",
+    "lt_carbon14",
+    "lt_liquid_nitrogen",
+    "lt_celsius_fahrenheit",
+    "lt_potato_chromosomes",
+    "lt_westphalia",
+    "lt_sg_independence",
+    "lt_bukit_timah",
+    "lt_river_one_country",
+    "lt_largest_moon",
+    "lt_slowest_rotation",
+    "lt_crust_metal",
+    "lt_crust_second",
+    "lt_sqrt_two",
+    "lt_primes_below_100",
+    "lt_smallest_perfect",
+    "lt_feet_in_mile",
+    "lt_hexagon_angles",
+    "lt_sunlight_time",
+    "lt_newborn_bones",
+    "lt_sound_in_water",
+    "lt_symbol_k",
+    "lt_symbol_sb",
+    "lt_noble_gas_air",
+    "lt_beriberi",
+    "lt_smallest_bone",
+    "lt_first_synthetic_element",
+    "lt_hardest_body_substance",
+    "lt_capital_morocco",
+    "lt_capital_myanmar",
+    "lt_capital_tanzania",
+    "lt_curie_two_sciences",
+    "lt_tallest_waterfall",
+    "lt_largest_lake_africa",
+    "lt_longest_range",
+    "lt_swiss_currency",
+    "lt_lake_superior",
+    "useful_vegetarian",
+    "useful_metric",
+    "useful_correction_pluto",
+    "useful_correction_tallest"
+  ],
+  "planned_trials": 3552
+}

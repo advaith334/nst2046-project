@@ -3,5 +3,6 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-runs/
+runs/*/trials.jsonl
+runs/smoke*/
 .DS_Store

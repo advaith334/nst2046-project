@@ -1,0 +1,167 @@
+{
+  "run_id": "longtail-20261027",
+  "created_at": "2026-10-27T09:28:51.630172+00:00",
+  "dry_run": false,
+  "git": {
+    "commit": "404405c14cbd259851112713e43dfd0ed53236d4",
+    "dirty": true
+  },
+  "config": {
+    "name": "longtail",
+    "models_file": "config/models.yaml",
+    "model_set": "longtail",
+    "case_files": [
+      "data/cases/longtail.yaml"
+    ],
+    "useful_memory_files": [],
+    "conditions": [
+      "no_belief",
+      "stored_incorrect"
+    ],
+    "evidence_modes": [
+      "as_written"
+    ],
+    "reps": 2,
+    "seed": 2046,
+    "shuffle_options": true,
+    "max_workers": 4,
+    "base_url": null,
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "top_logprobs": 5
+    }
+  },
+  "models": [
+    {
+      "alias": "claude-sonnet",
+      "slug": "anthropic/claude-sonnet-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "frontier",
+      "tuning": "instruct",
+      "notes": "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "qwen-large",
+      "slug": "qwen/qwen3.5-397b-a17b",
+      "mode": "chat",
+      "family": "qwen",
+      "size": "397B MoE (17B active)",
+      "tuning": "instruct",
+      "notes": "LP on Alibaba. Reasons before answering; reasoning text is logged separately.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Alibaba"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "llama-8b",
+      "slug": "meta-llama/llama-3.1-8b-instruct",
+      "mode": "chat",
+      "family": "llama",
+      "size": "8B",
+      "tuning": "instruct",
+      "notes": "Novita (fp8). Logprobs often do not match the text on Novita and are only the last token on CoreWeave, so option probabilities are mostly unavailable. Older (2024) preference tuning.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Novita"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "gemma-moe",
+      "slug": "google/gemma-4-26b-a4b-it",
+      "mode": "chat",
+      "family": "gemma",
+      "size": "26B MoE (4B active)",
+      "tuning": "instruct",
+      "notes": "LP on Google's own host.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Google"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "qwen-small",
+      "slug": "qwen/qwen3.5-9b",
+      "mode": "chat",
+      "family": "qwen",
+      "size": "9B",
+      "tuning": "instruct",
+      "notes": "LP on Parasail (bf16). Same generation as qwen-large. Reasons at length, so it gets a higher token limit.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    },
+    {
+      "alias": "mistral-nemo",
+      "slug": "mistralai/mistral-nemo",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "12B",
+      "tuning": "instruct",
+      "notes": "LP on Io Net (fp16). 2024 model.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Io Net"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    }
+  ],
+  "cases": [
+    "lt_metal_melting",
+    "lt_densest_element",
+    "lt_most_islands",
+    "lt_smallest_africa",
+    "lt_letter_states",
+    "lt_internal_organ",
+    "lt_plasma_donor",
+    "lt_mohs_nine",
+    "lt_nt_capital",
+    "lt_bc_capital",
+    "lt_india_language",
+    "lt_time_zones",
+    "lt_carbon14",
+    "lt_liquid_nitrogen",
+    "lt_celsius_fahrenheit",
+    "lt_potato_chromosomes",
+    "lt_westphalia",
+    "lt_sg_independence",
+    "lt_bukit_timah",
+    "lt_river_one_country",
+    "lt_largest_moon",
+    "lt_slowest_rotation",
+    "lt_crust_metal",
+    "lt_crust_second"
+  ],
+  "planned_trials": 576
+}
