@@ -25,9 +25,9 @@ no "all of the above" style option, no "following". The false option is drawn at
 wrong ones. Belief sentences use one template: `the answer to "<question>" is <option>`. So memory text
 differs from the main study, and comparisons with it are descriptive only.
 
-MMLU keys are taken as given, and known to contain some errors. One filter was added after a first look at the sample, before any trial ran: rows where a bare number sits beside sentence-length options are corrupted, so they are excluded.
+MMLU keys are taken as given, and known to contain some errors. One filter was added after a first look at the sample, before any trial ran: rows where a bare number sits beside sentence-length options are corrupted, so they are excluded, and repeated questions are removed.
 
-Item file: SHA-256 `84b2c1147fb030030c9ad11983a1c8626ab494c34fe7ca99d6f2e7efbf25c555`. The items are not committed. The script and seed rebuild them.
+Item file: SHA-256 `Requests`. The items are not committed. The script and seed rebuild them.
 
 ## Design
 

@@ -56,7 +56,9 @@ def build() -> list[dict]:
     rng = random.Random(SEED)
     items = []
     for group, configs in GROUPS.items():
-        pool = sorted(({"config": c, **r} for c in configs for r in fetch(c) if usable(r)), key=lambda r: r["question"])
+        rows = ({"config": c, **r} for c in configs for r in fetch(c) if usable(r))
+        unique = {r["question"].strip(): r for r in rows}  # MMLU repeats some questions
+        pool = [unique[q] for q in sorted(unique)]
         for row in rng.sample(pool, PER_GROUP):
             question, choices = row["question"].strip(), [c.strip() for c in row["choices"]]
             false_index = rng.choice([i for i in range(4) if i != row["answer"]])
