@@ -1,0 +1,86 @@
+trial_id,model_alias,model_slug,model_returned,provider,case_id,case_kind,category,evidence_mode,condition,rep,label_on,selected_display,selected,auto_score,p_answer,p_incorrect,finish_reason,latency_s,error,response_text,transcript
+fh_days_2|no_belief|claude-haiku|r3,claude-haiku,anthropic/claude-haiku-5.5,anthropic/claude-haiku-5.5,Anthropic,fh_days_2,factual,numerical,as_written,no_belief,3,False,D,B,correct,,,stop,2.68161429092288,,"Answer: D
+
+Count the days from 28 July 2030 to 15 February 2031:
+
+- 28 July to 31 July: 3 days
+- August: 31
+- September: 30
+- October: 31
+- November: 30
+- December: 31
+- January: 31
+- 1 February to 15 February: 15
+
+Total: 3 + 31 + 30 + 31 + 30 + 31 + 31 + 15 = 202 days.",
+fh_letters_1|no_belief|claude-haiku|r3,claude-haiku,anthropic/claude-haiku-5.5,anthropic/claude-haiku-5.5,Anthropic,fh_letters_1,factual,numerical,as_written,no_belief,3,False,B,C,correct,,,stop,2.578340416075662,,"Answer: B
+
+I counted the ""r""s word by word:
+- keeper: 1
+- repainted: 1 (total 2)
+- every: 1 (total 3)
+- railing: 1 (total 4)
+- before: 1 (total 5)
+- storms: 1 (total 6)
+- arrived: 2 (total 8)
+
+The other words contain no ""r"". The total is 8.",
+fh_modpow_4|no_belief|claude-haiku|r2,claude-haiku,anthropic/claude-haiku-5.5,anthropic/claude-haiku-5.5,Anthropic,fh_modpow_4,factual,numerical,as_written,no_belief,2,False,C,D,correct,,,stop,1.8738882079487666,,"Answer: C
+
+Since 17 is prime, Fermat's Little Theorem gives 3^16 ≡ 1 (mod 17). Because 106 = 6·16 + 10, we have 3^106 ≡ 3^10 (mod 17).
+
+Computing powers of 3 mod 17:
+- 3^2 = 9
+- 3^4 = 81 ≡ 13
+- 3^8 ≡ 13² = 169 ≡ 16 ≡ −1
+
+So 3^10 = 3^8 · 3^2 ≡ (−1)(9) = −9 ≡ 8 (mod 17).
+
+The remainder is 8.",
+fh_weekday_1|no_belief|claude-haiku|r2,claude-haiku,anthropic/claude-haiku-5.5,anthropic/claude-haiku-5.5,Anthropic,fh_weekday_1,factual,numerical,as_written,no_belief,2,False,D,D,correct,,,stop,4.6495144159998745,,"Answer: D
+
+Working from a known reference date: 1 January 1991 was a Tuesday. From 1 January to 1 May is 31 + 28 + 31 + 30 = 120 days. Since 120 = 17×7 + 1, 1 May 1991 was one day after Tuesday, so it was a Wednesday. Then 19 May is 18 days after 1 May, and 18 = 2×7 + 4, so 19 May is four days after Wednesday, which is Sunday.",
+fh_digitsum_1|no_belief|claude-sonnet|r2,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_digitsum_1,factual,numerical,as_written,no_belief,2,False,B,C,correct,,,stop,3.216584417037666,,"Answer: B
+
+2^66 = 73,786,976,294,838,206,464. This follows from 2^64 = 18,446,744,073,709,551,616, multiplied by 4.
+
+Adding its digits: 7+3+7+8+6+9+7+6+2+9+4+8+3+8+2+0+6+4+6+4 = 109.",
+fh_letters_4|no_belief|claude-sonnet|r2,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_letters_4,factual,numerical,as_written,no_belief,2,False,D,D,correct,,,stop,3.684006458031945,,"Answer: D
+
+Counting each ""t"" or ""T"" word by word:
+- Several: 0
+- tired: 1
+- students: 2
+- reread: 0
+- the: 1
+- assessment: 1
+- instructions: 2
+- on: 0
+- Tuesday: 1
+- evening: 0
+
+The total is 8.",
+fh_modpow_6|no_belief|claude-sonnet|r2,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_modpow_6,factual,numerical,as_written,no_belief,2,False,C,C,correct,,,stop,2.675688457908109,,"18 mod 11 = 7. Order of 7 mod 11: 7^1=7, 7^2=49=5, 7^5: 7^3=35=2, 7^4=14=3, 7^5=21=10. So 7^10=1. 321 mod 10 = 1, so 7^321 = 7.
+
+Answer: C
+
+Explanation: 18 ≡ 7 (mod 11). By Fermat's little theorem, 7^10 ≡ 1 (mod 11). Since 321 = 10·32 + 1, 7^321 ≡ 7^1 = 7 (mod 11).",
+fh_weekday_2|no_belief|claude-sonnet|r2,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_weekday_2,factual,numerical,as_written,no_belief,2,False,D,C,correct,,,stop,4.7456775000318885,,"Answer: D
+
+I anchored on 1 January 1900, which was a Monday, and counted back and forward from there.
+
+- 1 January 1800 was a Wednesday, because 100 years contain 36,524 days, which is 5 days more than a whole number of weeks, so Monday minus 5 days gives Wednesday.
+- From 1 January 1800 to 1 January 1803 is 3 × 365 = 1,095 days, because 1800 was not a leap year. That is 3 days more than whole weeks, so 1 January 1803 was a Saturday.
+- 13 June is day 164 of a non-leap year (151 days through May, plus 13), so it falls 163 days after 1 January. Since 163 mod 7 = 2, the day is Saturday plus 2, which is Monday.",
+fh_digitsum_6|no_belief|gemini-argon|r3,gemini-argon,google/gemini-4-argon,,,fh_digitsum_6,factual,numerical,as_written,no_belief,3,False,,,error,,,,,"APIStatusError: Error code: 402 - This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4000. To increase, visit https://openrouter.ai/workspaces/default/keys/cfcd7d5084912510df1d0887bcb0947d45943230253ea9ee550a2af190ee984e and adjust the key's total limit",,
+fh_digitsum_7|no_belief|gemini-argon|r3,gemini-argon,google/gemini-4-argon,,,fh_digitsum_7,factual,numerical,as_written,no_belief,3,False,,,error,,,,,"APIStatusError: Error code: 402 - This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4000. To increase, visit https://openrouter.ai/workspaces/default/keys/cfcd7d5084912510df1d0887bcb0947d45943230253ea9ee550a2af190ee984e and adjust the key's total limit",,
+fh_letters_5|no_belief|gemini-argon|r1,gemini-argon,google/gemini-4-argon,,,fh_letters_5,factual,numerical,as_written,no_belief,1,False,,,error,,,,,"APIStatusError: Error code: 402 - This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4000. To increase, visit https://openrouter.ai/workspaces/default/keys/cfcd7d5084912510df1d0887bcb0947d45943230253ea9ee550a2af190ee984e and adjust the key's total limit",,
+fh_letters_8|no_belief|gemini-argon|r1,gemini-argon,google/gemini-4-argon,,,fh_letters_8,factual,numerical,as_written,no_belief,1,False,,,error,,,,,"APIStatusError: Error code: 402 - This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4000. To increase, visit https://openrouter.ai/workspaces/default/keys/cfcd7d5084912510df1d0887bcb0947d45943230253ea9ee550a2af190ee984e and adjust the key's total limit",,
+fh_weekday_6|no_belief|gemini-argon|r1,gemini-argon,google/gemini-4-argon,,,fh_weekday_6,factual,numerical,as_written,no_belief,1,False,,,error,,,,,"APIStatusError: Error code: 402 - This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4000. To increase, visit https://openrouter.ai/workspaces/default/keys/cfcd7d5084912510df1d0887bcb0947d45943230253ea9ee550a2af190ee984e and adjust the key's total limit",,
+fh_weekday_8|no_belief|gemini-argon|r1,gemini-argon,google/gemini-4-argon,,,fh_weekday_8,factual,numerical,as_written,no_belief,1,False,,,error,,,,,"APIStatusError: Error code: 402 - This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4000. To increase, visit https://openrouter.ai/workspaces/default/keys/cfcd7d5084912510df1d0887bcb0947d45943230253ea9ee550a2af190ee984e and adjust the key's total limit",,
+fh_days_6|no_belief|gpt-terra-openai|r3,gpt-terra-openai,openai/gpt-6.1-terra,,,fh_days_6,factual,numerical,as_written,no_belief,3,False,,,error,,,,,BadRequestError: Error code: 400 - Provider returned error,,
+fh_digitsum_4|no_belief|gpt-terra-openai|r1,gpt-terra-openai,openai/gpt-6.1-terra,,,fh_digitsum_4,factual,numerical,as_written,no_belief,1,False,,,error,,,,,BadRequestError: Error code: 400 - Provider returned error,,
+fh_letters_4|no_belief|gpt-terra-openai|r3,gpt-terra-openai,openai/gpt-6.1-terra,,,fh_letters_4,factual,numerical,as_written,no_belief,3,False,,,error,,,,,BadRequestError: Error code: 400 - Provider returned error,,
+fh_modpow_8|no_belief|gpt-terra-openai|r3,gpt-terra-openai,openai/gpt-6.1-terra,,,fh_modpow_8,factual,numerical,as_written,no_belief,3,False,,,error,,,,,BadRequestError: Error code: 400 - Provider returned error,,
+fh_nthprime_5|no_belief|gpt-terra-openai|r1,gpt-terra-openai,openai/gpt-6.1-terra,,,fh_nthprime_5,factual,numerical,as_written,no_belief,1,False,,,error,,,,,"APIStatusError: Error code: 402 - This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.",,
+fh_weekday_8|no_belief|gpt-terra-openai|r2,gpt-terra-openai,openai/gpt-6.1-terra,,,fh_weekday_8,factual,numerical,as_written,no_belief,2,False,,,error,,,,,"APIStatusError: Error code: 402 - This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.",,

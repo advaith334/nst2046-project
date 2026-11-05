@@ -1,0 +1,208 @@
+{
+  "run_id": "mainmodels-smoke",
+  "created_at": "2026-11-05T09:28:00.587322+00:00",
+  "dry_run": false,
+  "git": {
+    "commit": "1da4d3c38d00e9cf0db80d2cfd2c658261bd9988",
+    "dirty": true
+  },
+  "config": {
+    "name": "mainmodels-screen",
+    "models_file": "frontier/config/models.yaml",
+    "model_set": "main_models",
+    "case_files": [
+      "frontier/data/headroom.yaml"
+    ],
+    "useful_memory_files": [],
+    "conditions": [
+      "no_belief"
+    ],
+    "evidence_modes": [
+      "as_written"
+    ],
+    "reps": 3,
+    "seed": 2046,
+    "shuffle_options": true,
+    "max_workers": 4,
+    "base_url": null,
+    "templates": {},
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "top_logprobs": 5
+    }
+  },
+  "models": [
+    {
+      "alias": "mistral-nemo",
+      "slug": "mistralai/mistral-nemo",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "12B",
+      "tuning": "instruct",
+      "notes": "Main-study spec. Also the positive control.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Io Net"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "mistral-small",
+      "slug": "mistralai/mistral-small-3.2-24b-instruct",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "24B",
+      "tuning": "instruct",
+      "notes": "Main-study spec.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "llama-8b-deepinfra",
+      "slug": "meta-llama/llama-3.1-8b-instruct",
+      "mode": "chat",
+      "family": "llama",
+      "size": "8B",
+      "tuning": "instruct",
+      "notes": "The 5 Nov follow-ups' spec. The main study used Novita, which no longer serves this model.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "DeepInfra",
+            "Cloudflare"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "gemma-moe",
+      "slug": "google/gemma-4-26b-a4b-it",
+      "mode": "chat",
+      "family": "gemma",
+      "size": "26B MoE (4B active)",
+      "tuning": "instruct",
+      "notes": "Main-study spec.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Google"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "qwen-small",
+      "slug": "qwen/qwen3.5-9b",
+      "mode": "chat",
+      "family": "qwen",
+      "size": "9B",
+      "tuning": "instruct",
+      "notes": "Main-study spec: thinking on, 8000 tokens.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    },
+    {
+      "alias": "claude-sonnet",
+      "slug": "anthropic/claude-sonnet-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "frontier",
+      "tuning": "instruct",
+      "notes": "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    }
+  ],
+  "cases": [
+    "fh_mult_1",
+    "fh_mult_2",
+    "fh_mult_3",
+    "fh_mult_4",
+    "fh_mult_5",
+    "fh_mult_6",
+    "fh_mult_7",
+    "fh_mult_8",
+    "fh_weekday_1",
+    "fh_weekday_2",
+    "fh_weekday_3",
+    "fh_weekday_4",
+    "fh_weekday_5",
+    "fh_weekday_6",
+    "fh_weekday_7",
+    "fh_weekday_8",
+    "fh_days_1",
+    "fh_days_2",
+    "fh_days_3",
+    "fh_days_4",
+    "fh_days_5",
+    "fh_days_6",
+    "fh_days_7",
+    "fh_days_8",
+    "fh_primecount_1",
+    "fh_primecount_2",
+    "fh_primecount_3",
+    "fh_primecount_4",
+    "fh_primecount_5",
+    "fh_primecount_6",
+    "fh_primecount_7",
+    "fh_primecount_8",
+    "fh_nthprime_1",
+    "fh_nthprime_2",
+    "fh_nthprime_3",
+    "fh_nthprime_4",
+    "fh_nthprime_5",
+    "fh_nthprime_6",
+    "fh_nthprime_7",
+    "fh_nthprime_8",
+    "fh_letters_1",
+    "fh_letters_2",
+    "fh_letters_3",
+    "fh_letters_4",
+    "fh_letters_5",
+    "fh_letters_6",
+    "fh_letters_7",
+    "fh_letters_8",
+    "fh_modpow_1",
+    "fh_modpow_2",
+    "fh_modpow_3",
+    "fh_modpow_4",
+    "fh_modpow_5",
+    "fh_modpow_6",
+    "fh_modpow_7",
+    "fh_modpow_8",
+    "fh_digitsum_1",
+    "fh_digitsum_2",
+    "fh_digitsum_3",
+    "fh_digitsum_4",
+    "fh_digitsum_5",
+    "fh_digitsum_6",
+    "fh_digitsum_7",
+    "fh_digitsum_8"
+  ],
+  "planned_trials": 1152
+}
