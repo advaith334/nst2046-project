@@ -23,6 +23,8 @@ class RunConfig(BaseModel):
     shuffle_options: bool = True
     max_workers: int = 4
     base_url: str | None = None
+    # Template name -> replacement text for this run; see memory.set_template_overrides.
+    templates: dict[str, str] = Field(default_factory=dict)
     params: GenerationParams = Field(default_factory=GenerationParams)
 
 

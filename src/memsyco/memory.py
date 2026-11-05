@@ -13,9 +13,22 @@ from importlib import resources
 from .schema import BeliefRecord, Case
 
 
+# Replacement wording for a run (`RunConfig.templates`), to test whether wrapper text drives results.
+_overrides: dict[str, str] = {}
+
+
+def set_template_overrides(overrides: dict[str, str]) -> None:
+    _overrides.clear()
+    _overrides.update(overrides)
+
+
 @cache
-def template(name: str) -> str:
+def _read_template(name: str) -> str:
     return resources.files("memsyco.prompts").joinpath(f"{name}.txt").read_text(encoding="utf-8")
+
+
+def template(name: str) -> str:
+    return _overrides[name] if name in _overrides else _read_template(name)
 
 
 class MemoryStore:

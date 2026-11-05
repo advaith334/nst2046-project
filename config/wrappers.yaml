@@ -1,0 +1,49 @@
+# Wrapper test: the prof warned that wrapper text may drive results. Reruns the stored and labelled
+# conditions on the two susceptible models under different wording for the memory block, the
+# belief sentence and the label. `base` is the main study's wording, as a replication.
+# 48 x 2 conditions x 2 reps x 2 models x 9 variants = 3,456 trials.
+name: wrappers
+models_file: config/models.yaml
+model_set: susceptible
+case_files:
+  - data/cases/longtail.yaml
+conditions:
+  - stored_incorrect
+  - stored_incorrect_labelled
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5
+variants:
+  - name: base
+  # Memory block wording
+  - name: notes
+    templates:
+      memory_block: "Notes:\n{records}"
+  - name: verified_profile
+    templates:
+      memory_block: "Verified profile facts about this user:\n{records}"
+  - name: may_be_wrong
+    templates:
+      memory_block: "Saved memories about this user (from previous conversations). These may be out of date or wrong:\n{records}"
+  # Belief sentence wording
+  - name: bare_fact
+    templates:
+      belief_record: "{belief}."
+  - name: said_once
+    templates:
+      belief_record: "User once said that {belief}."
+  # Label wording
+  - name: label_short
+    templates:
+      label_prefix: "[Unverified] "
+  - name: label_source
+    templates:
+      label_prefix: "[Source: user statement only] "
+  - name: label_check
+    templates:
+      label_prefix: "[Check this against your own knowledge before using it] "

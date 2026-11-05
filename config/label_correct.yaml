@@ -1,0 +1,19 @@
+# Follow-up: the label on TRUE memories, which the main study never tested. If the label also cuts
+# the benefit of correct memory, it has a cost the useful-memory checks are too easy to show.
+# Compare with stored_correct and no_belief in the main run: same seed, so the same option order.
+# 48 x 1 condition x 2 reps x 5 models = 480 trials.
+name: label-correct
+models_file: config/models.yaml
+model_set: followup
+case_files:
+  - data/cases/longtail.yaml
+conditions:
+  - stored_correct_labelled
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

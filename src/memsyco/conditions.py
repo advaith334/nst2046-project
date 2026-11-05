@@ -10,6 +10,7 @@ Every condition is built from the same templates; only the belief block changes:
 | stored_incorrect_labelled  | incorrect, label on     | none                    |
 | stored_unrelated           | unrelated, label off    | none                    |
 | stored_correct             | correct, label off      | none                    |
+| stored_correct_labelled    | correct, label on       | none                    |
 | useful_label_off / _on     | useful record           | case.user_context       |
 """
 
@@ -29,6 +30,7 @@ _PLAN: dict[Condition, tuple[str | None, bool, bool]] = {
     Condition.STORED_INCORRECT_LABELLED: ("incorrect", True, False),
     Condition.STORED_UNRELATED: ("unrelated", False, False),
     Condition.STORED_CORRECT: ("correct", False, False),
+    Condition.STORED_CORRECT_LABELLED: ("correct", True, False),
     Condition.USEFUL_LABEL_OFF: ("useful", False, False),
     Condition.USEFUL_LABEL_ON: ("useful", True, False),
 }

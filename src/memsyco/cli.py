@@ -110,6 +110,24 @@ def screen(run_dir: Path, config: Path = DEFAULT_CONFIG) -> None:
 
 
 @app.command()
+def wrappers(config: Path = Path("config/wrappers.yaml"), dry_run: bool = False, run_id: str | None = None,
+             limit: int | None = None, runs_dir: Path = Path("runs"),
+             max_cost: float | None = typer.Option(None, help="Stop once this many USD are spent across all wordings.")) -> None:
+    """Rerun stored and labelled conditions under each memory and label wording in the config."""
+    from .client import FakeClient, OpenAICompatClient
+    from .wrappers import run_variants
+
+    load_dotenv()
+    cfg, cases = _all_cases(config)
+    models = load_models(cfg.models_file, cfg.model_set)
+    run_id = run_id or f"{datetime.now():%Y%m%d-%H%M%S}-{cfg.name}{'-dry' if dry_run else ''}"
+    client = FakeClient() if dry_run else OpenAICompatClient()
+    out_dir = runs_dir / run_id
+    run_variants(cfg, config, cases, models, client, out_dir, run_id, limit, dry_run, max_cost)
+    typer.echo((out_dir / "wrappers.md").read_text())
+
+
+@app.command()
 def bench(config: Path = Path("config/memsyco_bench.yaml"), dry_run: bool = False, run_id: str | None = None,
           limit: int | None = None, runs_dir: Path = Path("runs"),
           max_cost: float | None = typer.Option(None, help="Stop once this many USD are spent, judge calls included.")) -> None:

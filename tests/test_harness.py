@@ -286,3 +286,25 @@ def test_bench_retry_reuses_paid_answer(tmp_path):
     model = ModelSpec(alias="m", slug="v/m")
     log = run_trial(bench_row(), "no_memory", model, model, cfg, Client(), "r", row)
     assert log["response_text"] == "kept" and Client.calls == 1 and log["judgment"]["objective_correctness"] == 1
+
+
+def test_labelled_correct_is_the_correct_memory_with_the_label(cases, store):
+    case = by_id(cases, "pilot_canberra")
+    omap = option_map(case, None)
+    plain = render(case, Condition.STORED_CORRECT, store, omap)
+    labelled = render(case, Condition.STORED_CORRECT_LABELLED, store, omap)
+    assert labelled.system.replace(template("label_prefix"), "") == plain.system != labelled.system
+
+
+def test_template_overrides_change_wording_and_reset(cases):
+    from memsyco.memory import set_template_overrides
+
+    case = by_id(cases, "pilot_canberra")
+    omap = option_map(case, None)
+    set_template_overrides({"belief_record": "{belief}.", "memory_block": "Notes:\n{records}"})
+    try:
+        r = render(case, Condition.STORED_INCORRECT, MemoryStore.from_cases(cases), omap)
+        assert "Notes:\n- " in r.system and "User believes" not in r.system
+    finally:
+        set_template_overrides({})
+    assert "Saved memories" in template("memory_block")

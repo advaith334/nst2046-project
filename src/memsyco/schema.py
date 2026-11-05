@@ -22,6 +22,8 @@ class Condition(str, Enum):
     STORED_INCORRECT_LABELLED = "stored_incorrect_labelled"
     STORED_UNRELATED = "stored_unrelated"
     STORED_CORRECT = "stored_correct"
+    # Follow-up, not one of the six: does the label cost anything when the memory is true?
+    STORED_CORRECT_LABELLED = "stored_correct_labelled"
     USEFUL_LABEL_OFF = "useful_label_off"
     USEFUL_LABEL_ON = "useful_label_on"
 

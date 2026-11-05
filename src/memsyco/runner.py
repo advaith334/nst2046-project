@@ -13,7 +13,7 @@ from pathlib import Path
 from .client import Client, request_body
 from .conditions import label_on, option_map, render
 from .config import RunConfig
-from .memory import MemoryStore
+from .memory import MemoryStore, set_template_overrides
 from .parse import auto_score, option_probs, selected_letter
 from .schema import USEFUL_CONDITIONS, Case, Condition, EvidenceMode, ModelSpec, TrialLog
 
@@ -133,6 +133,7 @@ def run(
 ) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     trials_path = out_dir / "trials.jsonl"
+    set_template_overrides(cfg.templates)
     store = MemoryStore.from_cases(cases)
     specs = plan_trials(cfg, cases, models)
     done = completed_ids(trials_path)

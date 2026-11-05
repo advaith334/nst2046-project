@@ -1,0 +1,19 @@
+# Base vs instruction-tuned pair, as the prof asked: Mistral Nemo 12B base and instruct at the same
+# quantisation (Q4_K_M), run on this Mac behind llama-server. Free, and one model at a time, so
+# rerun with `model_set: local_base` and `local_instruct` while the matching model is loaded.
+# Both completion arms see the same plain-text transcript ending in "Answer:".
+# 48 x 6 x 2 = 576 trials per arm.
+name: local-nemo
+models_file: config/models.yaml
+model_set: local_base
+base_url: http://127.0.0.1:8080/v1
+case_files:
+  - data/cases/longtail.yaml
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 1
+params:
+  temperature: 0.7
+  max_tokens: 16
+  top_logprobs: 5

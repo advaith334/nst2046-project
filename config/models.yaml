@@ -25,6 +25,11 @@ sets:
   followup: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, qwen-small]
   # The same for MemSyco-Bench, with Qwen's thinking off, as that benchmark runs.
   bench: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, qwen-small-nothink]
+  # The two models the stored belief moved, for the wrapper test.
+  susceptible: [mistral-nemo, mistral-small]
+  # Local base vs instruct pair, one llama-server at a time.
+  local_base: [nemo-base-local]
+  local_instruct: [nemo-instruct-local, nemo-instruct-local-chat]
   # Judge for free-text answers: the model MemSyco-Bench itself uses.
   judge: [deepseek-flash]
 
@@ -110,6 +115,24 @@ models:
       provider: {order: [Parasail], allow_fallbacks: false}
       reasoning: {enabled: false}
       max_tokens: 800
+  - alias: nemo-base-local
+    slug: Mistral-Nemo-Base-2407.Q4_K_M.gguf
+    mode: completion
+    tuning: base
+    family: mistral
+    size: 12B
+    notes: "Local llama-server. GGUF from mradermacher/Mistral-Nemo-Base-2407-GGUF."
+  - alias: nemo-instruct-local
+    slug: Mistral-Nemo-Instruct-2407-Q4_K_M.gguf
+    mode: completion
+    family: mistral
+    size: 12B
+    notes: "Local llama-server, same transcript prompt as the base model. GGUF from bartowski/Mistral-Nemo-Instruct-2407-GGUF."
+  - alias: nemo-instruct-local-chat
+    slug: Mistral-Nemo-Instruct-2407-Q4_K_M.gguf
+    family: mistral
+    size: 12B
+    notes: "The same weights through the chat template, to compare local results with the hosted model."
   # Example local base model (not in any set yet):
   # - alias: llama-8b-base
   #   slug: llama3.1:8b-text-q8_0
