@@ -556,7 +556,7 @@ Full per-condition tables, with 95% confidence intervals, are in
   No human code review appears in the record.
 - **Items are unverified.** None of the 52 main-study items has been checked by two members. An AI
   pre-check found no wrong key, passed 47 (11 on a watch list), and flagged 1 to fix and 4 to review.
-  9 long-tail items list no source.
+  The 9 long-tail items that listed no source now list one, taken from the audit and not reopened.
 - **Evidence passages are unverified too.** That covers all three sets of 48: stating, weak and
   deliberately false.
 - **No hand scoring.** All scores are automatic (which option was picked). The qualitative reading
@@ -599,9 +599,9 @@ Full per-condition tables, with 95% confidence intervals, are in
   answer differs between runs on about 11% of trials.
 - **Wording.** Rates and label effects are specific to our wording (round 10). "User believes"
   already marks a source, so a product memory could behave differently.
-- **Unbalanced beliefs.** The item file labels 43 of 48 beliefs as asserting something false and 5
-  as denying something true. The right split is 42 and 6, because `lt_letter_states` is mislabelled.
-  All denial items also assert something false. MS1 asked for half and half.
+- **Unbalanced beliefs.** 42 of 48 beliefs assert something false and 6 deny something true, after
+  `lt_letter_states` was relabelled. All denial items also assert something false. MS1 asked for
+  half and half.
 - **Weak items.** `lt_most_islands` depends on how islands are counted, and `lt_lake_superior` on
   counting Michigan and Huron as two lakes. Without those two, Nemo's rates are 10.9% → 53.3% → 29.3%.
 
@@ -661,12 +661,17 @@ The MS1 report isn't in this repo. These are checked as worded in the analysis a
 
 **For people, before any of this is cited:**
 
-- [ ] Two members verify the 52 items and decide the 5 flagged ones, using the sign-off sheet in
-      [report/item_audit/audit.md](report/item_audit/audit.md)
-- [ ] Add sources for the 9 items with none, replace the 5 weak ones, and fix the label on `lt_letter_states`
-- [ ] Check the three sets of evidence passages
-- [ ] Two raters score a blinded sample of responses; report agreement (Cohen's kappa)
-- [ ] A person double-scores the AI-coded qualitative reading, starting with the 40 flagged rows
+- [ ] Two members verify the 52 items and decide the 5 flagged ones, using
+      [item_check.csv](report/human_pack/item_check.csv) and the
+      [scoring guide](report/human_pack/scoring_guide.md)
+- [x] Add sources for the 9 items with none, and fix the label on `lt_letter_states`. Both still need
+      the check above
+- [ ] Replace the 5 weak sources listed in [report/item_audit/audit.md](report/item_audit/audit.md)
+- [ ] Check the 96 stating and weak passages, in the same sheet. The other 48 are false by design
+- [ ] Two raters score the 60 blinded responses in
+      [rating_sheet.csv](report/human_pack/rating_sheet.csv); report agreement (Cohen's kappa)
+- [ ] Two raters double-score the 40 rows in
+      [qualitative_sheet.csv](report/human_pack/qualitative_sheet.csv), to check the AI-coded counts
 - [ ] A member repeats the install, tests, dry run and one table, as the audit was not independent
 - [ ] Check the AI-use log, decision log and deviations table, and complete the blank rows
 - [ ] Confirm team roles
@@ -674,8 +679,8 @@ The MS1 report isn't in this repo. These are checked as worded in the analysis a
 **For the record:**
 
 - [ ] Publish all trial logs with checksums, and cite a tag or commit, not a branch
-- [ ] Regenerate `docs/prompts.md` with a main-study item
-- [ ] Record the 24-item round 3 plan, as `config/longtail.yaml` now plans all 48
+- [x] Regenerate `docs/prompts.md` with a main-study item and the follow-up wordings
+- [x] Record the 24-item round 3 plan, as `config/longtail.yaml` now plans all 48
 
 **Next experiments:**
 
@@ -745,7 +750,7 @@ data/cases/
   longtail_stale_source.yaml   the 48 with deliberately false passages (round 8)
   useful_memory.yaml    4 useful-memory checks
 data/external/          not in git: MemSyco-Bench data and local model files
-docs/prompts.md         exact prompts for every condition
+docs/prompts.md         exact prompts for every condition, then the follow-up wordings
 runs/<run>/             results: summary, paired tests, raw table, manifest
                         (wrappers, fixes and tutor-split have one folder per variant)
 src/memsyco/
@@ -771,7 +776,11 @@ report/
   analysis/followups/   statistics for rounds 5–14, run_followups.sh
   figures/              figures 1–7
   qualitative/          AI-coded reading of the replies, and its codebook
-  item_audit/           AI pre-check of the 52 items, and the sign-off sheet
+  item_audit/           AI pre-check of the 52 items, the sign-off sheet, and a check that
+                        metadata fixes left all item text unchanged
+  human_pack/           the human work: scoring guide, item check sheet, two blinded rating
+                        sheets, and the seeded script that builds them. Its two key files are
+                        git-ignored, and raters must not open them
   literature/           literature review, comparison table, citation check
   evidence/             AI-use log, decision log, deviations, reproducibility audit
   societal/             societal brief, practice case, ten ranked options
@@ -821,11 +830,16 @@ bash report/analysis/followups/run_followups.sh            # rebuild rounds 5–
 
 ### What won't work from a fresh clone
 
-- `report`, `screen`, `rating-sheet`, `run_all.sh` and `run_followups.sh` need the trial logs, which
-  are not in git.
+- `screen`, `rating-sheet`, `run_all.sh` and `run_followups.sh` need the trial logs, which are not
+  in git, and they stop with a clear message if the logs are absent.
+- `report` rebuilds from a run's `raw_table.csv` when the logs are absent. Without logs it can't
+  re-parse replies, so the four runs from rounds 1–3 won't match every committed file.
 - `run --config config/main.yaml` would fail for Llama, as its pinned host no longer serves it.
 
 ### Hand scoring
+
+The ready-made pack is in [report/human_pack/](report/human_pack/). Start with the
+[scoring guide](report/human_pack/scoring_guide.md). The commands below make a new sheet from a run.
 
 ```bash
 uv run memsyco rating-sheet runs/<id> --sample 60

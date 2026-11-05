@@ -2,7 +2,7 @@
 # (`uv run memsyco list-models --search <name>`). LP = provider returns logprobs.
 #
 # Each model is pinned to one host with no fallbacks: hosts differ in quantisation and in
-# whether they return logprobs, and the smoke test saw one model routed to three hosts.
+# whether they return logprobs, and the smoke test saw one model routed to two hosts.
 # If a pinned host is down, trials are logged as errors and re-run on resume.
 #
 # OpenRouter currently serves no base (non-instruction-tuned) models. For the base vs
@@ -14,7 +14,8 @@ sets:
   pilot: [claude-sonnet, qwen-large, llama-8b]
   # Main run (6 contrasting models, per feedback): the susceptible Mistral Nemo and its larger,
   # newer sibling; two other small non-reasoning models; a small reasoning model; one frontier
-  # API. Qwen3.5-397B is left out for cost (it matched Claude at ceiling in every screen).
+  # API. Qwen3.5-397B is left out for cost. It was near ceiling in every screen: 2% -> 4% with one
+  # flip in round 3, where Claude stayed at 0%.
   # No base model: OpenRouter serves none.
   main: [mistral-nemo, mistral-small, llama-8b, gemma-moe, qwen-small, claude-sonnet]
   # Long-tail screen: the two frontier models plus four small open models, since Claude and
@@ -27,6 +28,7 @@ sets:
   bench: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, qwen-small-nothink]
   # The two models the stored belief moved, for the wrapper test.
   susceptible: [mistral-nemo, mistral-small]
+  frontier: [claude-sonnet]
   # Local base vs instruct pair, one llama-server at a time.
   local_base: [nemo-base-local]
   local_instruct: [nemo-instruct-local, nemo-instruct-local-chat]
@@ -92,6 +94,8 @@ models:
     notes: "LP on Io Net (fp16). 2024 model."
     extra_body:
       provider: {order: [Io Net], allow_fallbacks: false}
+  # Main-study host. Novita stopped serving this slug by 2026-11-05, so config/main.yaml now fails
+  # for Llama. Follow-ups use llama-8b-deepinfra.
   - alias: llama-8b
     slug: meta-llama/llama-3.1-8b-instruct
     family: llama

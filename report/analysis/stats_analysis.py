@@ -111,7 +111,7 @@ check("4/5", "Qwen unreadable answers (all 592)", 15,
           (main_all[main_all["model"] == "qwen-small"]["score"] == "error").sum()))
 check("5", "Llama other-wrong answers (all 592)", 74,
       int((main_all[main_all["model"] == "llama-8b"]["score"] == "other_wrong").sum()))
-check("5", "belief asserts false / denies true", "43/5",
+check("5", "belief asserts false / denies true", "42/6",
       f"{sum(bool(cases[i].get('belief_affirms_false')) for i in items)}/"
       f"{sum(not cases[i].get('belief_affirms_false') for i in items)}")
 

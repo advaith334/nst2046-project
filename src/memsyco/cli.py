@@ -11,17 +11,33 @@ import typer
 from dotenv import load_dotenv
 
 from .conditions import option_map, render
-from .config import load_cases, load_config, load_models
-from .memory import MemoryStore
+from .config import load_cases, load_config, load_models, load_yaml
+from .memory import MemoryStore, template
 from .schema import FACTUAL_CONDITIONS, USEFUL_CONDITIONS
 
 app = typer.Typer(add_completion=False, no_args_is_help=True)
 DEFAULT_CONFIG = Path("config/pilot.yaml")
+# Follow-ups that changed the prompt wording, as (heading in docs/prompts.md, config file).
+FOLLOWUP_CONFIGS = [
+    ("Wrapper test (round 10)", "wrappers.yaml"),
+    ("Tutor frame and harness fixes (rounds 11 and 13)", "fixes.yaml"),
+    ("Tutor split (round 11)", "tutor_split.yaml"),
+    ("Patient frame (round 12)", "patient_frame.yaml"),
+]
 
 
 def _all_cases(config: Path):
     cfg = load_config(config)
     return cfg, load_cases(cfg.case_files + cfg.useful_memory_files)
+
+
+def _trials_path(run_dir: Path, hint: str = "") -> Path:
+    """The run's trial log, or a clear exit: logs are git-ignored, so a fresh clone has none."""
+    path = run_dir / "trials.jsonl"
+    if not path.exists():
+        typer.echo(f"Error: {path} not found. Trial logs are not in git; ask Advaith for this one. {hint}".strip(), err=True)
+        raise typer.Exit(1)
+    return path
 
 
 @app.command()
@@ -34,9 +50,9 @@ def validate(config: Path = DEFAULT_CONFIG) -> None:
 
 
 @app.command("render-prompts")
-def render_prompts(case_id: str = "pilot_canberra", useful_case_id: str = "useful_vegetarian",
-                   config: Path = DEFAULT_CONFIG, out: Path = Path("docs/prompts.md")) -> None:
-    """Write the exact prompt for every condition of one factual and one useful-memory case."""
+def render_prompts(case_id: str = "lt_crust_metal", useful_case_id: str = "useful_vegetarian",
+                   config: Path = Path("config/main.yaml"), out: Path = Path("docs/prompts.md")) -> None:
+    """Write the exact prompt for every condition of one factual and one useful-memory case, then the follow-up wordings."""
     _, cases = _all_cases(config)
     by_id = {c.id: c for c in cases}
     store = MemoryStore.from_cases(cases)
@@ -59,9 +75,60 @@ def render_prompts(case_id: str = "pilot_canberra", useful_case_id: str = "usefu
         r = render(case, conditions[1], store, omap)
         lines += [f"### Completion-mode (base model) prompt for `{conditions[1].value}`", "",
                   "```text", r.prompt, "```", ""]
+    lines += _followup_wordings(config.parent)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text("\n".join(lines), encoding="utf-8")
     typer.echo(f"wrote {out}")
+
+
+def _wording_block(name: str, entry: dict) -> list[str]:
+    lines = [f"#### {name}", ""]
+    if "fix" in entry:
+        lines += [f"Harness fix `{entry['fix']}`: see the harness-fix prompts below.", ""]
+    for key, text in entry.get("templates", {}).items():
+        lines += [f"`{key}`:", "", "```text", text, "```", ""]
+    if "fix" not in entry and not entry.get("templates"):
+        lines += ["The main-study wording, as a replication.", ""]
+    return lines
+
+
+def _followup_wordings(config_dir: Path) -> list[str]:
+    """Every template a follow-up replaced, read from its config so the list can't drift from what ran."""
+    lines = [
+        "## Follow-up wordings",
+        "",
+        "Rounds 10–13 replaced parts of the prompts above. Anything not listed for a variant is unchanged. "
+        "`{belief}` and `{records}` are filled as in the main study.",
+        "",
+    ]
+    for title, file in FOLLOWUP_CONFIGS:
+        data = load_yaml(config_dir / file)
+        lines += [f"### {title}", ""]
+        entries = data.get("variants") or [{"name": data["name"], "templates": data["templates"]}]
+        for entry in entries:
+            lines += _wording_block(entry["name"], entry)
+    lines += [
+        "### Harness-fix prompts (round 13)",
+        "",
+        "`revise_turn`, the second turn in `answer_first`:",
+        "",
+        "```text", template("revise_turn").strip(), "```", "",
+        "`gate_question`, the classification call in `memory_gate`:",
+        "",
+        "```text", template("gate_question").strip(), "```", "",
+        "### Evidence block (rounds 6–8)",
+        "",
+        "`evidence`, added to the user turn above the question. The passages are in the three "
+        "`longtail_*` case files.",
+        "",
+        "```text", template("evidence").strip(), "```", "",
+        "### MemSyco-Bench (round 5)",
+        "",
+        "Its answer prompt and judge rubric are copied from the benchmark into `src/memsyco/bench.py`. "
+        "The `snippet` conditions use this project's memory block, shown above.",
+        "",
+    ]
+    return lines
 
 
 @app.command()
@@ -89,11 +156,17 @@ def run(config: Path = DEFAULT_CONFIG, dry_run: bool = False, run_id: str | None
 
 @app.command()
 def report(run_dir: Path, config: Path = DEFAULT_CONFIG) -> None:
-    """Rebuild raw_table.csv, summary.csv and summary.md for a run."""
-    from .report import write_report
+    """Rebuild raw_table.csv, summary.csv and summary.md for a run. With no trial log, rebuild from raw_table.csv."""
+    from .report import write_report, write_report_from_raw
 
-    _, cases = _all_cases(config)
-    write_report(run_dir, {c.id: c for c in cases})
+    if (run_dir / "trials.jsonl").exists() or not (run_dir / "raw_table.csv").exists():
+        _trials_path(run_dir)
+        _, cases = _all_cases(config)
+        write_report(run_dir, {c.id: c for c in cases})
+    else:
+        write_report_from_raw(run_dir)
+        typer.echo(f"Note: no trial log in {run_dir}, so summaries were rebuilt from raw_table.csv. "
+                   "Answers were not re-parsed and raw_table.csv is unchanged.", err=True)
     typer.echo((run_dir / "summary.md").read_text())
 
 
@@ -103,8 +176,9 @@ def screen(run_dir: Path, config: Path = DEFAULT_CONFIG) -> None:
     from .report import load_trials, raw_table
     from .screen import write_screen
 
+    path = _trials_path(run_dir)
     _, cases = _all_cases(config)
-    raw = raw_table(load_trials(run_dir / "trials.jsonl"), {c.id: c for c in cases})
+    raw = raw_table(load_trials(path), {c.id: c for c in cases})
     write_screen(run_dir, raw)
     typer.echo((run_dir / "screen.md").read_text())
 
@@ -151,20 +225,24 @@ def rating_sheet_cmd(run_dir: Path, sample: int | None = None, config: Path = DE
     from .report import load_trials, raw_table
     from .score import rating_sheet
 
+    path = _trials_path(run_dir, "The blinded sheets in report/human_pack/ need no log.")
     _, cases = _all_cases(config)
     by_id = {c.id: c for c in cases}
-    raw = raw_table(load_trials(run_dir / "trials.jsonl"), by_id)
+    df = load_trials(path)
+    raw = raw_table(df, by_id).merge(df[["trial_id", "option_map"]], on="trial_id")
     sheet, key = rating_sheet(raw, by_id, run_dir, sample=sample)
     typer.echo(f"wrote {sheet} and {key} — give raters copies of the sheet only")
 
 
 @app.command()
-def agreement(rater_a: Path, rater_b: Path) -> None:
+def agreement(rater_a: Path, rater_b: Path, columns: str | None = typer.Option(
+        None, help="Comma-separated columns to compare. Defaults to the rating sheet's.")) -> None:
     """Percent agreement and Cohen's kappa per rating column."""
     from .report import to_markdown
+    from .score import RATING_COLUMNS
     from .score import agreement as agree
 
-    typer.echo(to_markdown(agree(rater_a, rater_b)))
+    typer.echo(to_markdown(agree(rater_a, rater_b, columns.split(",") if columns else RATING_COLUMNS)))
 
 
 @app.command("list-models")

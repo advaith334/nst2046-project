@@ -502,7 +502,7 @@ Most study-design decisions on 27 October were proposed by the assistant and app
 | 41 | [TEAM TO COMPLETE] | Which two members verify all 52 items, and when. None verified so far | MS1 promise | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
 | 42 | [TEAM TO COMPLETE] | Who double-scores which sample, and how kappa is reported | MS1 promise, feedback | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
 | 43 | [TEAM TO COMPLETE] | Whether the team reviewed and accepted the move to long-tail items and no evidence | Consequential change | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
-| 44 | [TEAM TO COMPLETE] | Whether to rebalance beliefs (43 assert and 5 deny as labelled, 42 and 6 once one item is relabelled), or report it as a limitation | MS1 said half and half | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
+| 44 | [TEAM TO COMPLETE] | Whether to rebalance beliefs (42 assert and 6 deny after one item was relabelled), or report it as a limitation | MS1 said half and half | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
 | 45 | [TEAM TO COMPLETE] | Follow-up on the conflict-of-interest point about the Bensal/"Bansal" work, assigned to Advaith on 7 Oct | Feedback note | Literature agent reported on 5 Nov: authors employed by WRITER, memory product launched later, no stated interests (section 1). Team check outstanding | [TEAM TO COMPLETE] |
 | 46 | [TEAM TO COMPLETE] | Any decisions made in team meetings, messages or documents outside this session | Not visible to this audit | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
 
@@ -599,7 +599,7 @@ Anything the team wants to record about workload or process.
 | 2 | No human item verification or scoring | MS1 promised two members for both. Nothing has been done |
 | 3 | No logic items, and a new "general" category | The main study is not the planned case mix |
 | 4 | No hosted base model | MS1 and the feedback both named this contrast. One local pair was added on 5 Nov, post hoc |
-| 5 | Beliefs not balanced | 43 assert and 5 deny as labelled, 42 and 6 once one item is relabelled; MS1 said half and half |
+| 5 | Beliefs not balanced | 42 assert and 6 deny after one item was relabelled; MS1 said half and half |
 
 **Models.**
 
@@ -618,7 +618,7 @@ Anything the team wants to record about workload or process.
 | 12 shared cases | 48 in the main study; 85 factual items across all rounds | Feedback advised 40–60 | Dr Filippov advised; AI assistant proposed 48; Advaith approved (button) |
 | 4 each: numerical, logical, scientific | 20 science, 20 general knowledge, 8 numerical, **0 logic** | **No reason recorded.** Logic items were tried in rounds 1–2 and showed no clear memory effect, then dropped when items changed to long-tail facts | No explicit decision. First flagged by the AI assistant on 5 Nov |
 | Each case has supporting evidence; memory supplied "alongside the question and evidence" | **None of the 48 main items has evidence** | Rounds 1–2 hit ceiling, and removing evidence made little difference. Feedback said "weaker or ambiguous" evidence, not none, and weak evidence was not built until 5 Nov, when stating, weak and false passages were run post hoc | AI assistant proposed; Advaith approved (button, 27 Oct, and again 5 Nov). Not called a deviation until 5 Nov |
-| Half true, half false statements | 43 assert something false, 5 deny something true (42 and 6 once one item is relabelled) | Not addressed when items were expanded; flagged in the README | No decision recorded. Rebalancing is on the README to-do list |
+| Half true, half false statements | 42 assert something false, 6 deny something true, after one item was relabelled | Not addressed when items were expanded; flagged in the README | No decision recorded. Rebalancing is on the README to-do list |
 | Two members check every case; science verified against reliable sources | **Not done.** All 52 items are `draft`; 9 long-tail items list no source | Items were AI-drafted and used before checking | Not approved by anyone: an open promise. [TEAM TO COMPLETE] |
 | Items written or reviewed by the team | 87 of 89 items AI-drafted | Speed | Advaith approved the runs; team review not shown |
 

@@ -1,6 +1,10 @@
-# Long-tail screen: 24 obscure-fact items (no evidence) on two frontier and four small open
-# models, no_belief vs stored_incorrect only. Looks for items where models are unsure, which
-# is where a stored belief has the most room to pull the answer.
+# Long-tail screen: obscure-fact items (no evidence) on two frontier and four small open models,
+# no_belief vs stored_incorrect only. Looks for items where models are unsure, which is where a
+# stored belief has the most room to pull the answer.
+#
+# This config now plans all 48 items in data/cases/longtail.yaml: 1,152 trials. Round 3 used the
+# first 24 of them, lt_metal_melting to lt_crust_second: 576 trials. The file grew to 48 for the
+# main study. The exact list is `cases` in runs/longtail-20261027/manifest.json.
 name: longtail
 models_file: config/models.yaml
 model_set: longtail

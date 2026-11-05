@@ -159,6 +159,18 @@ def write_report(run_dir: Path, cases: dict) -> pd.DataFrame:
     df = load_trials(run_dir / "trials.jsonl")
     raw = raw_table(df, cases)
     raw.to_csv(run_dir / "raw_table.csv", index=False)
+    return write_summary(run_dir, raw)
+
+
+def write_report_from_raw(run_dir: Path) -> pd.DataFrame:
+    """For committed runs with no trial log: rebuild the summaries, leaving raw_table.csv as it is.
+
+    Nothing is re-parsed, as option maps are only in the log, so the scores stay as committed.
+    """
+    return write_summary(run_dir, pd.read_csv(run_dir / "raw_table.csv"))
+
+
+def write_summary(run_dir: Path, raw: pd.DataFrame) -> pd.DataFrame:
     summary = summarise(raw)
     summary.to_csv(run_dir / "summary.csv", index=False)
     pairs = paired(raw)

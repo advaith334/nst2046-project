@@ -1,6 +1,6 @@
 # AI-use log
 
-Status: AI-drafted (Claude Code, Opus 5.5) on 5 Nov 2026 from the session log. **This log was itself written by the tool it describes. A team member must check it before submission.**
+Status: AI-drafted (Claude Code, Opus 5.5) on 5 Nov 2026 from the session log, and extended the same day to cover everything up to about 15:58. **This log was itself written by the tool it describes. A team member must check it before submission.**
 
 The table format is the one the guidelines require. It continues the four entries in the MS1 appendix.
 
@@ -9,7 +9,9 @@ The table format is the one the guidelines require. It continues the four entrie
 | Tool | Version shown in the record | Used for |
 |---|---|---|
 | Claude Code, Anthropic's coding assistant, in the Claude desktop app | Claude Opus 5.5 (`claude-opus-5-5`) for every assistant message in the session | Planning, all code, most test items, running the experiments, analysis, README and Notion drafts |
-| Firecrawl (web search and scraping, called by Claude Code) | Not recorded | SycophancyEval and MemSyco-Bench look-ups, 5 Nov |
+| Firecrawl (web search and scraping, called by Claude Code) | Not recorded | SycophancyEval and MemSyco-Bench look-ups, item audit, literature and societal research, 5 Nov |
+| Claude Code subagents | Same assistant, started by the main session | Statistics, qualitative coding, item audit, literature, societal research, evidence passages, README, report draft, visual summary, scoring pack, all on 5 Nov. Listed below |
+| DeepSeek V4 Flash, called through the harness | `deepseek/deepseek-v4-flash` | **AI judge for round 5.** It scored every MemSyco-Bench answer. It is a tool here, never a test subject |
 | Wispr Flow notes | Not recorded | AI summary of the meeting with Dr Filippov |
 | ChatGPT, Grok/Cursor, Claude | As in MS1 | MS1 entries below |
 | Any other tool used by any member | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
@@ -20,7 +22,7 @@ MS1 also named Exa Agent and Codex. The session shows no use of either. Whether 
 
 ## Disclosure statement (draft for the report)
 
-> Most of this project's technical work was done with Claude Code (Claude Opus 5.5). The harness code and tests are AI-generated. 87 of the 89 test items are AI-drafted; only the two MS1 pilots came from the team's own proposal. The AI assistant ran every experiment through the harness, under spending limits set by Advaith, and drafted the analysis, the README, the results page and this log. Commits appear under Advaith's name with no AI co-author line, because he asked for that attribution to be removed; the git history therefore does not show AI authorship. This log is the record of it.
+> Most of this project's technical work was done with Claude Code (Claude Opus 5.5). The harness code and tests are AI-generated. 87 of the 89 test items are AI-drafted; only the two MS1 pilots came from the team's own proposal. The 96 evidence passages and the template for the 48 deliberately false ones are also AI-written. The AI assistant ran every experiment through the harness, under spending limits set by Advaith, and drafted the analysis, the README, the results page, the visual summary, the first full report draft and this log. Commits appear under Advaith's name with no AI co-author line, because he asked for that attribution to be removed; the git history therefore does not show AI authorship. This log is the record of it.
 
 Items included in the 87: 11 pilot misconception items, 24 harder items, 48 long-tail items and 4 useful-memory checks. MS1 described the useful-memory checks in general terms; the assistant wrote the actual items.
 
@@ -65,7 +67,7 @@ Times are SGT. "Session" points to the Claude Code session log.
 | Claude Code: reading the pilot explanations | Pilot results, 15:44 | **Not used.** Rough keyword counts of how often models mentioned the belief | AI said this needed human scoring. No human scoring took place |
 | Claude Code: difficulty and long-tail proposals | Pilot and screen results | Used. Two options offered each time; Advaith clicked one | **Changed the study's items, method and result.** Advaith approved; no team review in the record. The proposal, and the text Advaith accepted, were AI-written |
 | Claude Code: main-study design and cost | "Plan the main run": $1.40 estimate, 6 models | Used. Haiku swap not chosen. Qwen-397B excluded | Actual $1.33. Advaith approved. Model choice was made after seeing round 3, which the README does not state |
-| Claude Code: statistics | Wilson CIs, exact McNemar, Bonferroni remark | Used. **AI-generated analysis** | All section 4 numbers recomputed from raw tables 5 Nov (AI). No human re-derivation. Item-level methods pending |
+| Claude Code: statistics | Wilson CIs, exact McNemar, Bonferroni remark | Used. **AI-generated analysis** | All section 4 numbers recomputed from raw tables 5 Nov (AI). No human re-derivation. Item-level methods added 5 Nov, below |
 | Claude Code: interpretation | "Llama ignores memory", "memory pulls as hard as stating", "size isn't the whole story" | Used in README, marked as leads where weak | Not reviewed by a human as far as the record shows. Stated-vs-stored was not significant, and that is not proof of equality |
 
 ### Milestone 2: writing and project management
@@ -74,16 +76,61 @@ Times are SGT. "Session" points to the Claude Code session log.
 |---|---|---|---|
 | Claude Code: Notion results page | "Write up... for the team", 28 Oct | Used. **AI-generated text.** Assistant fixed one table cell | Assistant re-read the page. Human review not shown. Understates limitations, as the assistant noted 5 Nov |
 | Claude Code: README | "make it as human-reviewable as possible", 2 Nov | Used. **AI-generated text** | Advaith said "Commit and push" 52 minutes later. Human edits not shown. Audit found the small errors listed in the reproducibility audit |
-| Claude Code, Firecrawl: MemSyco-Bench scoping | "Yes, scope it", 5 Nov | Used to plan a run. Source: paper, repo and data files | The AI read them. No human has confirmed the fit. Run approved, results pending |
+| Claude Code, Firecrawl: MemSyco-Bench scoping | "Yes, scope it", 5 Nov | Used to plan a run. Source: paper, repo and data files | The AI read them. No human has confirmed the fit. Run done: round 5, below |
 | Claude Code: Canvas look-up | Advaith gave a Canvas token, 5 Nov | Guidelines and slides read | The token was deleted from disk after use, but it remains in the session log. Rotate it |
-| Claude Code subagents: statistics, qualitative coding, item audit, literature, societal brief, evidence trail | "spawn subagents and get a lot of work done", 5 Nov | **Pending at time of writing.** AI-coded qualitative work must be labelled as such | Evidence-trail output is this file and its siblings; AI-checked only. Do not cite any of it until a member has read it. [TEAM TO COMPLETE] |
+| Claude Code subagents | "spawn subagents and get a lot of work done", 5 Nov | See the 5 Nov tables below. AI-coded qualitative work must be labelled as such | All AI-checked only. Do not cite any of it until a member has read it. [TEAM TO COMPLETE] |
 | Report drafting by any member | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
+
+### 5 Nov: experiments
+
+| Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
+|---|---|---|---|
+| Claude Code: rounds 5–13 | Approved through 13:04–14:27 (decision log rows 39, 52, 55, 57, 58). 12,784 trials, each with a cost figure and cap shown first | All used. All paid runs finished under their caps. Project total: 20,068 trials, $4.39 | Paired tests by the harness. The follow-up statistics agent re-scored 16,640 trials with 0 mismatches. **No human has checked any of it.** Every round was designed after the main results |
+| Claude Code: round 14, local Nemo base vs instruct | "Approve all three", 13:28. llama.cpp on Advaith's Mac, 1,728 trials, free | Used. An 8-trial check found that token probabilities were not being read, which was fixed before the full run | **Contradicts MS1's explanation:** the base model moved as much as the instruct model. Parser fix at 15:09 moved local rates. No human check |
+| DeepSeek V4 Flash: judge for round 5 | The benchmark's own rubric, on 2,000 free-text answers | Used for every round 5 score | **Not verified by a person.** 4 of these answers are in the human rating sheet |
+| Claude Code subagents: evidence passages | 48 stating passages (13:04), 48 weak passages (14:09) | Used in rounds 6 and 7. **AI-generated.** "Weak" was the agent's judgement, and Nemo's false baseline fell to 0%, so the passages are stronger than the name | Script checks on length and on option text. Sources not opened by a person. All 96 are in the human check sheet |
+| `build_stale_source.py`: 48 deliberately false passages | One template over the false beliefs | Used in round 8 | False by design, so not in the check sheet |
+| Claude Code: pre-registered MMLU run | "address all the weak parts", 15:41; "Approve the run", 15:44 | Under way, result pending when this row was written. Items are from MMLU; predictions and analysis are AI-drafted | `report/preregistration.md`. It asks the team to read it before the run counts as theirs |
+
+### 5 Nov: subagents
+
+| Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
+|---|---|---|---|
+| Statistics agent | Item-level intervals, Holm, model differences | Used. **AI-generated analysis.** Corrected the claim that the effect only appears where models are unsure | Rebuild script checks 76 README claims; 4 mismatches are listed. No human re-derivation |
+| Qualitative agent | Read and code how models justify answers | Used, labelled AI-coded. **One coder, unblinded, in one pass** | Quotes checked verbatim by script. 40 rows are now in a blinded sheet for human double-scoring. Counts must not be cited until then |
+| Item-audit agent | Check all 52 items against sources | Used as a pre-check: no wrong key, 1 fix, 4 reviews. **Not the two-member check MS1 promised** | Read pages directly; six sites refused scripted access. Its Bonferroni finding overturned the assistant's claim about Mistral Small |
+| Literature agent | Check MS1 citations, write the review | Used. Found 10 MS1 citation errors and settled the Bensal conflict-of-interest point | Tagged what was opened. A second agent is resolving the remaining [CHECK SOURCE] markers. No human has read the sources |
+| Societal brief agent | Normative analysis | Used in part. Testimonial injustice rejected as a claim; **Fricker's book was not read** | Marks exactly what was read. A person must read Fricker |
+| Evidence-trail agent | Audit, logs, deviations | Used: this file and its siblings | Same tool family, so not independent. A member should repeat the install, tests and one table |
+| Five researchers and a report writer | Ten societal options, 13:42 | Notes used. **Ranking set aside:** it put patients first by one point, and the main session led with teachers after the patient-frame run | Claims tagged by how they were read. Scores are the writer's judgement |
+| Follow-up statistics agent | All follow-up runs, 14:43 | Used. **AI-generated analysis** | Matched harness flip counts on 11 comparisons, and a separate bootstrap. Corrected the assistant twice (table below) |
+| README agent | Bring the README up to date, 15:10 | Used. **AI-generated text.** "22,000 trials" rejected: the logs show 20,068 | Counts taken from logs |
+| Visual summary agent | Short PDF, 15:04 | Used. **AI-generated** | The main session viewed every page. No human check shown |
+| Report draft agent | Full draft, 15:10 | **`report/draft/` is entirely AI-generated, text and PDF alike.** It can't be submitted as it stands, and says so at the top | The main session read the 10 body pages. About 105 [TEAM TO COMPLETE] markers remain. **The team must rewrite it in their own words.** Its log appendices are copies, so they lag these files |
+| Source-gaps agent | Justice premise and open source markers, 15:42 | Running when this row was written | Not reviewed here |
+| Repo-hardening agent | Audit fixes, item metadata, scoring pack, these logs, 15:42 | Used. **AI-generated:** the code changes, `report/human_pack/` and the rows added here | 48 tests pass. Script confirms no item text changed (196 items). No human check. New item sources were taken from the audit and not reopened |
+
+### 5 Nov: AI output found wrong or rejected
+
+| Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
+|---|---|---|---|
+| Claude Code: "the susceptible models are the cheap small ones" | Told to Advaith earlier | **Rejected.** Only 2 of 5 open models moved, both Mistral | Societal agent, 13:17 |
+| Claude Code: Mistral Small survives Bonferroni | README and messages | **Weakened.** It passes by one item's margin | Item audit, 13:22 |
+| Claude Code: "only where models are unsure" as the mechanism | Proposed as a lead | **Weakened.** About half of Nemo's shift came from confident, correct answers | Statistics agent, 13:36 |
+| Claude Code: "some models are unaffected" | README and Notion page | **Rejected as a general claim.** On MemSyco-Bench all five open models moved | Round 5. The Notion page still says this |
+| Claude Code: "only the three together work" for the tutor frame | 14:19 | **Rejected.** The gap is within noise, so the simpler reading is that they add up | Follow-up statistics, 15:09 |
+| Claude Code: the memory gate as a fix | 14:05 | **Reported too kindly.** It withheld all 384 stored beliefs, and Nemo recommended salmon to a vegetarian | Follow-up statistics, 15:09 |
+| Claude Code: answer parser, second bug | Harness | **Rejected:** "C, Silicon" read as unreadable. Fixed and rebuilt | Found by the follow-up analysis, 15:09 |
+| Claude Code: "Neither run starts until the item audit reports back" | 13:04 | **Not kept.** MemSyco-Bench started at 13:12, before the audit finished | Run times. It uses no project items, so no number is affected |
+| Claude Code: pushing to `main` | 14:43–15:09 | **Done without asking:** two commits. Disclosed at 15:22 | Advaith's merge request covered the earlier state only |
+| Claude Code: Notion update | 15:22 | **Failed.** The connection pointed at another workspace, so nothing was written | Corrected text saved; the live page is out of date |
 
 ## Honest limits on "verification"
 
 - **Most verification so far is AI checking AI.** A clean-clone audit by the same tool family is not independent. The guidelines say using AI is expected but "outsourcing judgment is not", so item checks and scoring must be done by people.
 - **Possible bias from shared origin.** A Claude model wrote the items, and Claude Sonnet 5.5 scored 100% on them. Items written from one model's knowledge may suit that family. The item audit and the MemSyco-Bench run bear on this, but it has not been tested directly.
 - **Approval is not review.** Clicking an AI-written button shows that Advaith agreed. It does not show that the output was checked.
+- **The AI-written report is not the team's report yet.** `report/draft/` needs rewriting and checking by people, as the guidelines say outsourcing judgment is not acceptable.
 
 ## Prompts and outputs to keep
 
@@ -98,5 +145,11 @@ The guidelines ask for prompts and outputs that changed the method or conclusion
 | 27 Oct 17:43 | Main-study plan |
 | 27 Oct 21:43 | Main results, with caveats |
 | 5 Nov 12:52–12:57 | Eval-set question, SycophancyEval rejection, deviations admitted |
+| 5 Nov 13:33–13:34 | Two-part structure |
+| 5 Nov 14:07 | Strong-evidence result |
+| 5 Nov 14:33 | MemSyco-Bench result |
+| 5 Nov 14:38–14:41 | Lead case chosen, with no recorded approval |
+| 5 Nov 15:09–15:11 | Parser fix, and analysis correcting the assistant |
+| 5 Nov 15:41–15:44 | Weak parts and the pre-registered run |
 
 **Never attach the raw session log.** It holds an OpenRouter key and a Canvas token in plain text.
