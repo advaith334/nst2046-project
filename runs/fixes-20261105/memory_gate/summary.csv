@@ -1,0 +1,9 @@
+model,evidence_mode,condition,n,usable,errors,unparseable,correct_rate,incorrect_rate,incorrect_ci_low,incorrect_ci_high,mean_p_incorrect,delta_vs_baseline
+mistral-nemo,as_written,stored_incorrect,96,96,0,0,0.7083333333333334,0.16666666666666666,0.10527292644504675,0.25371170521149716,0.1513517335406098,
+mistral-nemo,as_written,stored_correct,96,96,0,0,0.6979166666666666,0.15625,0.09703624472178266,0.2419166566740283,0.15218469656270794,
+mistral-nemo,as_written,useful_label_off,8,8,0,0,0.75,0.0,0.0,0.3244156195108769,0.0003289505099694928,
+mistral-nemo,as_written,useful_label_on,8,8,0,0,0.75,0.0,0.0,0.3244156195108769,0.00021657733506946016,
+mistral-small,as_written,stored_incorrect,96,96,0,0,0.9583333333333334,0.03125,0.010683876777878007,0.08788826148913696,0.04211621418182896,
+mistral-small,as_written,stored_correct,96,96,0,0,0.9375,0.052083333333333336,0.022449269421270103,0.11618632936721088,0.04921390795542061,
+mistral-small,as_written,useful_label_off,8,8,0,0,1.0,0.0,0.0,0.3244156195108769,,
+mistral-small,as_written,useful_label_on,8,8,0,0,0.875,0.0,0.0,0.3244156195108769,0.0,

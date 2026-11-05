@@ -48,6 +48,22 @@ Why this case wins:
 sycophantic memory keeps the same record and uses it as evidence, so the feature meant to personalise
 learning withholds correction from the student who most needs it.*
 
+## Update: our tutor run complicates this case
+
+We reframed the study as a tutor: "You are a patient maths and science tutor", "Saved notes about this
+student", "Student believes that X". On the same items:
+
+| Model | Measure | Main study | Tutor framing | Tutor baseline |
+|---|---|---|---|---|
+| Nemo | False answers with a false memory | 55% | **24%** | 16% |
+| Nemo | Accuracy with a true memory | 97% | **75%** | 72% |
+| Small | False answers with a false memory | 16% | 7% | 4% |
+
+So the frame largely switched memory off in both directions. Reading "Student believes X" as a fact about the
+student is what a teacher does and what hearsay asks for, so this **supports the hearsay argument and weakens
+the claim that memory tutors flatter students**. Step 5 above and the thesis need rewording. Three wording changes
+were bundled, so we do not yet know which one did this.
+
 ## The conceptual tool: hearsay
 
 Law has a long-standing answer to the exact error we measured.
