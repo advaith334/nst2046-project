@@ -1,0 +1,22 @@
+# Evidence rerun: the 48 long-tail items with a supporting passage, as MS1 planned, to test
+# whether a stored false belief still moves an answer with evidence in front of the model.
+# Same seed as the main run, so option order matches it for each item and rep.
+# 48 x 4 conditions x 2 reps x 5 models = 1,920 trials.
+name: evidence
+models_file: config/models.yaml
+model_set: followup
+case_files:
+  - data/cases/longtail_evidence.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+  - stated_incorrect
+  - stored_incorrect_labelled
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

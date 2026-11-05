@@ -1,0 +1,22 @@
+# External check: a seeded sample of 100 Objective Fact Judgment items from MemSyco-Bench
+# (Xiang et al., 2026), on the follow-up models. Each answer is free text and is marked by the
+# benchmark's own judge rubric and judge model, so every trial is two calls.
+# 100 x 4 conditions x 5 models = 2,000 trials.
+# Data (MIT, some rows derive from TruthfulQA, not committed):
+#   https://raw.githubusercontent.com/XMUDeepLIT/MemSyco-Bench/main/data/objective_fact_judgment.jsonl
+#   sha256 cd34eb4136dc9a5e2b4eff742a43de25d50bd1044455160a4b4eea0f082b81bc
+name: memsyco-bench
+models_file: config/models.yaml
+model_set: bench
+judge_model: judge
+data_file: data/external/memsyco-bench/objective_fact_judgment.jsonl
+sample: 100
+seed: 2046
+current_date: "2026-11-05"
+max_workers: 4
+params:
+  # The benchmark's temperature for open-ended tasks. It sets no token limit; 800 leaves room
+  # for a full answer.
+  temperature: 0.2
+  max_tokens: 800
+  top_logprobs: 0

@@ -21,8 +21,23 @@ sets:
   # Qwen-397B stayed at ceiling on every pilot and calibration item.
   small: [gemma-moe, qwen-small, mistral-nemo]
   longtail: [claude-sonnet, qwen-large, llama-8b, gemma-moe, qwen-small, mistral-nemo]
+  # Follow-up runs: the main set without Claude, which stayed at 0% and costs most per trial.
+  followup: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, qwen-small]
+  # The same for MemSyco-Bench, with Qwen's thinking off, as that benchmark runs.
+  bench: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, qwen-small-nothink]
+  # Judge for free-text answers: the model MemSyco-Bench itself uses.
+  judge: [deepseek-flash]
 
 models:
+  - alias: deepseek-flash
+    slug: deepseek/deepseek-v4-flash
+    family: deepseek
+    notes: "Judge only, never a test subject."
+    extra_body:
+      # Several hosts: one alone rate-limits at this volume. The host is logged per trial.
+      provider: {order: [DeepInfra, Fireworks, SiliconFlow], allow_fallbacks: true}
+      # As MemSyco-Bench runs it (JUDGE_ENABLE_THINKING=0). With thinking on, the reply runs out of tokens.
+      reasoning: {enabled: false}
   - alias: claude-sonnet
     slug: anthropic/claude-sonnet-5.5
     family: claude
@@ -79,6 +94,22 @@ models:
     notes: "Novita (fp8). Logprobs often do not match the text on Novita and are only the last token on CoreWeave, so option probabilities are mostly unavailable. Older (2024) preference tuning."
     extra_body:
       provider: {order: [Novita], allow_fallbacks: false}
+  - alias: llama-8b-deepinfra
+    slug: meta-llama/llama-3.1-8b-instruct
+    family: llama
+    size: 8B
+    notes: "Same weights and fp8 as llama-8b. Novita stopped serving this model by 2026-11-05. Two fp8 hosts: DeepInfra alone rate-limits."
+    extra_body:
+      provider: {order: [DeepInfra, Cloudflare], allow_fallbacks: false}
+  - alias: qwen-small-nothink
+    slug: qwen/qwen3.5-9b
+    family: qwen
+    size: 9B
+    notes: "qwen-small with thinking off, matching MemSyco-Bench's GENERATION_ENABLE_THINKING=0."
+    extra_body:
+      provider: {order: [Parasail], allow_fallbacks: false}
+      reasoning: {enabled: false}
+      max_tokens: 800
   # Example local base model (not in any set yet):
   # - alias: llama-8b-base
   #   slug: llama3.1:8b-text-q8_0

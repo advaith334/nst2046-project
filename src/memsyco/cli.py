@@ -1,4 +1,4 @@
-"""Command line: memsyco validate | render-prompts | run | report | screen | rating-sheet | agreement | list-models."""
+"""Command line: memsyco validate | render-prompts | run | report | screen | bench | rating-sheet | agreement | list-models."""
 
 from __future__ import annotations
 
@@ -107,6 +107,24 @@ def screen(run_dir: Path, config: Path = DEFAULT_CONFIG) -> None:
     raw = raw_table(load_trials(run_dir / "trials.jsonl"), {c.id: c for c in cases})
     write_screen(run_dir, raw)
     typer.echo((run_dir / "screen.md").read_text())
+
+
+@app.command()
+def bench(config: Path = Path("config/memsyco_bench.yaml"), dry_run: bool = False, run_id: str | None = None,
+          limit: int | None = None, runs_dir: Path = Path("runs"),
+          max_cost: float | None = typer.Option(None, help="Stop once this many USD are spent, judge calls included.")) -> None:
+    """External check on MemSyco-Bench (resumes an existing run_id), then write the report."""
+    from .bench import FakeBenchClient, load_bench_config, run as run_bench, write_report
+    from .client import OpenAICompatClient
+
+    load_dotenv()
+    cfg = load_bench_config(config)
+    run_id = run_id or f"{datetime.now():%Y%m%d-%H%M%S}-{cfg.name}{'-dry' if dry_run else ''}"
+    client = FakeBenchClient() if dry_run else OpenAICompatClient()
+    out_dir = runs_dir / run_id
+    run_bench(cfg, client, out_dir, run_id, limit=limit, max_cost=max_cost)
+    write_report(out_dir)
+    typer.echo(f"results in {out_dir}/ (summary.md, paired.csv, scored.csv, trials.jsonl)")
 
 
 @app.command("rating-sheet")
