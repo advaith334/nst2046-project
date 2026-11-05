@@ -1,0 +1,13 @@
+judge_provider,condition,mean,size
+DeepInfra,full_dialogue,0.559406,202
+DeepInfra,no_memory,0.2,215
+DeepInfra,snippet,0.591346,208
+DeepInfra,snippet_labelled,0.379913,229
+Fireworks,full_dialogue,0.512605,238
+Fireworks,no_memory,0.242857,210
+Fireworks,snippet,0.589862,217
+Fireworks,snippet_labelled,0.356436,202
+SiliconFlow,full_dialogue,0.566667,60
+SiliconFlow,no_memory,0.2,75
+SiliconFlow,snippet,0.533333,75
+SiliconFlow,snippet_labelled,0.318841,69

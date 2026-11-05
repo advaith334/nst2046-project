@@ -1,0 +1,109 @@
+items,model,measure,contrast,est,ci_low,ci_high,item_p
+all 48,mistral-nemo,memory effect,none minus weak,0.239583,0.114583,0.375,0.00161886
+all 48,mistral-nemo,label-arm effect,none minus weak,0.104167,0,0.21875,0.0991821
+all 48,mistral-nemo,label reduction,none minus weak,0.135417,0.0208333,0.25,0.039814
+all 48,mistral-nemo,memory effect,weak minus strong,0.15625,0.0729167,0.28125,0.00585938
+all 48,mistral-nemo,label-arm effect,weak minus strong,0.0729167,0.03125,0.15625,0.03125
+all 48,mistral-nemo,label reduction,weak minus strong,0.0833333,0.0208333,0.177083,0.0761719
+all 48,mistral-nemo,memory effect,none minus strong,0.395833,0.270833,0.53125,1.40071e-06
+all 48,mistral-nemo,label-arm effect,none minus strong,0.177083,0.0729167,0.302083,0.00463867
+all 48,mistral-nemo,label reduction,none minus strong,0.21875,0.129615,0.333333,0.000106812
+all 48,mistral-small,memory effect,none minus weak,0.0416667,-0.0416667,0.135417,0.492188
+all 48,mistral-small,label-arm effect,none minus weak,0.0208333,-0.0416667,0.114583,0.78125
+all 48,mistral-small,label reduction,none minus weak,0.0208333,-0.0208333,0.0729167,0.6875
+all 48,mistral-small,memory effect,weak minus strong,0.0833333,0.03125,0.177083,0.03125
+all 48,mistral-small,label-arm effect,weak minus strong,0.0625,0.0208333,0.145833,0.0625
+all 48,mistral-small,label reduction,weak minus strong,0.0208333,0,0.0729167,0.5
+all 48,mistral-small,memory effect,none minus strong,0.125,0.0625,0.229167,0.0078125
+all 48,mistral-small,label-arm effect,none minus strong,0.0833333,0.0208333,0.1875,0.125
+all 48,mistral-small,label reduction,none minus strong,0.0416667,0.0104167,0.09375,0.125
+drop lt_most_islands,mistral-nemo,memory effect,none minus weak,0.244681,0.117021,0.382979,0.00161886
+drop lt_most_islands,mistral-nemo,label-arm effect,none minus weak,0.106383,0,0.223404,0.0991821
+drop lt_most_islands,mistral-nemo,label reduction,none minus weak,0.138298,0.0212766,0.255319,0.039814
+drop lt_most_islands,mistral-nemo,memory effect,weak minus strong,0.159574,0.0744681,0.276596,0.00585938
+drop lt_most_islands,mistral-nemo,label-arm effect,weak minus strong,0.0744681,0.0319149,0.159574,0.03125
+drop lt_most_islands,mistral-nemo,label reduction,weak minus strong,0.0851064,0.0212766,0.180851,0.0761719
+drop lt_most_islands,mistral-nemo,memory effect,none minus strong,0.404255,0.276596,0.542553,1.40071e-06
+drop lt_most_islands,mistral-nemo,label-arm effect,none minus strong,0.180851,0.0744681,0.308511,0.00463867
+drop lt_most_islands,mistral-nemo,label reduction,none minus strong,0.223404,0.12766,0.329787,0.000106812
+drop lt_most_islands,mistral-small,memory effect,none minus weak,0.0212766,-0.0531915,0.0957447,0.796875
+drop lt_most_islands,mistral-small,label-arm effect,none minus weak,0,-0.0531915,0.0744681,1
+drop lt_most_islands,mistral-small,label reduction,none minus weak,0.0212766,-0.0212766,0.0744681,0.6875
+drop lt_most_islands,mistral-small,memory effect,weak minus strong,0.0851064,0.0319149,0.180851,0.03125
+drop lt_most_islands,mistral-small,label-arm effect,weak minus strong,0.0638298,0.0212766,0.138298,0.0625
+drop lt_most_islands,mistral-small,label reduction,weak minus strong,0.0212766,0,0.0744681,0.5
+drop lt_most_islands,mistral-small,memory effect,none minus strong,0.106383,0.0425532,0.212766,0.015625
+drop lt_most_islands,mistral-small,label-arm effect,none minus strong,0.0638298,0.0212766,0.170213,0.25
+drop lt_most_islands,mistral-small,label reduction,none minus strong,0.0425532,0.0106383,0.0957447,0.125
+drop 8 numerical,mistral-nemo,memory effect,none minus weak,0.3125,0.1875,0.4625,0.000144958
+drop 8 numerical,mistral-nemo,label-arm effect,none minus weak,0.1625,0.0625,0.2875,0.012207
+drop 8 numerical,mistral-nemo,label reduction,none minus weak,0.15,0.0375,0.275,0.0340576
+drop 8 numerical,mistral-nemo,memory effect,weak minus strong,0.075,0.0125,0.1875,0.15625
+drop 8 numerical,mistral-nemo,label-arm effect,weak minus strong,0.0125,0,0.0625,1
+drop 8 numerical,mistral-nemo,label reduction,weak minus strong,0.0625,0,0.15,0.1875
+drop 8 numerical,mistral-nemo,memory effect,none minus strong,0.3875,0.25,0.5375,1.88351e-05
+drop 8 numerical,mistral-nemo,label-arm effect,none minus strong,0.175,0.0625,0.3125,0.0102539
+drop 8 numerical,mistral-nemo,label reduction,none minus strong,0.2125,0.1125,0.3375,0.000732422
+drop 8 numerical,mistral-small,memory effect,none minus weak,0.075,-0.0125,0.175,0.21875
+drop 8 numerical,mistral-small,label-arm effect,none minus weak,0.05,0,0.1625,0.375
+drop 8 numerical,mistral-small,label reduction,none minus weak,0.025,-0.0125,0.0875,0.625
+drop 8 numerical,mistral-small,memory effect,weak minus strong,0.0625,0.0125,0.175,0.25
+drop 8 numerical,mistral-small,label-arm effect,weak minus strong,0.05,0.0125,0.15,0.25
+drop 8 numerical,mistral-small,label reduction,weak minus strong,0.0125,0,0.0625,1
+drop 8 numerical,mistral-small,memory effect,none minus strong,0.1375,0.0625,0.2625,0.015625
+drop 8 numerical,mistral-small,label-arm effect,none minus strong,0.1,0.025,0.225,0.125
+drop 8 numerical,mistral-small,label reduction,none minus strong,0.0375,0.0125,0.1,0.25
+drop islands + numerical,mistral-nemo,memory effect,none minus weak,0.320513,0.192308,0.461538,0.000144958
+drop islands + numerical,mistral-nemo,label-arm effect,none minus weak,0.166667,0.0641026,0.294872,0.012207
+drop islands + numerical,mistral-nemo,label reduction,none minus weak,0.153846,0.025641,0.282051,0.0340576
+drop islands + numerical,mistral-nemo,memory effect,weak minus strong,0.0769231,0.0128205,0.192308,0.15625
+drop islands + numerical,mistral-nemo,label-arm effect,weak minus strong,0.0128205,0,0.0642475,1
+drop islands + numerical,mistral-nemo,label reduction,weak minus strong,0.0641026,0,0.153846,0.1875
+drop islands + numerical,mistral-nemo,memory effect,none minus strong,0.397436,0.25641,0.551282,1.88351e-05
+drop islands + numerical,mistral-nemo,label-arm effect,none minus strong,0.179487,0.0641026,0.320513,0.0102539
+drop islands + numerical,mistral-nemo,label reduction,none minus strong,0.217949,0.115385,0.346154,0.000732422
+drop islands + numerical,mistral-small,memory effect,none minus weak,0.0512821,-0.0384615,0.141026,0.40625
+drop islands + numerical,mistral-small,label-arm effect,none minus weak,0.025641,-0.0128205,0.115385,0.75
+drop islands + numerical,mistral-small,label reduction,none minus weak,0.025641,-0.0128205,0.0897436,0.625
+drop islands + numerical,mistral-small,memory effect,weak minus strong,0.0641026,0.0128205,0.179487,0.25
+drop islands + numerical,mistral-small,label-arm effect,weak minus strong,0.0512821,0.0128205,0.153846,0.25
+drop islands + numerical,mistral-small,label reduction,weak minus strong,0.0128205,0,0.0641026,1
+drop islands + numerical,mistral-small,memory effect,none minus strong,0.115385,0.0384615,0.230769,0.03125
+drop islands + numerical,mistral-small,label-arm effect,none minus strong,0.0769231,0.025641,0.205128,0.25
+drop islands + numerical,mistral-small,label reduction,none minus strong,0.0384615,0.0128205,0.102564,0.25
+drop islands + numerical + 3 sum-based science,mistral-nemo,memory effect,none minus weak,0.291667,0.152778,0.444444,0.000823975
+drop islands + numerical + 3 sum-based science,mistral-nemo,label-arm effect,none minus weak,0.152778,0.0416667,0.291667,0.0322266
+drop islands + numerical + 3 sum-based science,mistral-nemo,label reduction,none minus weak,0.138889,0.0138889,0.263889,0.0751953
+drop islands + numerical + 3 sum-based science,mistral-nemo,memory effect,weak minus strong,0.0833333,0.0138889,0.194444,0.15625
+drop islands + numerical + 3 sum-based science,mistral-nemo,label-arm effect,weak minus strong,0.0138889,0,0.073065,1
+drop islands + numerical + 3 sum-based science,mistral-nemo,label reduction,weak minus strong,0.0694444,0,0.166667,0.1875
+drop islands + numerical + 3 sum-based science,mistral-nemo,memory effect,none minus strong,0.375,0.222222,0.527778,0.000108719
+drop islands + numerical + 3 sum-based science,mistral-nemo,label-arm effect,none minus strong,0.166667,0.0555556,0.305556,0.0263672
+drop islands + numerical + 3 sum-based science,mistral-nemo,label reduction,none minus strong,0.208333,0.111111,0.347222,0.00244141
+drop islands + numerical + 3 sum-based science,mistral-small,memory effect,none minus weak,0.0416667,-0.0416667,0.138889,0.5625
+drop islands + numerical + 3 sum-based science,mistral-small,label-arm effect,none minus weak,0.0277778,-0.0138889,0.125,0.75
+drop islands + numerical + 3 sum-based science,mistral-small,label reduction,none minus weak,0.0138889,-0.0277778,0.0694444,1
+drop islands + numerical + 3 sum-based science,mistral-small,memory effect,weak minus strong,0.0694444,0.0138889,0.194444,0.25
+drop islands + numerical + 3 sum-based science,mistral-small,label-arm effect,weak minus strong,0.0555556,0.0138889,0.166667,0.25
+drop islands + numerical + 3 sum-based science,mistral-small,label reduction,weak minus strong,0.0138889,0,0.0694444,1
+drop islands + numerical + 3 sum-based science,mistral-small,memory effect,none minus strong,0.111111,0.0416667,0.236111,0.0625
+drop islands + numerical + 3 sum-based science,mistral-small,label-arm effect,none minus strong,0.0833333,0.0277778,0.222222,0.25
+drop islands + numerical + 3 sum-based science,mistral-small,label reduction,none minus strong,0.0277778,0,0.0972222,0.5
+only 8 numerical,mistral-nemo,memory effect,none minus weak,-0.125,-0.5,0.125,0.75
+only 8 numerical,mistral-nemo,label-arm effect,none minus weak,-0.1875,-0.375,0.0625,0.375
+only 8 numerical,mistral-nemo,label reduction,none minus weak,0.0625,-0.1875,0.4375,1
+only 8 numerical,mistral-nemo,memory effect,weak minus strong,0.5625,0.25,0.875,0.0625
+only 8 numerical,mistral-nemo,label-arm effect,weak minus strong,0.375,0.1875,0.625,0.0625
+only 8 numerical,mistral-nemo,label reduction,weak minus strong,0.1875,-0.0625,0.5,0.5
+only 8 numerical,mistral-nemo,memory effect,none minus strong,0.4375,0.125,0.75,0.125
+only 8 numerical,mistral-nemo,label-arm effect,none minus strong,0.1875,-0.0625,0.5,0.5
+only 8 numerical,mistral-nemo,label reduction,none minus strong,0.25,0.0625,0.5625,0.25
+only 8 numerical,mistral-small,memory effect,none minus weak,-0.125,-0.3125,0,0.5
+only 8 numerical,mistral-small,label-arm effect,none minus weak,-0.125,-0.3125,0,0.5
+only 8 numerical,mistral-small,label reduction,none minus weak,0,-0.1875,0.1875,1
+only 8 numerical,mistral-small,memory effect,weak minus strong,0.1875,0.0625,0.375,0.25
+only 8 numerical,mistral-small,label-arm effect,weak minus strong,0.125,0,0.3125,0.5
+only 8 numerical,mistral-small,label reduction,weak minus strong,0.0625,0,0.25,1
+only 8 numerical,mistral-small,memory effect,none minus strong,0.0625,0,0.25,1
+only 8 numerical,mistral-small,label-arm effect,none minus strong,0,0,0,1
+only 8 numerical,mistral-small,label reduction,none minus strong,0.0625,0,0.25,1

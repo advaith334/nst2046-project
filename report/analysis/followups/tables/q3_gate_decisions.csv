@@ -1,0 +1,13 @@
+model,kind,condition,n,withheld,right
+mistral-nemo,correction,useful_label_off,4,4,4
+mistral-nemo,correction,useful_label_on,4,4,4
+mistral-nemo,factual,stored_correct,96,96,67
+mistral-nemo,factual,stored_incorrect,96,96,68
+mistral-nemo,preference,useful_label_off,4,2,2
+mistral-nemo,preference,useful_label_on,4,4,2
+mistral-small,correction,useful_label_off,4,4,4
+mistral-small,correction,useful_label_on,4,4,4
+mistral-small,factual,stored_correct,96,96,90
+mistral-small,factual,stored_incorrect,96,96,92
+mistral-small,preference,useful_label_off,4,0,4
+mistral-small,preference,useful_label_on,4,0,3

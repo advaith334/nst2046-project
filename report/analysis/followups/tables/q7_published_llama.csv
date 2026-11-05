@@ -1,0 +1,6 @@
+measure,published_low,published_high,ours,ours_low,ours_high,published_in_our_ci
+no memory,0.2992,0.2992,0.26,0.18,0.35,True
+full dialogue,0.5017,0.5017,0.56,0.46,0.66,True
+memory (ours: snippet; theirs: memory systems),0.5652,0.6133,0.47,0.37,0.57,True
+"rise, full dialogue",0.2025,0.2025,0.3,0.21,0.4,False
+"rise, memory",0.266,0.314,0.21,0.12,0.31,True

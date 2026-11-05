@@ -131,6 +131,7 @@ def test_selected_letter(text, expected):
 def test_selected_letter_completion_mode():
     assert selected_letter(" C\nExplanation", ["A", "B", "C", "D"], completion_mode=True) == "C"
     assert selected_letter(" Canberra", ["A", "B", "C", "D"], completion_mode=True) is None
+    assert selected_letter(" C, Silicon", ["A", "B", "C", "D"], completion_mode=True) == "C"
 
 
 def test_option_probs_maps_to_canonical():

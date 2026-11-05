@@ -1,0 +1,13 @@
+arm,measure,fraction_removed,low,high,fieller_low,fieller_high
+nemo-base-local,answers,0.166667,0,0.35,-0.0235808,0.338575
+nemo-base-local,"answers, comma read",0.1875,0,0.372093,-0.00339679,0.359599
+nemo-base-local,probabilities,0.299261,0.235217,0.378422,0.231903,0.375957
+nemo-instruct-local,answers,0.444444,0.243277,0.630435,0.248391,0.640961
+nemo-instruct-local,"answers, comma read",0.391304,0.222222,0.578947,0.211357,0.576433
+nemo-instruct-local,probabilities,0.427481,0.317508,0.546652,0.314995,0.552065
+nemo-instruct-local-chat,answers,0.521739,0.340909,0.708333,0.333563,0.713223
+nemo-instruct-local-chat,"answers, comma read",0.521739,0.340909,0.708333,0.333563,0.713223
+nemo-instruct-local-chat,probabilities,0.493535,0.353446,0.651269,0.349251,0.654662
+hosted,answers,0.564103,0.363636,0.78125,0.364908,0.798037
+hosted,"answers, comma read",0.564103,0.363636,0.78125,0.364908,0.798037
+hosted,probabilities,0.556597,0.412121,0.700448,0.417207,0.716739

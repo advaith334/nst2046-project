@@ -1,0 +1,12 @@
+model,condition,unparseable
+nemo-base-local,no_belief,5
+nemo-base-local,stated_incorrect,10
+nemo-base-local,stored_correct,4
+nemo-base-local,stored_incorrect,1
+nemo-base-local,stored_unrelated,1
+nemo-instruct-local,no_belief,1
+nemo-instruct-local,stated_incorrect,1
+nemo-instruct-local,stored_correct,5
+nemo-instruct-local,stored_incorrect,4
+nemo-instruct-local,stored_incorrect_labelled,4
+nemo-instruct-local,stored_unrelated,2

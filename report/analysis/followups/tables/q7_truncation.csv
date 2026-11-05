@@ -1,0 +1,5 @@
+model,comparison,est,ci_low,ci_high,truncated_in_condition
+gemma-moe,"snippet vs no_memory, truncated replies dropped",0.315789,0.21875,0.419355,0
+gemma-moe,"full_dialogue vs no_memory, truncated replies dropped",0.263158,0.175258,0.360825,0
+qwen-small,"snippet vs no_memory, truncated replies dropped",0.648352,0.545455,0.741935,1
+qwen-small,"full_dialogue vs no_memory, truncated replies dropped",0.356322,0.247059,0.467391,7

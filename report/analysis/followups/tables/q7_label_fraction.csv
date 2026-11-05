@@ -1,0 +1,6 @@
+model,fraction_removed,low,high
+mistral-nemo,0.433333,0.107143,0.733333
+mistral-small,0.583333,0.346974,0.833333
+llama-8b,0.809524,0.347826,1.4
+gemma-moe,0.451613,0.257143,0.666667
+qwen-small,0.703125,0.561557,0.836364

@@ -1,0 +1,5 @@
+memory,models,spread_points,perm_p
+snippet,all five,43,4.99975e-05
+snippet,without Qwen,15,0.218289
+full_dialogue,all five,11,0.447178
+full_dialogue,without Qwen,10,0.533673

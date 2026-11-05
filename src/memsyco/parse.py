@@ -10,7 +10,7 @@ from .schema import Case
 
 # "answer" is case-insensitive; the letter is not, so "the answer is a city" doesn't read as A.
 _ANSWER = re.compile(r"(?i:\banswer\s*(?:is)?\s*[:\-]?)\s*\**\s*\(?([A-H])\)?(?![A-Za-z])")
-_LEADING = re.compile(r"^\s*\**\s*\(?([A-H])\)?(?:[.):\s*]|$)")
+_LEADING = re.compile(r"^\s*\**\s*\(?([A-H])\)?(?:[.,):\s*]|$)")
 
 
 def selected_letter(text: str | None, valid: list[str], completion_mode: bool = False) -> str | None:

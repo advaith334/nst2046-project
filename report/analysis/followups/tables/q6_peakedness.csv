@@ -1,0 +1,5 @@
+arm,median_false_prob_no_belief,share_false_prob_below_1pct,median_answer_prob_no_belief
+nemo-base-local,0.10986,0.104167,0.647704
+nemo-instruct-local,0.00723264,0.541667,0.968756
+nemo-instruct-local-chat,0.00341823,0.541667,0.972967
+hosted,0.00216491,0.604167,0.991405

@@ -1,0 +1,123 @@
+{
+ "audit": {
+  "runs_checked": 25,
+  "trials_rescored": 16640,
+  "score_mismatches": 0,
+  "bad": {},
+  "option_order_mismatches": 0,
+  "stored_prompt_differences_across_replicates": 0,
+  "hosts": {
+   "claude-sonnet": {
+    "Anthropic": 688
+   },
+   "gemma-moe": {
+    "Google": 1168
+   },
+   "llama-8b": {
+    "Novita": 688
+   },
+   "mistral-nemo": {
+    "Io Net": 5360
+   },
+   "mistral-small": {
+    "Parasail": 5264
+   },
+   "qwen-small": {
+    "Parasail": 1168
+   },
+   "qwen-large": {
+    "Alibaba": 96
+   },
+   "llama-8b-deepinfra": {
+    "Cloudflare": 466,
+    "DeepInfra": 14
+   },
+   "nemo-base-local": {
+    "local": 576
+   },
+   "nemo-instruct-local": {
+    "local": 576
+   },
+   "nemo-instruct-local-chat": {
+    "local": 576
+   }
+  }
+ },
+ "q6_repro_vs_pool": {
+  "pool": 0.5895833333333332,
+  "est": 0.024999999999999994,
+  "ci_low": -0.041666666666666664,
+  "ci_high": 0.09583333333333333,
+  "pct_low": -0.043750000000000004,
+  "pct_high": 0.09375,
+  "se_boot": 0.034937160339799954,
+  "items_up": 11,
+  "items_down": 7,
+  "item_p": 0.5262673686631567
+ },
+ "q6_repro_effect": {
+  "effect_local": 0.4791666666666667,
+  "effect_hosted_first": 0.40625,
+  "est": 0.07291666666666667,
+  "ci_low": -0.010416666666666666,
+  "ci_high": 0.17708333333333334,
+  "pct_low": -0.020833333333333332,
+  "pct_high": 0.16666666666666666,
+  "se_boot": 0.0482203544902906,
+  "items_up": 9,
+  "items_down": 5,
+  "item_p": 0.21435546875
+ },
+ "q6_repro_label": {
+  "est": -0.020833333333333332,
+  "ci_low": -0.125,
+  "ci_high": 0.08333333333333333,
+  "pct_low": -0.125,
+  "pct_high": 0.08333333333333333,
+  "se_boot": 0.0524924458277627,
+  "items_up": 6,
+  "items_down": 8,
+  "item_p": 0.847900390625
+ },
+ "q6_unparseable_rescued": {
+  "nemo-base-local": {
+   "logged": 21,
+   "read_with_comma": 21
+  },
+  "nemo-instruct-local": {
+   "logged": 17,
+   "read_with_comma": 17
+  }
+ },
+ "q7": {
+  "llama_hosts": {
+   "Cloudflare": 344,
+   "DeepInfra": 56
+  },
+  "judge_hosts": {
+   "Fireworks": 867,
+   "DeepInfra": 854,
+   "SiliconFlow": 279
+  },
+  "truncated": {
+   "gemma-moe": 8,
+   "qwen-small-nothink": 17
+  },
+  "unique_sources": 100,
+  "pool_size": 300
+ },
+ "q8": {
+  "by_group": {
+   "27 Oct rounds": 3.55768396648,
+   "5 Nov follow-ups": 0.79389618836,
+   "local (free)": 0.0,
+   "smoke tests": 0.04055445808
+  },
+  "total": 4.392134612919999,
+  "usage_field_total": 4.148171581919999,
+  "all_attempt_rows": 20670,
+  "all_trials": 20068,
+  "new_trials": 14512,
+  "zero_billed_upstream": 0.0002285
+ }
+}

@@ -1,0 +1,6 @@
+model,nb_accuracy,nb_false,si_false,st_false,lb_false,si_effect,si_low,si_high,si_toward,si_away,si_p,st_effect,st_low,st_high,lb_effect,lb_low,lb_high
+mistral-nemo,1,0,0.0104167,0.0416667,0,0.0104167,0,0.0520833,1,0,1,0.0416667,0.0104167,0.125,0,0,0
+mistral-small,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+llama-8b,1,0,0,0.0520833,0,0,0,0,0,0,1,0.0520833,0.0104167,0.135417,0,0,0
+gemma-moe,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+qwen-small,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0

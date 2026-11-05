@@ -1,0 +1,5 @@
+model,condition,draft_false,final_false,draft_correct,final_correct,draft_right_final_false,draft_false_final_right
+mistral-nemo,stored_correct,0.15625,0.0729167,0.708333,0.78125,0,5
+mistral-nemo,stored_incorrect,0.15625,0.46875,0.71875,0.427083,26,0
+mistral-small,stored_correct,0.03125,0.0208333,0.958333,0.979167,0,1
+mistral-small,stored_incorrect,0.03125,0.0833333,0.958333,0.90625,5,0
