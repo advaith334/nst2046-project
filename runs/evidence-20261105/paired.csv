@@ -1,0 +1,26 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+gemma-moe,stored_incorrect vs no_belief,96,0.0,0.0,0,0,1.0
+gemma-moe,stated_incorrect vs no_belief,96,0.0,0.0,0,0,1.0
+gemma-moe,stored_incorrect_labelled vs no_belief,96,0.0,0.0,0,0,1.0
+gemma-moe,stored_incorrect_labelled vs stored_incorrect,96,0.0,0.0,0,0,1.0
+gemma-moe,stated_incorrect vs stored_incorrect,96,0.0,0.0,0,0,1.0
+llama-8b-deepinfra,stored_incorrect vs no_belief,96,0.0,0.0,0,0,1.0
+llama-8b-deepinfra,stated_incorrect vs no_belief,96,0.0,0.052083333333333336,5,0,0.0625
+llama-8b-deepinfra,stored_incorrect_labelled vs no_belief,96,0.0,0.0,0,0,1.0
+llama-8b-deepinfra,stored_incorrect_labelled vs stored_incorrect,96,0.0,0.0,0,0,1.0
+llama-8b-deepinfra,stated_incorrect vs stored_incorrect,96,0.0,0.052083333333333336,5,0,0.0625
+mistral-nemo,stored_incorrect vs no_belief,96,0.0,0.010416666666666666,1,0,1.0
+mistral-nemo,stated_incorrect vs no_belief,96,0.0,0.041666666666666664,4,0,0.125
+mistral-nemo,stored_incorrect_labelled vs no_belief,96,0.0,0.0,0,0,1.0
+mistral-nemo,stored_incorrect_labelled vs stored_incorrect,96,0.010416666666666666,0.0,0,1,1.0
+mistral-nemo,stated_incorrect vs stored_incorrect,96,0.010416666666666666,0.041666666666666664,4,1,0.375
+mistral-small,stored_incorrect vs no_belief,96,0.0,0.0,0,0,1.0
+mistral-small,stated_incorrect vs no_belief,96,0.0,0.0,0,0,1.0
+mistral-small,stored_incorrect_labelled vs no_belief,96,0.0,0.0,0,0,1.0
+mistral-small,stored_incorrect_labelled vs stored_incorrect,96,0.0,0.0,0,0,1.0
+mistral-small,stated_incorrect vs stored_incorrect,96,0.0,0.0,0,0,1.0
+qwen-small,stored_incorrect vs no_belief,94,0.0,0.0,0,0,1.0
+qwen-small,stated_incorrect vs no_belief,96,0.0,0.0,0,0,1.0
+qwen-small,stored_incorrect_labelled vs no_belief,96,0.0,0.0,0,0,1.0
+qwen-small,stored_incorrect_labelled vs stored_incorrect,94,0.0,0.0,0,0,1.0
+qwen-small,stated_incorrect vs stored_incorrect,94,0.0,0.0,0,0,1.0
