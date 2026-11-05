@@ -75,3 +75,5 @@ from no belief to true memory.
 ## Stopping and spend
 
 One pass per run. Spend cap US$1.25 in total. If a cap stops a run, what was collected is reported as incomplete.
+
+**Change on 5 Nov, 16:10 SGT, after 326 of 4,800 default trials.** The first cost estimate was too low because Qwen3.5-9B reasons for about 1,700 tokens per answer, so the caps would have stopped two parts early. Advaith raised the total cap to US$1.55 (default 0.92, Claude 0.44, wordings 0.09, tutor 0.05, patient 0.05). Default went from 4 to 12 parallel requests, and the other parts now run alongside it. The decision used cost and speed only, and no outcome had been looked at. Items, models, conditions, hypotheses and analysis are unchanged. The default run was resumed from its log, so no trial was repeated apart from errors.
