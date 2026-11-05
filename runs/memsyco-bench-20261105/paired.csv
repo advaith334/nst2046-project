@@ -1,0 +1,26 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+gemma-moe,full_dialogue vs no_memory,100,0.16,0.42,27,1,2.1606683731079102e-07
+gemma-moe,snippet vs no_memory,100,0.16,0.47,33,2,3.6729034036397934e-08
+gemma-moe,snippet_labelled vs no_memory,100,0.16,0.33,20,3,0.00048828125
+gemma-moe,snippet_labelled vs snippet,100,0.47,0.33,1,15,0.000518798828125
+gemma-moe,full_dialogue vs snippet,100,0.47,0.42,11,16,0.44206833839416504
+llama-8b-deepinfra,full_dialogue vs no_memory,100,0.26,0.56,31,1,1.5366822481155396e-08
+llama-8b-deepinfra,snippet vs no_memory,100,0.26,0.47,25,4,0.00010371580719947815
+llama-8b-deepinfra,snippet_labelled vs no_memory,100,0.26,0.3,16,12,0.5715881884098053
+llama-8b-deepinfra,snippet_labelled vs snippet,100,0.47,0.3,9,26,0.0059881205670535564
+llama-8b-deepinfra,full_dialogue vs snippet,100,0.47,0.56,18,9,0.12207812070846558
+mistral-nemo,full_dialogue vs no_memory,100,0.3,0.61,37,6,1.636124125070637e-06
+mistral-nemo,snippet vs no_memory,100,0.3,0.6,38,8,9.24769992138863e-06
+mistral-nemo,snippet_labelled vs no_memory,100,0.3,0.47,24,7,0.003326892852783203
+mistral-nemo,snippet_labelled vs snippet,100,0.6,0.47,9,22,0.029449373483657837
+mistral-nemo,full_dialogue vs snippet,100,0.6,0.61,17,16,1.0
+mistral-small,full_dialogue vs no_memory,100,0.22,0.58,40,4,1.7051434042514302e-08
+mistral-small,snippet vs no_memory,100,0.22,0.58,40,4,1.7051434042514302e-08
+mistral-small,snippet_labelled vs no_memory,100,0.22,0.37,22,7,0.008130058646202087
+mistral-small,snippet_labelled vs snippet,100,0.58,0.37,4,25,0.00010371580719947815
+mistral-small,full_dialogue vs snippet,100,0.58,0.58,14,14,1.0
+qwen-small-nothink,full_dialogue vs no_memory,100,0.15,0.52,40,3,3.0213413992896676e-09
+qwen-small-nothink,snippet vs no_memory,100,0.15,0.79,64,0,1.0842021724855044e-19
+qwen-small-nothink,snippet_labelled vs no_memory,100,0.15,0.34,23,4,0.000310748815536499
+qwen-small-nothink,snippet_labelled vs snippet,100,0.79,0.34,2,47,4.355626970209414e-12
+qwen-small-nothink,full_dialogue vs snippet,100,0.79,0.52,9,36,6.57466324582856e-05

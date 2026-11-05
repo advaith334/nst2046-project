@@ -1,0 +1,241 @@
+{
+  "run_id": "memsyco-bench-20261105",
+  "created_at": "2026-11-05T05:12:35.023264+00:00",
+  "git": {
+    "commit": "c2d236f0133162131c409b06fda060372721ab16",
+    "dirty": true
+  },
+  "config": {
+    "name": "memsyco-bench",
+    "models_file": "config/models.yaml",
+    "model_set": "bench",
+    "judge_model": "judge",
+    "data_file": "data/external/memsyco-bench/objective_fact_judgment.jsonl",
+    "sample": 100,
+    "seed": 2046,
+    "current_date": "2026-11-05",
+    "max_workers": 4,
+    "params": {
+      "temperature": 0.2,
+      "max_tokens": 800,
+      "top_logprobs": 0
+    }
+  },
+  "models": [
+    {
+      "alias": "mistral-nemo",
+      "slug": "mistralai/mistral-nemo",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "12B",
+      "tuning": "instruct",
+      "notes": "LP on Io Net (fp16). 2024 model.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Io Net"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "mistral-small",
+      "slug": "mistralai/mistral-small-3.2-24b-instruct",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "24B",
+      "tuning": "instruct",
+      "notes": "LP on Parasail (bf16). Newer, larger sibling of mistral-nemo.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "llama-8b-deepinfra",
+      "slug": "meta-llama/llama-3.1-8b-instruct",
+      "mode": "chat",
+      "family": "llama",
+      "size": "8B",
+      "tuning": "instruct",
+      "notes": "Same weights and fp8 as llama-8b. Novita stopped serving this model by 2026-11-05. Two fp8 hosts: DeepInfra alone rate-limits.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "DeepInfra",
+            "Cloudflare"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "gemma-moe",
+      "slug": "google/gemma-4-26b-a4b-it",
+      "mode": "chat",
+      "family": "gemma",
+      "size": "26B MoE (4B active)",
+      "tuning": "instruct",
+      "notes": "LP on Google's own host.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Google"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "qwen-small-nothink",
+      "slug": "qwen/qwen3.5-9b",
+      "mode": "chat",
+      "family": "qwen",
+      "size": "9B",
+      "tuning": "instruct",
+      "notes": "qwen-small with thinking off, matching MemSyco-Bench's GENERATION_ENABLE_THINKING=0.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        },
+        "reasoning": {
+          "enabled": false
+        },
+        "max_tokens": 800
+      }
+    }
+  ],
+  "judge": {
+    "alias": "deepseek-flash",
+    "slug": "deepseek/deepseek-v4-flash",
+    "mode": "chat",
+    "family": "deepseek",
+    "size": "",
+    "tuning": "instruct",
+    "notes": "Judge only, never a test subject.",
+    "extra_body": {
+      "provider": {
+        "order": [
+          "DeepInfra",
+          "Fireworks",
+          "SiliconFlow"
+        ],
+        "allow_fallbacks": true
+      },
+      "reasoning": {
+        "enabled": false
+      }
+    }
+  },
+  "cases": [
+    "consensus_obj_000285",
+    "consensus_obj_000208",
+    "consensus_obj_000169",
+    "consensus_obj_000209",
+    "consensus_obj_000156",
+    "consensus_obj_000102",
+    "consensus_obj_000063",
+    "consensus_obj_000253",
+    "consensus_obj_000089",
+    "consensus_obj_000140",
+    "consensus_obj_000240",
+    "consensus_obj_000167",
+    "consensus_obj_000005",
+    "consensus_obj_000153",
+    "consensus_obj_000092",
+    "consensus_obj_000016",
+    "consensus_obj_000202",
+    "consensus_obj_000271",
+    "consensus_obj_000275",
+    "consensus_obj_000170",
+    "consensus_obj_000162",
+    "consensus_obj_000268",
+    "consensus_obj_000002",
+    "consensus_obj_000194",
+    "consensus_obj_000033",
+    "consensus_obj_000127",
+    "consensus_obj_000006",
+    "consensus_obj_000050",
+    "consensus_obj_000101",
+    "consensus_obj_000060",
+    "consensus_obj_000236",
+    "consensus_obj_000114",
+    "consensus_obj_000024",
+    "consensus_obj_000044",
+    "consensus_obj_000030",
+    "consensus_obj_000256",
+    "consensus_obj_000214",
+    "consensus_obj_000248",
+    "consensus_obj_000051",
+    "consensus_obj_000221",
+    "consensus_obj_000239",
+    "consensus_obj_000106",
+    "consensus_obj_000242",
+    "consensus_obj_000263",
+    "consensus_obj_000115",
+    "consensus_obj_000175",
+    "consensus_obj_000053",
+    "consensus_obj_000296",
+    "consensus_obj_000096",
+    "consensus_obj_000216",
+    "consensus_obj_000148",
+    "consensus_obj_000070",
+    "consensus_obj_000026",
+    "consensus_obj_000084",
+    "consensus_obj_000145",
+    "consensus_obj_000020",
+    "consensus_obj_000143",
+    "consensus_obj_000159",
+    "consensus_obj_000094",
+    "consensus_obj_000074",
+    "consensus_obj_000105",
+    "consensus_obj_000262",
+    "consensus_obj_000123",
+    "consensus_obj_000243",
+    "consensus_obj_000252",
+    "consensus_obj_000073",
+    "consensus_obj_000282",
+    "consensus_obj_000226",
+    "consensus_obj_000245",
+    "consensus_obj_000183",
+    "consensus_obj_000161",
+    "consensus_obj_000155",
+    "consensus_obj_000093",
+    "consensus_obj_000254",
+    "consensus_obj_000058",
+    "consensus_obj_000021",
+    "consensus_obj_000104",
+    "consensus_obj_000293",
+    "consensus_obj_000130",
+    "consensus_obj_000003",
+    "consensus_obj_000272",
+    "consensus_obj_000095",
+    "consensus_obj_000037",
+    "consensus_obj_000290",
+    "consensus_obj_000007",
+    "consensus_obj_000288",
+    "consensus_obj_000168",
+    "consensus_obj_000188",
+    "consensus_obj_000179",
+    "consensus_obj_000273",
+    "consensus_obj_000137",
+    "consensus_obj_000166",
+    "consensus_obj_000190",
+    "consensus_obj_000260",
+    "consensus_obj_000284",
+    "consensus_obj_000281",
+    "consensus_obj_000014",
+    "consensus_obj_000056",
+    "consensus_obj_000103",
+    "consensus_obj_000018"
+  ],
+  "planned_trials": 2000
+}
