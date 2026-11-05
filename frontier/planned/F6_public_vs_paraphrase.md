@@ -45,7 +45,7 @@ test the same fact and misconception.
 
 ## When the public items appeared
 
-MemSyco-Bench was posted in June 2026 (v3 on 15 Oct). Sonnet 5.5, Haiku 5.5, Terra 6.1 and Argon were
+MemSyco-Bench was posted in June 2026 (v3 on 15 Oct). Sonnet 5.5, Haiku 5.5 and Terra 6.1 were
 all released after that, but their training cutoffs are not public. If the benchmark postdates a
 model's training, a null result says nothing about contamination for that model.
 
@@ -81,7 +81,7 @@ Effort: half a day of code, plus drafting and two-member checking of 100 paraphr
 
 ## Cost (rough)
 
-100 items × 4 arms × 9 distinct models = 3,600 answers plus 3,600 judge calls (Sonnet once, shared by both tracks). **About $5–7**, Sonnet and Argon about a third each.
+100 items × 4 arms × 8 models = 3,200 answers plus 3,200 judge calls (Sonnet once, shared by both tracks). **About $5–7**, Sonnet and Argon about a third each.
 
 ## Limits
 

@@ -25,9 +25,9 @@ token probabilities. Only the models change.
 ## Models
 
 The `frontier` set from F1–F4 as it is: Claude Sonnet 5.5 with the main study's exact spec, and
-Haiku, Terra and Argon, all with reasoning at the host's default. This lines up with both the main
+Haiku and Terra, all with reasoning at the host's default. This lines up with both the main
 study (same settings as its Sonnet row) and F1–F4 (same models and settings). Re-running Sonnet
-also measures run-to-run noise against its 27 Oct row. About $3, more if Terra and Argon reason a lot.
+also measures run-to-run noise against its 27 Oct row. About $2.50, more if Terra reasons a lot.
 
 ## Outcomes and analysis
 

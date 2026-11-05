@@ -92,7 +92,7 @@ Effort: about a day, plus writing 48 natural long-tail tasks and checking them.
 ## Cost (rough)
 
 About 108 items × 4 cells × 2 conditions × 2 reps = 1,728 trials per model. Across both tracks this is
-**about $9–13**, Sonnet and Argon about a third each. Natural replies are longer than "Answer: X" lines, which is
+**about $6–9**, mostly Sonnet and Terra. Natural replies are longer than "Answer: X" lines, which is
 why this costs more than F1's stage B.
 
 ## Depends on

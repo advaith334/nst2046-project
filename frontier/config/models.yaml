@@ -2,16 +2,20 @@
 # is untouched. Slugs and hosts checked against the OpenRouter catalogue on 2026-11-05.
 #
 # Two tracks, each run separately with the same items and settings (frontier/README.md):
-#   frontier_models  Track A. Four frontier models, all with reasoning at the host's default, as
-#                    Claude Sonnet ran in the main study. Haiku, Terra and Argon are new, pinned to
-#                    their maker's host. Anthropic and OpenAI hosts ignore temperature.
+#   frontier_models  Track A. Claude Haiku 5.5 and GPT-6.1 Terra, new to the project, pinned to their
+#                    maker's host, reasoning at the host's default as Claude Sonnet ran in the main
+#                    study. Anthropic and OpenAI hosts ignore temperature.
 #   main_models      Track B. The main study's six models (config/models.yaml, set `main`), copied
 #                    exactly (tests/test_frontier.py fails if they drift), so results line up with the
 #                    existing runs. Llama uses the follow-ups' host. Mistral Nemo is the positive control.
-# Claude Sonnet is in both: it is the main study's frontier model.
+# Claude Sonnet, the main study's frontier model, runs once, in track B. The tracks share items,
+# prompts, settings and seed, so its results also count as track A's third frontier model.
+# Gemini 4 Argon was dropped for cost on 6 Nov (Sonnet's price); its entry is kept below for later.
 
 sets:
-  frontier_models: [claude-sonnet, claude-haiku, gpt-terra-openai, gemini-argon]
+  frontier_models: [claude-haiku, gpt-terra-openai]
+  # F1's item selection: the three frontier models, read from both tracks' screens.
+  selection: [claude-sonnet, claude-haiku, gpt-terra-openai]
   main_models: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, qwen-small, claude-sonnet]
   # Judge for F3's free-text replies: the main study's MemSyco-Bench judge.
   judge: [deepseek-flash]
@@ -49,6 +53,7 @@ models:
       provider: {order: [OpenAI], allow_fallbacks: false}
       max_tokens: 8000
       logprobs: false
+  # Not in any set (dropped for cost, 6 Nov). Add it to frontier_models and selection to run it.
   - alias: gemini-argon
     slug: google/gemini-4-argon
     family: gemini

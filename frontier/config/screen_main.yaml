@@ -5,8 +5,8 @@
 # a stored belief had nothing to move. This finds computed items they get wrong at least sometimes,
 # with reasoning at its default. No memory at all: no_belief only, 3 reps.
 # 64 items x 1 condition x 3 reps x 6 models = 1,152 trials.
-# This screen does not pick items (track A's does); it records which items each model is unsure
-# about, for the headroom scope in the analysis.
+# Claude Sonnet's answers here help pick the items, with track A's screen; the other five models'
+# don't. Every model's answers set its headroom scope in the analysis.
 # Paths are relative to frontier/. Models come from frontier/config/models.yaml, not the main registry.
 name: mainmodels-screen
 models_file: config/models.yaml

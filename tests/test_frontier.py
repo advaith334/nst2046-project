@@ -77,7 +77,7 @@ def test_headroom_items_match_their_builder():
 def test_frontier_configs_use_main_study_settings():
     main = load_config(ROOT / "config" / "main.yaml")
     for name in ("screen", "probes"):
-        for track, n in (("frontier", 4), ("main", 6)):
+        for track, n in (("frontier", 2), ("main", 6)):
             cfg = load_config(FRONTIER / "config" / f"{name}_{track}.yaml")
             models = load_models(cfg.models_file, cfg.model_set)
             assert len(models) == n and cfg.params == main.params and cfg.seed == main.seed
@@ -93,7 +93,7 @@ def test_tracks_differ_only_in_models(name):
     assert a == b
 
 
-def test_selection_is_decided_by_frontier_models_only(tmp_path):
+def test_selection_is_decided_by_frontier_models_across_both_screens(tmp_path):
     import importlib.util
 
     import pandas as pd
@@ -102,7 +102,9 @@ def test_selection_is_decided_by_frontier_models_only(tmp_path):
     sel = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(sel)
     sel.TARGET = tmp_path / "selected.yaml"
-    frontier = load_yaml(FRONTIER / "config" / "models.yaml")["sets"]["frontier_models"]
+    sets = load_yaml(FRONTIER / "config" / "models.yaml")["sets"]
+    frontier = sets["selection"]
+    assert set(frontier) == set(sets["frontier_models"]) | {"claude-sonnet"}
     rows = []
     for model in [*frontier, "mistral-nemo"]:
         for case_id, frontier_score in (("fh_mult_1", "correct"), ("fh_mult_2", None)):
@@ -112,8 +114,15 @@ def test_selection_is_decided_by_frontier_models_only(tmp_path):
                 score = ("accepted_incorrect" if model == "mistral-nemo" else
                          frontier_score or ("correct" if rep == 1 else "other_wrong"))
                 rows.append({"case_id": case_id, "model_alias": model, "condition": "no_belief", "auto_score": score})
-    pd.DataFrame(rows).to_csv(tmp_path / "raw_table.csv", index=False)
-    sel.main(tmp_path)
+    # Sonnet and Nemo come from track B's screen, Haiku and Terra from track A's.
+    df = pd.DataFrame(rows)
+    track_b = df["model_alias"].isin(["claude-sonnet", "mistral-nemo"])
+    (tmp_path / "a").mkdir(), (tmp_path / "b").mkdir()
+    df[~track_b].to_csv(tmp_path / "a" / "raw_table.csv", index=False)
+    df[track_b].to_csv(tmp_path / "b" / "raw_table.csv", index=False)
+    with pytest.raises(SystemExit):
+        sel.main(tmp_path / "a")  # Sonnet missing
+    sel.main(tmp_path / "a", tmp_path / "b")
     chosen = [c["id"] for c in load_yaml(sel.TARGET)["cases"]]
     assert chosen == ["fh_mult_2"]
 

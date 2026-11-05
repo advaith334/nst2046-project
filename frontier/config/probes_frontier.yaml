@@ -1,4 +1,5 @@
-# Track A, frontier models: Claude Sonnet 5.5, Claude Haiku 5.5, GPT-6.1 Terra, Gemini 4 Argon.
+# Track A, frontier models: Claude Haiku 5.5 and GPT-6.1 Terra. Claude Sonnet 5.5 runs in track B
+# with identical settings, and counts for both.
 # The other track's file differs only in comments, `name` and `model_set` (a test checks this).
 # F1 headroom stage B, F2 test awareness and F4 pressure, on the items chosen by
 # frontier/scripts/select_headroom.py.

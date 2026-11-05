@@ -17,7 +17,7 @@ models differ (details under [Models](#models-two-tracks)):
 
 | Track | Models | Run IDs start with | Configs end in |
 |---|---|---|---|
-| **A: frontier models** | Claude Sonnet 5.5, Claude Haiku 5.5, GPT-6.1 Terra, Gemini 4 Argon | `frontier-` | `_frontier.yaml` |
+| **A: frontier models** | Claude Haiku 5.5, GPT-6.1 Terra (+ Claude Sonnet 5.5, run once in track B) | `frontier-` | `_frontier.yaml` |
 | **B: main-study models** | The main study's six: Mistral Nemo, Mistral Small, Llama 3.1 8B, Gemma 4, Qwen3.5-9B, Claude Sonnet 5.5 | `mainmodels-` | `_main.yaml` |
 
 | Label | Name | Question | Item IDs | Runs (per track) |
@@ -112,16 +112,20 @@ Both sets are in `frontier/config/models.yaml`.
 
 | Track (set) | Model | Settings |
 |---|---|---|
-| A (`frontier_models`) | Claude Sonnet 5.5 | As in the main study (copied from `config/models.yaml`), Anthropic host, but 8,000 tokens: on computed items it can reason past 2,000 and never answer |
-| A | Claude Haiku 5.5, GPT-6.1 Terra, Gemini 4 Argon | New. Pinned to the maker's host. Terra and Argon get 8,000 tokens in case they reason, as Qwen does. Terra sends no token-probability request (OpenAI rejects it for reasoning models) |
-| B (`main_models`) | Mistral Nemo, Mistral Small 3.2, Llama 3.1 8B, Gemma 4 26B, Qwen3.5-9B, Claude Sonnet 5.5 | **The main study's set (`main`), as run there**: same hosts and settings, Qwen thinking on with 8,000 tokens. Only Sonnet's token limit differs (above). A test fails if anything else drifts from `config/models.yaml` |
+| A (`frontier_models`) | Claude Haiku 5.5, GPT-6.1 Terra | New. Pinned to the maker's host, reasoning at its default. Terra gets 8,000 tokens in case it reasons, as Qwen does, and sends no token-probability request (OpenAI rejects it for reasoning models) |
+| B (`main_models`) | Mistral Nemo, Mistral Small 3.2, Llama 3.1 8B, Gemma 4 26B, Qwen3.5-9B | **The main study's set (`main`), as run there**: same hosts and settings, Qwen thinking on with 8,000 tokens. A test fails if anything drifts from `config/models.yaml` |
+| B, counted in both | Claude Sonnet 5.5 | As in the main study, but 8,000 tokens: on computed items it can reason past 2,000 and never answer (smoke test) |
 
 - **Track A answers "what do frontier models do?"; track B lines up with every existing result.**
   Track B's rows can be read beside the same models' rows in the main study and follow-ups.
 - **The tracks differ only in models.** Each config pair is identical apart from `name` and
   `model_set`, and a test checks this. Both tracks run stage B on the same selected items.
-- **Claude Sonnet is in both tracks**, since it is the main study's frontier model. It is run twice,
-  which costs about $3–5 extra and also shows run-to-run noise for Sonnet. Drop it from one set to save that.
+- **Claude Sonnet runs once, in track B, and counts for both tracks.** It is the main study's
+  frontier model, and the tracks share items, prompts, settings and seed, so running it twice would
+  only measure noise. Its frontier results are in track B's output.
+- **Gemini 4 Argon was dropped for cost** (6 Nov; it costs as much as Sonnet). Its entry stays in
+  `models.yaml`: add it to `frontier_models` and `selection` to run it. Without it, track A covers two
+  labs (Anthropic, OpenAI), not three.
 - **Generation settings match the main study:** temperature 0.7, 2,000 tokens, top-5 token
   probabilities, seed 2046. Anthropic and OpenAI hosts ignore temperature.
 - **Every frontier model runs with reasoning at its host's default**, as Claude Sonnet did in the main
@@ -154,10 +158,11 @@ benchmaxxed explanation implies, for reference.
 
 ## Rules fixed in advance
 
-- **Item selection (F1 stage B):** decided by track A's screen only: an item goes forward if, with no
-  memory, at least one of the four frontier models missed it at least once and at least one of them got
-  it right at least once (`frontier/scripts/select_headroom.py`). Track B uses the same items, so the
-  tracks can be compared; its models would let almost everything through. (Set 5 Nov, before any run.)
+- **Item selection (F1 stage B):** decided by the three frontier models (Haiku and Terra from track A's
+  screen, Sonnet from track B's): an item goes forward if, with no memory, at least one of them missed
+  it at least once and at least one of them got it right at least once
+  (`frontier/scripts/select_headroom.py`). Both tracks use the same items. The open models don't decide:
+  they would let almost everything through. (Set 5 Nov, before any run; the model list changed 6 Nov.)
 - **Primary analysis:** per model, in each track, on the items that model itself missed at least once
   in its own track's screen (`scope = headroom`). All selected items are reported too.
 - **Primary outcomes:** false-option rate (F1, F2, F4); `corrects_openly` and `endorses` rates (F3).
@@ -170,8 +175,8 @@ benchmaxxed explanation implies, for reference.
 ## How to run
 
 One-time setup: `brew install uv`, `uv sync`, `cp .env.example .env` and paste your own OpenRouter key.
-Run everything from the repo root. Every result goes under `frontier/runs/`. Track A must screen
-first (step 1), because its screen picks the items for both tracks.
+Run everything from the repo root. Every result goes under `frontier/runs/`. Both screens must
+finish before selection (step 1), because the items are picked from both.
 
 ```bash
 # 0. Smoke test, both tracks: a few real trials, then check reasoning, truncation and cost
@@ -183,19 +188,19 @@ uv run python frontier/analysis/analyse.py reasoning frontier/runs/mainmodels-sm
 #    cut_off must be about 0: if a model runs out of tokens, raise its max_tokens before going on.
 #    Then compare the smoke runs' spend with the cost table below and adjust --max-cost.
 
-# 1. F1 stage A: screens. Track A's picks the items
-uv run memsyco run --config frontier/config/screen_frontier.yaml --runs-dir frontier/runs --run-id frontier-screen-<date> --max-cost 4
-uv run python frontier/scripts/select_headroom.py frontier/runs/frontier-screen-<date>
+# 1. F1 stage A: both screens, then pick the items from both
 uv run memsyco run --config frontier/config/screen_main.yaml --runs-dir frontier/runs --run-id mainmodels-screen-<date> --max-cost 2
+uv run memsyco run --config frontier/config/screen_frontier.yaml --runs-dir frontier/runs --run-id frontier-screen-<date> --max-cost 1.50
+uv run python frontier/scripts/select_headroom.py frontier/runs/frontier-screen-<date> frontier/runs/mainmodels-screen-<date>
 
 # 2. F1 stage B, F2 and F4, each track analysed against its own screen
-uv run memsyco wrappers --config frontier/config/probes_frontier.yaml --runs-dir frontier/runs --run-id frontier-probes-<date> --max-cost 12
+uv run memsyco wrappers --config frontier/config/probes_frontier.yaml --runs-dir frontier/runs --run-id frontier-probes-<date> --max-cost 5
 uv run python frontier/analysis/analyse.py probes frontier/runs/frontier-probes-<date> --screen frontier/runs/frontier-screen-<date>
-uv run memsyco wrappers --config frontier/config/probes_main.yaml --runs-dir frontier/runs --run-id mainmodels-probes-<date> --max-cost 6
+uv run memsyco wrappers --config frontier/config/probes_main.yaml --runs-dir frontier/runs --run-id mainmodels-probes-<date> --max-cost 7
 uv run python frontier/analysis/analyse.py probes frontier/runs/mainmodels-probes-<date> --screen frontier/runs/mainmodels-screen-<date>
 
 # 3. F3 (results go to frontier/runs by default)
-uv run memsyco frontier-accommodation --config frontier/config/accommodation_frontier.yaml --run-id frontier-accommodation-<date> --max-cost 4
+uv run memsyco frontier-accommodation --config frontier/config/accommodation_frontier.yaml --run-id frontier-accommodation-<date> --max-cost 2
 uv run memsyco frontier-accommodation --config frontier/config/accommodation_main.yaml --run-id mainmodels-accommodation-<date> --max-cost 2
 ```
 
@@ -206,20 +211,18 @@ before step 1 and keep them the same for every step.
 
 ## Cost (rough)
 
-Scaled from what Claude Sonnet 5.5 actually cost per answer in the main study ($1.04 for 592) and
-the current price of each model. Check against the step 0 spend before the big runs.
+From the smoke tests (6 Nov): Claude Sonnet about $0.004 per answer (up to $0.02 when it reasons
+long), Haiku about $0.0002. Terra is half Sonnet's price per token. Assumes about 30 selected items.
 
-| Step | Track A, if frontier models rarely reason | Track A, if Terra and Argon reason on most items | Track B |
-|---|---|---|---|
-| F1 screen | ~$1 | ~$2.50 | ~$0.50 |
-| F1 stage B + F2 + F4 | ~$5 (30 items) to ~$10 (60 items) | ~$13 to ~$26 | ~$2 to ~$4 |
-| F3 | ~$2.50 | ~$5 | ~$1 |
-| **Total** | **~$8.50–13.50** | **~$20–34** | **~$3.50–5.50** |
+| Step | Track A (Haiku, Terra) | Track B (five open models, Sonnet) |
+|---|---|---|
+| F1 screen | ~$0.40 | ~$1 |
+| F1 stage B + F2 + F4 | ~$2 | ~$4 |
+| F3 | ~$0.60 | ~$1.20 |
+| **Total** | **~$3** | **~$6** |
 
-Reasoning tokens are billed as output, so track A's real figure depends on how much each model
-reasons by default, which isn't known in advance. **Step 0 gives the real figure; set `--max-cost`
-from it.** Track B is almost all Claude Sonnet; its five open models together cost well under $1.
-Stage B is the
+About **$9 in all**. Sonnet is most of track B, and Terra most of track A; Terra costs more if it
+reasons a lot. Double stage B if about 60 items are selected. Stage B is the
 expensive step: the awareness question and the pushback turn add a second call to most trials, and
 its size depends on how many items the screen selects.
 
