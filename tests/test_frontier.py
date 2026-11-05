@@ -48,8 +48,13 @@ def test_frontier_models_are_separate_and_track_b_matches_the_main_study():
     shared = set(frontier) & set(main)
     assert shared == set(data["sets"]["main_models"]) | {"deepseek-flash"}
     for alias in shared:
-        for key in ("slug", "mode", "extra_body"):
+        for key in ("slug", "mode"):
             assert frontier[alias].get(key) == main[alias].get(key), (alias, key)
+        # The only allowed difference: Claude Sonnet's token limit (see frontier/config/models.yaml).
+        body = dict(frontier[alias].get("extra_body") or {})
+        if alias == "claude-sonnet":
+            assert body.pop("max_tokens") == 8000
+        assert body == (main[alias].get("extra_body") or {}), alias
     # Track B is the main study's set, with Llama on the follow-ups' host.
     main_set = load_yaml(ROOT / "config" / "models.yaml")["sets"]["main"]
     assert data["sets"]["main_models"] == [m.replace("llama-8b", "llama-8b-deepinfra") for m in main_set]

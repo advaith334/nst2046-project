@@ -19,6 +19,9 @@ sets:
 models:
   # --- Frontier ---
   # Copied from config/models.yaml: the main study's Claude, reasoning at its default. Keep in sync.
+  # One change: 8,000 tokens (as Qwen in the main study). On the computed items it can reason past
+  # 2,000 and never answer (1 of 5 in the 6 Nov smoke test; 0 of 592 in the main study). A higher
+  # limit changes only replies that would otherwise be cut off.
   - alias: claude-sonnet
     slug: anthropic/claude-sonnet-5.5
     family: claude
@@ -26,6 +29,7 @@ models:
     notes: "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default."
     extra_body:
       provider: {order: [Anthropic], allow_fallbacks: false}
+      max_tokens: 8000
   # New to the project. Reasoning at the host's default, like Sonnet. Terra and Argon may reason by
   # default, and reasoning counts against the token limit, so they get 8,000 tokens as Qwen does in
   # the main study. Haiku keeps Sonnet's 2,000. Check `cut_off` in the smoke test (README, step 0).

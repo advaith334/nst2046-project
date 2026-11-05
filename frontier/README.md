@@ -112,9 +112,9 @@ Both sets are in `frontier/config/models.yaml`.
 
 | Track (set) | Model | Settings |
 |---|---|---|
-| A (`frontier_models`) | Claude Sonnet 5.5 | **Exactly as in the main study** (copied from `config/models.yaml`), Anthropic host |
+| A (`frontier_models`) | Claude Sonnet 5.5 | As in the main study (copied from `config/models.yaml`), Anthropic host, but 8,000 tokens: on computed items it can reason past 2,000 and never answer |
 | A | Claude Haiku 5.5, GPT-6.1 Terra, Gemini 4 Argon | New. Pinned to the maker's host. Terra and Argon get 8,000 tokens in case they reason, as Qwen does. Terra sends no token-probability request (OpenAI rejects it for reasoning models) |
-| B (`main_models`) | Mistral Nemo, Mistral Small 3.2, Llama 3.1 8B, Gemma 4 26B, Qwen3.5-9B, Claude Sonnet 5.5 | **The main study's set (`main`), exactly as run there**: same hosts and settings, Qwen thinking on with 8,000 tokens. A test fails if they drift from `config/models.yaml` |
+| B (`main_models`) | Mistral Nemo, Mistral Small 3.2, Llama 3.1 8B, Gemma 4 26B, Qwen3.5-9B, Claude Sonnet 5.5 | **The main study's set (`main`), as run there**: same hosts and settings, Qwen thinking on with 8,000 tokens. Only Sonnet's token limit differs (above). A test fails if anything else drifts from `config/models.yaml` |
 
 - **Track A answers "what do frontier models do?"; track B lines up with every existing result.**
   Track B's rows can be read beside the same models' rows in the main study and follow-ups.
