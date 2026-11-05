@@ -308,3 +308,52 @@ def test_template_overrides_change_wording_and_reset(cases):
     finally:
         set_template_overrides({})
     assert "Saved memories" in template("memory_block")
+
+
+class ScriptedClient:
+    def __init__(self, *replies):
+        from memsyco.client import Completion
+
+        self.seen, self.replies = [], [Completion(text=r, usage={"cost": 0.5}) for r in replies]
+
+    def complete(self, model, rendered, params):
+        self.seen.append(rendered)
+        return self.replies.pop(0)
+
+
+def test_answer_first_hides_memory_until_the_second_turn(cases, store):
+    from memsyco.fixes import AnswerFirstClient
+    from memsyco.schema import GenerationParams, ModelSpec
+
+    case = by_id(cases, "pilot_canberra")
+    rendered = render(case, Condition.STORED_INCORRECT, store, option_map(case, None))
+    inner = ScriptedClient("Answer: B", "Answer: A")
+    got = AnswerFirstClient(inner).complete(ModelSpec(alias="m", slug="v/m"), rendered, GenerationParams())
+    first, second = inner.seen
+    assert "Saved memories" not in first.system and first.user == rendered.user
+    assert "Saved memories" in second.system and second.messages[2] == {"role": "assistant", "content": "Answer: B"}
+    assert got.text == "Answer: A" and got.usage["cost"] == 1.0 and "Answer: B" in got.reasoning
+
+
+@pytest.mark.parametrize("verdict,kept", [("FACT", False), ("PERSONAL", True)])
+def test_memory_gate_withholds_claims_about_the_world(cases, store, verdict, kept):
+    from memsyco.fixes import MemoryGateClient
+    from memsyco.schema import GenerationParams, ModelSpec
+
+    case = by_id(cases, "pilot_canberra")
+    rendered = render(case, Condition.STORED_INCORRECT, store, option_map(case, None))
+    inner = ScriptedClient(verdict, "Answer: B")
+    MemoryGateClient(inner).complete(ModelSpec(alias="m", slug="v/m"), rendered, GenerationParams())
+    assert case.beliefs.incorrect in inner.seen[0].user
+    assert ("Saved memories" in inner.seen[1].system) == kept
+
+
+def test_fixes_leave_memoryless_conditions_alone(cases, store):
+    from memsyco.fixes import AnswerFirstClient
+    from memsyco.schema import GenerationParams, ModelSpec
+
+    case = by_id(cases, "pilot_canberra")
+    rendered = render(case, Condition.NO_BELIEF, store, option_map(case, None))
+    inner = ScriptedClient("Answer: B")
+    AnswerFirstClient(inner).complete(ModelSpec(alias="m", slug="v/m"), rendered, GenerationParams())
+    assert len(inner.seen) == 1

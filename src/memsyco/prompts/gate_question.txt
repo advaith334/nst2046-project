@@ -1,0 +1,5 @@
+A saved memory about a user is below. Reply FACT if it makes a claim about the outside world that could be true or false, including a claim about what the user believes about the world. Reply PERSONAL if it is about the user's own preferences, needs or circumstances.
+
+Memory: {memory}
+
+Reply with one word.
