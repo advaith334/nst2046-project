@@ -84,7 +84,7 @@ Times are SGT. "Session" points to the Claude Code session log.
 | Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
 |---|---|---|---|
 | Claude Code (Opus 5.5): test design | "come up with some independent tests ... on frontier models", hypothesis that models are "benchmaxxed" | Six tests proposed; Aditya chose four (now labelled F1–F4) | Design is AI-written. Predictions are left for Aditya to write before running |
-| Claude Code (Opus 5.5): code, items and configs | "build tests 1, 4 5 and 6" (now F1–F4) | **AI-generated:** everything under `frontier/` and `src/memsyco/frontier/`, `tests/test_frontier.py`, and the small shared-harness changes listed in `frontier/README.md`. 64 computed items, 24 misconception items | All 48 tests pass and a full dry run works. The 64 keys were re-checked by independent code (0 mismatches). The 24 misconception items need the two-member check |
+| Claude Code (Opus 5.5): code, items and configs | "build tests 1, 4 5 and 6" (now F1–F4) | **AI-generated:** everything under `frontier/` and `src/memsyco/frontier/`, `tests/test_frontier.py`, and the small shared-harness changes listed in `frontier/README.md`. 64 computed items, 24 misconception items | All 49 tests pass and a full dry run works. The 64 keys were re-checked by independent code (0 mismatches). The 24 misconception items need the two-member check |
 
 ## Honest limits on "verification"
 

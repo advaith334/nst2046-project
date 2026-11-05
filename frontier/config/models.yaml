@@ -40,10 +40,11 @@ models:
     slug: openai/gpt-6.1-terra
     family: gpt
     size: frontier (mid)
-    notes: "Reasoning at its default. Named apart from config/models.yaml's unpinned gpt-terra, which never ran."
+    notes: "Reasoning at its default. No logprobs: OpenAI rejects them for reasoning models (smoke test, 6 Nov). Named apart from config/models.yaml's unpinned gpt-terra, which never ran."
     extra_body:
       provider: {order: [OpenAI], allow_fallbacks: false}
       max_tokens: 8000
+      logprobs: false
   - alias: gemini-argon
     slug: google/gemini-4-argon
     family: gemini

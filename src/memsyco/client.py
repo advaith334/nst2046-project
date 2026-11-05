@@ -47,15 +47,17 @@ def request_body(model: ModelSpec, rendered: Rendered, params: GenerationParams)
         "transforms": [],
         **model.extra_body,
     }
+    # A model opts out with `logprobs: false` in extra_body (OpenAI rejects them for reasoning models).
+    top_logprobs = params.top_logprobs if body.pop("logprobs", True) is not False else 0
     if model.mode == "chat":
         body["messages"] = rendered.messages
-        if params.top_logprobs:
+        if top_logprobs:
             body["logprobs"] = True
-            body["top_logprobs"] = params.top_logprobs
+            body["top_logprobs"] = top_logprobs
     else:
         body["prompt"] = rendered.prompt
-        if params.top_logprobs:
-            body["logprobs"] = params.top_logprobs
+        if top_logprobs:
+            body["logprobs"] = top_logprobs
     return body
 
 

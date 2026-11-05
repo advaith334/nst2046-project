@@ -177,3 +177,17 @@ def test_accommodation_dry_run_end_to_end(tmp_path):
     assert len(path.read_text().splitlines()) == n
     summary = write_report(tmp_path)
     assert set(summary["memory"]) == {"none", "stored"} and (tmp_path / "paired.csv").exists()
+
+
+def test_a_model_can_opt_out_of_logprobs():
+    from memsyco.client import request_body
+    from memsyco.conditions import Rendered
+    from memsyco.schema import GenerationParams, ModelSpec
+
+    models ={m["alias"]: ModelSpec(**m) for m in load_yaml(FRONTIER / "config" / "models.yaml")["models"]}
+    rendered = Rendered(system="", user="hi", messages=[{"role": "user", "content": "hi"}], prompt="hi")
+    params = GenerationParams(top_logprobs=5)
+    terra = request_body(models["gpt-terra-openai"], rendered, params)
+    assert "logprobs" not in terra and "top_logprobs" not in terra
+    argon = request_body(models["gemini-argon"], rendered, params)
+    assert argon["logprobs"] is True and argon["top_logprobs"] == 5
