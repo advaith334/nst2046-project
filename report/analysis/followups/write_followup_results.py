@@ -141,7 +141,7 @@ Statistics for the runs of 5 Nov 2026. No API calls were made, no run log was ch
 
 | Brief or log says | Data says | Why it matters |
 |---|---|---|
-| 21 and 17 local answers are unparseable | All 38 are clear answers written with a comma, such as " C, Silicon". The harness pattern does not accept a comma | They are not random: {int(T("q6_unparseable").query("model == 'nemo-base-local' and condition == 'stated_incorrect'").unparseable.iloc[0])} of base's 21 are in the stated arm. Reading them changes no conclusion (section 6) |
+| 21 and 17 local answers were logged as unparseable | All 38 were clear answers written with a comma, such as " C, Silicon". The harness parser now reads them and these results include them, so no local answer is unparseable. |
 | Llama moved to DeepInfra/Cloudflare | In label-correct all 96 trials were on **Cloudflare**. DeepInfra served only 14 of 384 evidence trials and {RES["q7"]["llama_hosts"].get("DeepInfra")} of 400 benchmark trials | The host caveat in section 5 is really Novita vs Cloudflare |
 | `fixes-20261105/wrappers.md` shows useful-memory rates of 0.00 for the gate | That column is the false-option rate, which these checks do not have. Scored for correctness, gated Nemo got {int(us.query("run.str.contains('memory_gate') and model == @NEMO").right.sum())} of 16, against 16 of 16 in the main run | Nemo recommended salmon to a vegetarian after the gate withheld that memory (section 3) |
 | Weak passages are a middle ground | On accuracy, roughly. On the false option, they already remove it for Nemo: {pc(st.loc[("all 48", NEMO), "false_none"])} to {pc(st.loc[("all 48", NEMO), "false_weak"])} | Many passages argue against the false option as well as leaning to the answer |
@@ -467,7 +467,7 @@ The report should drop or reword the causal claim to: "in one base and instruct 
 - **One pair**, from one family.
 - **Quantised:** both Q4_K_M, from different GGUF builders. Local chat matching hosted reduces this worry for instruct only; base has no hosted comparison.
 - **Completion prompt.** Base never sees a chat template. The system text is pasted into a plain transcript ending in "Answer:", which is not how anyone uses a base model. It also forces an immediate letter.
-- **Unparseable answers.** 21 in base and 17 in instruct, all comma-style answers the harness pattern does not read. They are uneven across conditions (10 of base's 21 are stated-belief trials). Reading them leaves the base effect at {pt(e6.loc[("nemo-base-local", "memory effect"), "ans_rescued"])} and instruct at {pt(e6.loc[(BI, "memory effect"), "ans_rescued"])}; the gap is {pt(b6.loc[(BI, "memory effect", "answers, comma read"), "est"])} {ci(b6.loc[(BI, "memory effect", "answers, comma read"), "ci_low"], b6.loc[(BI, "memory effect", "answers, comma read"), "ci_high"])}. No conclusion changes. Probabilities use all 576 trials, so they are unaffected.
+- **Comma answers.** 21 base and 17 instruct answers were logged as unparseable because they used a comma, such as " C, Silicon". The harness parser was fixed and these results read them.
 - **Short replies:** local replies stop at 16 tokens, so a model cannot correct itself as hosted replies can.
 - **Probabilities describe the first answer position** and are not the same as sampling at temperature 0.7.
 """)

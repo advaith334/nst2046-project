@@ -79,16 +79,7 @@
   "items_down": 8,
   "item_p": 0.847900390625
  },
- "q6_unparseable_rescued": {
-  "nemo-base-local": {
-   "logged": 21,
-   "read_with_comma": 21
-  },
-  "nemo-instruct-local": {
-   "logged": 17,
-   "read_with_comma": 17
-  }
- },
+ "q6_unparseable_rescued": {},
  "q7": {
   "llama_hosts": {
    "Cloudflare": 344,

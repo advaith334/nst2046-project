@@ -23,8 +23,8 @@ Statistics for the runs of 5 Nov 2026. No API calls were made, no run log was ch
 | Is the tutor frame more than its parts? | **Not on false answers. On lost benefit, in points only** | False answers: gap +6 [-9, +19]. Accuracy: -15 [-26, -6], not clear on log-odds | Exploratory, cross-run |
 | Does a true memory resist a false passage? | **No detectable change** | Nemo 78% to 81%, Small 19% to 15% | Good for "no large protection" |
 | Does the label hurt true memories? | **Yes in Nemo; no sign elsewhere** | Nemo -11 [-21, -5]. Llama's rise cannot be separated from its host change | Moderate |
-| Is the effect smaller in the base model? | **No: equal in points** | Base +50, instruct +49 on the same prompt, gap +1 [-11, +14] | One pair only |
-| Does the label work in base? | **Weakly** | Removes 17% on answers, 30% on probabilities, vs 44% and 43% | Exploratory |
+| Is the effect smaller in the base model? | **No: equal in points** | Base +50, instruct +48 on the same prompt, gap +2 [-10, +15] | One pair only |
+| Does the label work in base? | **Weakly** | Removes 19% on answers, 30% on probabilities, vs 39% and 43% | Exploratory |
 | Is hosted Nemo reproduced locally? | **Yes** | All six rates within 6 points; item probabilities correlate 0.94-1.00 | Good |
 | Are some models unaffected? | **Only in our multiple-choice setup** | MemSyco snippet effects: Nemo +30, Small +36, Llama +21, Gemma +31, Qwen +64 points | Strong that the claim must narrow |
 | Spend | **$4.39 in total** | $0.79 on 5 Nov; local runs free | Exact |
@@ -33,7 +33,7 @@ Statistics for the runs of 5 Nov 2026. No API calls were made, no run log was ch
 
 | Brief or log says | Data says | Why it matters |
 |---|---|---|
-| 21 and 17 local answers are unparseable | All 38 are clear answers written with a comma, such as " C, Silicon". The harness pattern does not accept a comma | They are not random: 10 of base's 21 are in the stated arm. Reading them changes no conclusion (section 6) |
+| 21 and 17 local answers were logged as unparseable | All 38 were clear answers written with a comma, such as " C, Silicon". The harness parser now reads them and these results include them, so no local answer is unparseable. |
 | Llama moved to DeepInfra/Cloudflare | In label-correct all 96 trials were on **Cloudflare**. DeepInfra served only 14 of 384 evidence trials and 56 of 400 benchmark trials | The host caveat in section 5 is really Novita vs Cloudflare |
 | `fixes-20261105/wrappers.md` shows useful-memory rates of 0.00 for the gate | That column is the false-option rate, which these checks do not have. Scored for correctness, gated Nemo got 12 of 16, against 16 of 16 in the main run | Nemo recommended salmon to a vegetarian after the gate withheld that memory (section 3) |
 | Weak passages are a middle ground | On accuracy, roughly. On the false option, they already remove it for Nemo: 15% to 0% | Many passages argue against the false option as well as leaning to the answer |
@@ -276,8 +276,8 @@ Figure: `report/figures/fig7_base_vs_instruct.png`.
 
 | Arm | False, no belief | False, stored | False, labelled | Memory effect, answers | Flips | Memory effect, probability | Same, log-odds | Label vs stored, answers | Label vs stored, probability | Share removed: answers, probability |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Local base, plain text | 21% | 71% | 61% | +50 [+36, +64] | 47 / 3 | +42 [+34, +49] | +2.7 | -9 [-19, 0] | -13 [-16, -10] | 17%, 30% |
-| Local instruct, plain text | 16% | 65% | 43% | +49 [+36, +61] | 45 / 1 | +46 [+35, +56] | +5.5 | -21 [-33, -12] | -20 [-26, -14] | 44%, 43% |
+| Local base, plain text | 21% | 71% | 61% | +50 [+36, +64] | 51 / 3 | +42 [+34, +49] | +2.7 | -9 [-19, 0] | -13 [-16, -10] | 19%, 30% |
+| Local instruct, plain text | 16% | 64% | 45% | +48 [+35, +60] | 47 / 1 | +46 [+35, +56] | +5.5 | -19 [-29, -10] | -20 [-26, -14] | 39%, 43% |
 | Local instruct, chat | 14% | 61% | 36% | +48 [+35, +60] | 47 / 1 | +42 [+31, +53] | +5.7 | -25 [-38, -16] | -21 [-29, -14] | 52%, 49% |
 | Hosted instruct, main run | 15% | 55% | 32% | +41 [+28, +54] | 41 / 2 | +42 [+31, +52] | +5.8 | -23 [-34, -15] | -23 [-31, -16] | 56%, 56% |
 
@@ -285,13 +285,13 @@ Figure: `report/figures/fig7_base_vs_instruct.png`.
 
 | Scale | Base | Instruct, same prompt | Base minus instruct | Item p | Reading |
 |---|---|---|---|---|---|
-| Answers, points | +50 | +49 | +1 [-11, +14] | 1.00 | Equal, within about ±14 points |
+| Answers, points | +50 | +48 | +2 [-10, +15] | 0.87 | Equal, within about ±14 points |
 | Token probability, points | +42 | +46 | -4 [-11, +4] | 0.34 | Equal, within about ±11 points |
 | Log-odds of that probability | +2.7 | +5.5 | -2.7 [-3.5, -1.9] | <0.0001 | Smaller in base |
 
 - **Equal in points, and never larger or smaller by a detectable margin.** That is an interval result, not proof of equality, but gaps above about 14 points are ruled out on answers. Base against chat and hosted instruct gives the same picture: +2 [-12, +16] and +9 [-5, +23].
 - **The log-odds gap mostly reflects how sure each model starts.** Base has a median no-belief probability of 65% on the right answer, instruct 97%, and instruct's false-option probability starts far lower (0.007 vs 0.11). The same rise in points is then a bigger log-odds move. It also depends on the clip at very small probabilities: the gap goes from -2.7 to -1.2 as the clip moves from 0.01% to 1%. So it does not show that tuning adds pull.
-- **The pattern is the same as in instruct.** In base an unrelated memory does nothing (+2 [-7, +12]) and a true memory removes false answers (-21). So it is the content that moves it, in both directions.
+- **The pattern is the same as in instruct.** In base an unrelated memory does nothing (+2 [-7, +11]) and a true memory removes false answers (-21). So it is the content that moves it, in both directions.
 
 ### Does the label work in base?
 
@@ -299,7 +299,7 @@ Figure: `report/figures/fig7_base_vs_instruct.png`.
 
 - **On answers it barely reaches significance.** Base -9 [-19, 0], 4 / 13 flips, McNemar p = 0.05, item p = 0.09.
 - **On probabilities the drop is clear but small:** -13 [-16, -10].
-- **The label works better in instruct.** On probabilities the gap against base is +7 [+2, +13] (p = 0.01) on the same prompt, and +8 [+2, +15] (p = 0.02) for chat. On answers: +12 [-2, +26] (p = 0.15) and +16 [+3, +30] (p = 0.04). None of these is corrected for multiplicity.
+- **The label works better in instruct.** On probabilities the gap against base is +7 [+2, +13] (p = 0.01) on the same prompt, and +8 [+2, +15] (p = 0.02) for chat. On answers: +9 [-3, +23] (p = 0.21) and +16 [+3, +30] (p = 0.04). None of these is corrected for multiplicity.
 - **Reading:** the tendency to follow memory does not need tuning, but responding to a caution label may partly come from it. This is a lead, not a finding.
 
 ### Is hosted Nemo reproduced by the local chat arm?
@@ -339,7 +339,7 @@ The report should drop or reword the causal claim to: "in one base and instruct 
 - **One pair**, from one family.
 - **Quantised:** both Q4_K_M, from different GGUF builders. Local chat matching hosted reduces this worry for instruct only; base has no hosted comparison.
 - **Completion prompt.** Base never sees a chat template. The system text is pasted into a plain transcript ending in "Answer:", which is not how anyone uses a base model. It also forces an immediate letter.
-- **Unparseable answers.** 21 in base and 17 in instruct, all comma-style answers the harness pattern does not read. They are uneven across conditions (10 of base's 21 are stated-belief trials). Reading them leaves the base effect at +50 and instruct at +48; the gap is +2 [-10, +15]. No conclusion changes. Probabilities use all 576 trials, so they are unaffected.
+- **Comma answers.** 21 base and 17 instruct answers were logged as unparseable because they used a comma, such as " C, Silicon". The harness parser was fixed and these results read them.
 - **Short replies:** local replies stop at 16 tokens, so a model cannot correct itself as hosted replies can.
 - **Probabilities describe the first answer position** and are not the same as sampling at temperature 0.7.
 
@@ -465,5 +465,5 @@ Rerun `Notes:`, the "may be wrong" caveat and "Student believes" **with a true-m
 - "No fix was shown to separate false memories from true ones. The tutor frame cut Nemo's false answers by 31 points (20-44) and its accuracy on true memories by 22 (12-33). All such comparisons cross separate runs."
 - "The 'unverified' label cost Nemo 11 points of accuracy on true memories (5-21), about half the benefit, in line with the share of harm it removed. The label behaves more like a volume control than a filter. The useful-memory checks were too easy to show this."
 - "A true memory did not reduce following of a false passage (Nemo 78% to 81%, difference +3, CI -8 to +14)."
-- "In one base and instruct pair, instruction tuning was not necessary for the effect: base Nemo rose 50 points and instruct 49 on the same prompt (difference +1, CI -11 to +14). This is one quantised pair on a plain-text prompt, and it does not exclude a role for tuning elsewhere. The label worked less well in base."
+- "In one base and instruct pair, instruction tuning was not necessary for the effect: base Nemo rose 50 points and instruct 48 on the same prompt (difference +2, CI -10 to +15). This is one quantised pair on a plain-text prompt, and it does not exclude a role for tuning elsewhere. The label worked less well in base."
 - "Models that showed no detectable effect on our multiple-choice items were strongly affected on a sample of MemSyco-Bench (21-64 points), though that benchmark differs in memory type, answer format and scoring, and is judged by an AI model. 'Unaffected' therefore holds only for our task."

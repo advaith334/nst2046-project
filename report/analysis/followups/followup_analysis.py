@@ -80,6 +80,9 @@ def load_mcq(run: str, cases: dict) -> pd.DataFrame:
             if rescue is None:
                 m = _LEADING_COMMA.match(text or "")
                 rescue = m.group(1) if m and m.group(1) in valid else None
+            # The harness parser now reads these comma answers; the logged scores predate that fix.
+            logged_miss = letter is None and rescue is not None
+            letter = rescue
             first = letter
         else:
             letter = None if err else final_letter(text, valid)
@@ -95,7 +98,7 @@ def load_mcq(run: str, cases: dict) -> pd.DataFrame:
         score, sel = code(letter)
         if err:
             score = "error"
-        mismatches += score != r.get("auto_score")
+        mismatches += score != r.get("auto_score") and not (completion and logged_miss)
         s2, _ = code(rescue)
         s3, _ = code(first)
         model = ALIAS.get(r["model_alias"], r["model_alias"])

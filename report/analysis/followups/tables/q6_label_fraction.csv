@@ -1,8 +1,8 @@
 arm,measure,fraction_removed,low,high,fieller_low,fieller_high
-nemo-base-local,answers,0.166667,0,0.35,-0.0235808,0.338575
+nemo-base-local,answers,0.1875,0,0.372093,-0.00339679,0.359599
 nemo-base-local,"answers, comma read",0.1875,0,0.372093,-0.00339679,0.359599
 nemo-base-local,probabilities,0.299261,0.235217,0.378422,0.231903,0.375957
-nemo-instruct-local,answers,0.444444,0.243277,0.630435,0.248391,0.640961
+nemo-instruct-local,answers,0.391304,0.222222,0.578947,0.211357,0.576433
 nemo-instruct-local,"answers, comma read",0.391304,0.222222,0.578947,0.211357,0.576433
 nemo-instruct-local,probabilities,0.427481,0.317508,0.546652,0.314995,0.552065
 nemo-instruct-local-chat,answers,0.521739,0.340909,0.708333,0.333563,0.713223
