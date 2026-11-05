@@ -1,0 +1,829 @@
+{
+ "integrity": [
+  {
+   "run": "r1_pilot",
+   "attempt_rows": 830,
+   "trials": 516,
+   "cost_usd": 0.85,
+   "scores_differ_from_raw_table": 0
+  },
+  {
+   "run": "r2_calibration",
+   "attempt_rows": 414,
+   "trials": 414,
+   "cost_usd": 0.81,
+   "scores_differ_from_raw_table": 0
+  },
+  {
+   "run": "r2_calsmall",
+   "attempt_rows": 441,
+   "trials": 414,
+   "cost_usd": 0.09,
+   "scores_differ_from_raw_table": 0
+  },
+  {
+   "run": "r3_longtail",
+   "attempt_rows": 598,
+   "trials": 576,
+   "cost_usd": 0.47,
+   "scores_differ_from_raw_table": 0
+  },
+  {
+   "run": "r4_main",
+   "attempt_rows": 3791,
+   "trials": 3552,
+   "cost_usd": 1.33,
+   "scores_differ_from_raw_table": 0
+  }
+ ],
+ "n_scores_differ": 0,
+ "total_cost": 3.56,
+ "main_retry_rows": 239,
+ "useful": {
+  "trials": 96,
+  "right": 95,
+  "unreadable": 1
+ },
+ "qwen_large_r3_correct": 0.96875,
+ "claude_r3_correct": 1.0,
+ "chronology": {
+  "nemo_r3_start": "2026-10-27T08:51",
+  "nemo_r3_end": "2026-10-27T09:10",
+  "nemo_r2_start": "2026-10-27T09:11",
+  "nemo_r2_end": "2026-10-27T09:28"
+ },
+ "retest": {
+  "pairs": 96,
+  "same_option_order": 1.0,
+  "same_answer": 0.9375,
+  "p_inc_corr": 0.9950445589402921,
+  "p_inc_mean_abs_diff": 0.02005409178113067
+ },
+ "round3_items_kept": true,
+ "n_screened": 24,
+ "n_new": 24,
+ "checks": {
+  "total": 76,
+  "mismatch": 4,
+  "mismatches": [
+   {
+    "section": "3 r2",
+    "claim": "Llama 34% -> 26% (README gives no evidence mode; this is pooled over both)",
+    "readme": "34->26",
+    "recomputed": "32->26",
+    "status": "MISMATCH"
+   },
+   {
+    "section": "4",
+    "claim": "Qwen3.5-397B at ceiling in every round (round 3 correct rate vs Claude)",
+    "readme": "matched Claude",
+    "recomputed": "96.9% vs 100.0%",
+    "status": "MISMATCH"
+   },
+   {
+    "section": "3",
+    "claim": "round 1 cost",
+    "readme": "0.87",
+    "recomputed": "0.85",
+    "status": "MISMATCH"
+   },
+   {
+    "section": "3",
+    "claim": "Round 2 small models ran before round 3 (Nemo first trial, r2 vs r3)",
+    "readme": "r2 first",
+    "recomputed": "r3 08:51-09:10 UTC, r2 09:11-09:28 UTC",
+    "status": "MISMATCH"
+   }
+  ]
+ },
+ "paired_csv_agrees": true,
+ "n_tests": 42,
+ "n_survive_mcnemar": 6,
+ "n_survive_item": 3,
+ "n_no_discordant": 12,
+ "reps": {
+  "mistral-nemo": {
+   "mean_corr": 0.7060747402176436,
+   "min_corr": 0.6071582289507228,
+   "max_corr": 0.9999999999999998,
+   "agreement": 0.8854166666666666
+  },
+  "mistral-small": {
+   "mean_corr": 0.6415932044622031,
+   "min_corr": -0.021276595744680847,
+   "max_corr": 0.9021937088963176,
+   "agreement": 0.9618055555555555
+  },
+  "llama-8b": {
+   "mean_corr": 0.5826730873858041,
+   "min_corr": 0.3964962828647721,
+   "max_corr": 0.7655473321552595,
+   "agreement": 0.8888888888888888
+  }
+ },
+ "reps_same_order_items": 1,
+ "zero_upper_95": 0.06050340934889431,
+ "min_items_to_pass_holm": 11,
+ "qwen_bounds": {
+  "excluded": 0.010416666666666666,
+  "all unreadable stored=false, base=not false": 0.052083333333333336,
+  "all unreadable stored=not false, base=false": -0.020833333333333332
+ },
+ "gemma_first": {
+  "no_belief": 0.0,
+  "stored_incorrect": 0.03125,
+  "stated_incorrect": 0.0625,
+  "stored_incorrect_labelled": 0.010416666666666666,
+  "stored_unrelated": 0.0,
+  "stored_correct": 0.0
+ },
+ "gemma_final": {
+  "no_belief": 0.0,
+  "stored_incorrect": 0.010416666666666666,
+  "stated_incorrect": 0.020833333333333332,
+  "stored_incorrect_labelled": 0.0,
+  "stored_unrelated": 0.0,
+  "stored_correct": 0.0
+ },
+ "gemma_corrections": {
+  "no_belief": 0,
+  "stored_incorrect": 2,
+  "stated_incorrect": 4,
+  "stored_incorrect_labelled": 1,
+  "stored_unrelated": 0,
+  "stored_correct": 0
+ },
+ "gemma_first_effect": {
+  "est": 0.03125,
+  "ci_low": 0.0,
+  "ci_high": 0.11458333333333333,
+  "pct_low": 0.0,
+  "pct_high": 0.08333333333333333,
+  "se_boot": 0.02278838336092326,
+  "p_item": 0.5,
+  "items_up": 2
+ },
+ "gemma_first_effect_stated": {
+  "est": 0.0625,
+  "ci_low": 0.020833333333333332,
+  "ci_high": 0.16666666666666666,
+  "pct_low": 0.0,
+  "pct_high": 0.14583333333333334,
+  "se_boot": 0.03486879861652345,
+  "p_item": 0.25,
+  "items_up": 3
+ },
+ "nemo_loo": {
+  "min": 0.39361702127659576,
+  "max": 0.425531914893617
+ },
+ "nemo_top5_share": 0.2564102564102564,
+ "nemo_top10_share": 0.5128205128205128,
+ "n_convention_items": 1,
+ "gee": {
+  "three_models_two_conditions": {
+   "tag": "A",
+   "models": [
+    "mistral-nemo",
+    "mistral-small",
+    "llama-8b"
+   ],
+   "conditions": [
+    "no_belief",
+    "stored_incorrect"
+   ],
+   "rows": 576,
+   "events_by_cell_min": 3,
+   "converged": true,
+   "chi2_robust": 13.851533132212111,
+   "df": 2,
+   "p_robust": 0.0009821499466475829,
+   "max_abs_coef": 1.9767537155075552,
+   "max_se": 0.871439385800676,
+   "working_corr": 0.22501789528679209,
+   "chi2_bias_reduced": 13.280397868514106,
+   "p_bias_reduced": 0.0013067672572036676,
+   "coefs": [
+    {
+     "term": "Intercept",
+     "log_or": -1.7676619176489954,
+     "se": 0.3811369478963922
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]",
+     "log_or": -0.08622933268606645,
+     "se": 0.40148706730320965
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]",
+     "log_or": -1.6663252868361518,
+     "se": 0.8899806493283449
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": 1.976753715507554,
+     "se": 0.3825790415686145
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -1.8905243828214875,
+     "se": 0.5536757687944928
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -0.22916546459263612,
+     "se": 0.7810832971027499
+    }
+   ],
+   "warnings": []
+  },
+  "two_mistrals_two_conditions": {
+   "tag": "B",
+   "models": [
+    "mistral-nemo",
+    "mistral-small"
+   ],
+   "conditions": [
+    "no_belief",
+    "stored_incorrect"
+   ],
+   "rows": 384,
+   "events_by_cell_min": 3,
+   "converged": true,
+   "chi2_robust": 0.08978223175805457,
+   "df": 1,
+   "p_robust": 0.7644541855582223,
+   "max_abs_coef": 1.9767537155075539,
+   "max_se": 0.8714393858006678,
+   "working_corr": 0.21086481626943268,
+   "chi2_bias_reduced": 0.08608027341733537,
+   "p_bias_reduced": 0.7692207060653775,
+   "coefs": [
+    {
+     "term": "Intercept",
+     "log_or": -1.7676619176489943,
+     "se": 0.38113694789639274
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]",
+     "log_or": -1.6663252868361518,
+     "se": 0.889980649328345
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": 1.9767537155075536,
+     "se": 0.3825790415686158
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -0.2291654645926361,
+     "se": 0.7810832971027538
+    }
+   ],
+   "warnings": []
+  },
+  "three_models_all_conditions": {
+   "tag": "C",
+   "models": [
+    "mistral-nemo",
+    "mistral-small",
+    "llama-8b"
+   ],
+   "conditions": [
+    "no_belief",
+    "stored_incorrect",
+    "stated_incorrect",
+    "stored_incorrect_labelled",
+    "stored_unrelated",
+    "stored_correct"
+   ],
+   "rows": 1728,
+   "events_by_cell_min": 2,
+   "converged": true,
+   "chi2_robust": 43.580375332329595,
+   "df": 10,
+   "p_robust": 3.914845922729218e-06,
+   "max_abs_coef": 2.0824856840610604,
+   "max_se": 1.4673478077304627,
+   "working_corr": 0.26306793280631374,
+   "chi2_bias_reduced": 41.78344145360951,
+   "p_bias_reduced": 8.194010412066147e-06,
+   "coefs": [
+    {
+     "term": "Intercept",
+     "log_or": -1.7676619176489932,
+     "se": 0.38113694789639024
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]",
+     "log_or": -0.08622933268606635,
+     "se": 0.40148706730321015
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]",
+     "log_or": -1.6663252868361498,
+     "se": 0.8899806493283358
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stated_incorrect]",
+     "log_or": 1.6842803087099436,
+     "se": 0.3653205646890374
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_correct]",
+     "log_or": -2.082485684061063,
+     "se": 0.9519037398299429
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": 1.9767537155075536,
+     "se": 0.3825790415686142
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_incorrect_labelled]",
+     "log_or": 1.0272618522385035,
+     "se": 0.3469618107315676
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_unrelated]",
+     "log_or": 0.08126296407876599,
+     "se": 0.14429866943391156
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stated_incorrect]",
+     "log_or": -0.8741931105479973,
+     "se": 0.3940775764359999
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stated_incorrect]",
+     "log_or": -0.29504908791674517,
+     "se": 0.8382572228710589
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stored_correct]",
+     "log_or": 1.990466785340811,
+     "se": 1.013627316483614
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_correct]",
+     "log_or": 1.6663252868361518,
+     "se": 1.4985679738523787
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -1.890524382821487,
+     "se": 0.5536757687944928
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -0.22916546459263784,
+     "se": 0.7810832971027487
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stored_incorrect_labelled]",
+     "log_or": -0.8597695554736712,
+     "se": 0.49902282480111076
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect_labelled]",
+     "log_or": 0.3619693685546949,
+     "se": 0.7443809794838133
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stored_unrelated]",
+     "log_or": 0.0862293326860665,
+     "se": 0.1904651329775901
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_unrelated]",
+     "log_or": 0.45130264632362993,
+     "se": 0.6710982163349591
+    }
+   ],
+   "warnings": []
+  },
+  "five_models_two_conditions": {
+   "tag": "D",
+   "models": [
+    "mistral-nemo",
+    "mistral-small",
+    "llama-8b",
+    "gemma-moe",
+    "qwen-small"
+   ],
+   "conditions": [
+    "no_belief",
+    "stored_incorrect"
+   ],
+   "rows": 953,
+   "events_by_cell_min": 0,
+   "converged": true,
+   "chi2_robust": 18.163118607425872,
+   "df": 4,
+   "p_robust": 0.0011467179651631204,
+   "max_abs_coef": 33.79867418791694,
+   "max_se": 899507.5721290375,
+   "working_corr": 0.1945290104879452,
+   "chi2_bias_reduced": 17.406968943960884,
+   "p_bias_reduced": 0.0016108401125217036,
+   "coefs": [
+    {
+     "term": "Intercept",
+     "log_or": -1.767661917277773,
+     "se": 0.38001079842692737
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.gemma-moe]",
+     "log_or": -33.78696931532679,
+     "se": NaN
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]",
+     "log_or": -0.08622933267438129,
+     "se": 0.4014862981264079
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]",
+     "log_or": -1.6663252864543614,
+     "se": 0.8894965854494429
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.qwen-small]",
+     "log_or": -2.062111638459364,
+     "se": 0.9581213672005333
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": 1.9767537153998025,
+     "se": 0.3825099207307366
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.gemma-moe]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": 29.024000626894676,
+     "se": NaN
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -1.8905243827254212,
+     "se": 0.5536341665530468
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -0.22916546487705564,
+     "se": 0.78085593100149
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.qwen-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -1.526436398768594,
+     "se": 0.5634611465019801
+    }
+   ],
+   "warnings": [
+    "invalid value encountered in sqrt"
+   ]
+  },
+  "six_models_two_conditions": {
+   "tag": "E",
+   "models": [
+    "mistral-nemo",
+    "mistral-small",
+    "llama-8b",
+    "gemma-moe",
+    "qwen-small",
+    "claude-sonnet"
+   ],
+   "conditions": [
+    "no_belief",
+    "stored_incorrect"
+   ],
+   "rows": 1145,
+   "events_by_cell_min": 0,
+   "converged": true,
+   "chi2_robust": 21.884683792471694,
+   "df": 5,
+   "p_robust": 0.000550695783854839,
+   "max_abs_coef": 35.7701486972385,
+   "max_se": 0.6399841754519628,
+   "working_corr": 0.16047335773732538,
+   "chi2_bias_reduced": 13.325380795800871,
+   "p_bias_reduced": 0.020513107864093,
+   "coefs": [
+    {
+     "term": "Intercept",
+     "log_or": -1.7676619178248565,
+     "se": 0.3723312581421737
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.claude-sonnet]",
+     "log_or": -35.7889991237032,
+     "se": NaN
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.gemma-moe]",
+     "log_or": -35.76352888746425,
+     "se": NaN
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]",
+     "log_or": -0.08622933269160328,
+     "se": 0.4014834281611585
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]",
+     "log_or": -1.6663252870170222,
+     "se": 0.8839153197854278
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.qwen-small]",
+     "log_or": -2.0600079442247843,
+     "se": 0.9535693516009439
+    },
+    {
+     "term": "C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": 1.976753715558599,
+     "se": 0.3816388114842353
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.claude-sonnet]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -1.9767537185980761,
+     "se": NaN
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.gemma-moe]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": 31.000560197518624,
+     "se": NaN
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.llama-8b]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -1.890524382866996,
+     "se": 0.5533358559782675
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.mistral-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -0.22916546445789338,
+     "se": 0.7816732442663894
+    },
+    {
+     "term": "C(model, Treatment('mistral-nemo'))[T.qwen-small]:C(condition, Treatment('no_belief'))[T.stored_incorrect]",
+     "log_or": -1.5305063330230335,
+     "se": 0.5607215442437257
+    }
+   ],
+   "warnings": [
+    "invalid value encountered in sqrt"
+   ]
+  }
+ },
+ "perm_all_six": {
+  "stat": 0.021375868055555556,
+  "p": 4.9999750001249995e-06
+ },
+ "perm_excl_nemo": {
+  "stat": 0.0022135416666666666,
+  "p": 0.005614971925140374
+ },
+ "coverage": [
+  {
+   "model": "mistral-nemo",
+   "trials_with_probs": 96,
+   "logged": 576,
+   "recovered": 0,
+   "mean_top_prob": 0.8874886886677155,
+   "share_top_prob_over_099": 0.5520833333333334,
+   "share_top_prob_under_090": 0.3125,
+   "rep_corr_false_prob": 0.5738442964415827,
+   "has_reasoning": 0.0
+  },
+  {
+   "model": "mistral-small",
+   "trials_with_probs": 96,
+   "logged": 298,
+   "recovered": 278,
+   "mean_top_prob": 0.9810383599297029,
+   "share_top_prob_over_099": 0.8541666666666666,
+   "share_top_prob_under_090": 0.052083333333333336,
+   "rep_corr_false_prob": 0.8926018097602905,
+   "has_reasoning": 0.0
+  },
+  {
+   "model": "llama-8b",
+   "trials_with_probs": 2,
+   "logged": 23,
+   "recovered": 0,
+   "mean_top_prob": 0.6273170224306437,
+   "share_top_prob_over_099": 0.0,
+   "share_top_prob_under_090": 1.0,
+   "rep_corr_false_prob": NaN,
+   "has_reasoning": 0.0
+  },
+  {
+   "model": "gemma-moe",
+   "trials_with_probs": 96,
+   "logged": 576,
+   "recovered": 0,
+   "mean_top_prob": 0.9987548081523233,
+   "share_top_prob_over_099": 0.9895833333333334,
+   "share_top_prob_under_090": 0.010416666666666666,
+   "rep_corr_false_prob": -0.015774453693638325,
+   "has_reasoning": 0.0
+  },
+  {
+   "model": "qwen-small",
+   "trials_with_probs": 92,
+   "logged": 558,
+   "recovered": 0,
+   "mean_top_prob": 0.9999721363028911,
+   "share_top_prob_over_099": 1.0,
+   "share_top_prob_under_090": 0.0,
+   "rep_corr_false_prob": 0.9999999724105236,
+   "has_reasoning": 1.0
+  },
+  {
+   "model": "claude-sonnet",
+   "trials_with_probs": 0,
+   "logged": 0,
+   "recovered": 0,
+   "mean_top_prob": NaN,
+   "share_top_prob_over_099": NaN,
+   "share_top_prob_under_090": NaN,
+   "rep_corr_false_prob": NaN,
+   "has_reasoning": 0.0642361111111111
+  }
+ ],
+ "ms_recover": {
+  "n_trials": 576,
+  "n_logged": 298,
+  "n_recovered": 278,
+  "logged_rate_false_chosen": 0.425531914893617,
+  "logged_rate_not_false": 0.5255198487712666,
+  "chi2_p_condition": 0.4941644681091544,
+  "chi2_p_choice": 0.245099067797173,
+  "rate_false_logged_subset_stored": 0.10638297872340426,
+  "rate_false_all_stored": 0.15625,
+  "rate_false_missing_subset_stored": 0.20408163265306123,
+  "max_diff_when_both": 0.0,
+  "letter_match_rate": 1.0,
+  "head_prefix_rate": 1.0
+ },
+ "cutoff_sensitivity": {
+  "mistral-nemo": {
+   "0.8": {
+    "pairs": 60,
+    "share_of_shift": 0.6094129215102272,
+    "flips": 23
+   },
+   "0.9": {
+    "pairs": 57,
+    "share_of_shift": 0.5788149840007047,
+    "flips": 22
+   },
+   "0.95": {
+    "pairs": 54,
+    "share_of_shift": 0.5100268546245136,
+    "flips": 19
+   },
+   "0.99": {
+    "pairs": 49,
+    "share_of_shift": 0.46019829954068686,
+    "flips": 17
+   },
+   "median_top_prob_flipped": 0.9256547224449423,
+   "median_top_prob_not_flipped": 0.9997057134389393
+  },
+  "mistral-small": {
+   "0.8": {
+    "pairs": 91,
+    "share_of_shift": 0.9404851659464027,
+    "flips": 12
+   },
+   "0.9": {
+    "pairs": 89,
+    "share_of_shift": 0.7976174963361591,
+    "flips": 10
+   },
+   "0.95": {
+    "pairs": 84,
+    "share_of_shift": 0.48607974471534976,
+    "flips": 6
+   },
+   "0.99": {
+    "pairs": 80,
+    "share_of_shift": 0.27365752194060944,
+    "flips": 3
+   },
+   "median_top_prob_flipped": 0.947909407781877,
+   "median_top_prob_not_flipped": 0.9998000273873505
+  }
+ },
+ "constant_boost": {
+  "mistral-nemo": {
+   "boost_log_odds": 6.822458873841093,
+   "boost_odds_ratio": 918.2400729826735,
+   "rho_pred_obs": 0.4980460269214068,
+   "rho_unc_predicted": 0.8184976118106817,
+   "rho_unc_observed": 0.3791793313069909
+  },
+  "mistral-small": {
+   "boost_log_odds": 5.67550657200264,
+   "boost_odds_ratio": 291.6360357832075,
+   "rho_pred_obs": 0.7370820668693009,
+   "rho_unc_predicted": 0.831306990881459,
+   "rho_unc_observed": 0.6006296135475467
+  }
+ },
+ "ms_logged_only": {
+  "pairs": 26,
+  "items": 22,
+  "mean_shift": 0.10814218548290867,
+  "rho": 0.4760022586109543,
+  "mean_p_stored_logged": 0.08591621085550998,
+  "mean_p_stored_all": 0.15152248097250756
+ },
+ "item_overlap": {
+  "nemo_up": 25,
+  "small_up": 8,
+  "both": 5,
+  "fisher_p": 0.7031507920225172
+ },
+ "item_overlap_stated": {
+  "llama_up": 10,
+  "nemo_up": 21,
+  "both": 6,
+  "fisher_p": 0.2974049640635851
+ },
+ "label_diff_mistrals": {
+  "p50": 0.22727272727272724,
+  "low": -0.15873015873015872,
+  "high": 0.5250568181818178
+ },
+ "nemo_label_items": {
+  "moved_items": 25,
+  "moved_items_label_helped": 15,
+  "moved_items_label_no_change": 10,
+  "moved_items_label_worse": 0,
+  "moved_items_fully_back": 11
+ },
+ "label_new_items": {
+  "est": 0.619047619047619,
+  "ci_low": 0.3333333333333333,
+  "ci_high": 0.8999999999999999,
+  "pct_low": 0.34782608695652173,
+  "pct_high": 0.9230769230769231,
+  "fieller_low": 0.32999723929462366,
+  "fieller_high": 0.9560410357501808,
+  "share_boot_den_le_0": 0.0,
+  "num": 0.2708333333333333,
+  "den": 0.4375
+ },
+ "label_screened_items": {
+  "est": 0.5,
+  "ci_low": 0.2352941176470588,
+  "ci_high": 0.8571428571428571,
+  "pct_low": 0.239952380952381,
+  "pct_high": 0.8750000000000001,
+  "fieller_low": 0.22296276659669356,
+  "fieller_high": 0.9053890856909977,
+  "share_boot_den_le_0": 0.0,
+  "num": 0.1875,
+  "den": 0.375
+ },
+ "r3_r4": {
+  "effect_r3": 0.4166666666666667,
+  "effect_r4_same_items": 0.375,
+  "rho_choice": 0.8903852235229873,
+  "rho_prob_shift": 0.9808695652173912,
+  "prob_shift_r3": 0.40039248860217325,
+  "prob_shift_r4": 0.39747139195481557
+ },
+ "nemo_prob_shift": {
+  "screened": 0.39747139195481557,
+  "new": 0.4332897973908692,
+  "p_perm": 0.7466650666986661
+ },
+ "llama_preference": {
+  "trials": 8,
+  "right": 8,
+  "cites_memory": 6
+ },
+ "meta": {
+  "bootstrap_resamples": 20000,
+  "seed": 2046,
+  "n_items": 48
+ },
+ "nemo_rates": {
+  "no_belief": 0.14583333333333334,
+  "stated_incorrect": 0.4791666666666667,
+  "stored_correct": 0.020833333333333332,
+  "stored_incorrect": 0.5520833333333334,
+  "stored_incorrect_labelled": 0.3229166666666667,
+  "stored_unrelated": 0.15625
+ },
+ "nemo_correct": {
+  "no_belief": 0.7291666666666666,
+  "stated_incorrect": 0.4583333333333333,
+  "stored_correct": 0.96875,
+  "stored_incorrect": 0.40625,
+  "stored_incorrect_labelled": 0.6145833333333334,
+  "stored_unrelated": 0.75
+ }
+}

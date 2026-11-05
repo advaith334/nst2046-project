@@ -1,0 +1,13 @@
+model,condition,n,right,unreadable
+claude-sonnet,useful_label_off,8,8.0,0
+claude-sonnet,useful_label_on,8,8.0,0
+gemma-moe,useful_label_off,8,8.0,0
+gemma-moe,useful_label_on,8,8.0,0
+llama-8b,useful_label_off,8,8.0,0
+llama-8b,useful_label_on,8,8.0,0
+mistral-nemo,useful_label_off,8,8.0,0
+mistral-nemo,useful_label_on,8,8.0,0
+mistral-small,useful_label_off,8,8.0,0
+mistral-small,useful_label_on,8,8.0,0
+qwen-small,useful_label_off,8,7.0,1
+qwen-small,useful_label_on,8,8.0,0

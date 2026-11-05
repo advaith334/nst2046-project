@@ -1,0 +1,8 @@
+subset,items,effect,items_up,items_down,p_item
+all 48 items,48,0.40625,25,1,3.5762786865234375e-07
+category: science,20,0.4,11,0,0.0009765625
+category: general,20,0.4,10,1,0.0048828125
+category: numerical,8,0.4375,4,0,0.125
+belief asserts something false,43,0.3953488372093023,22,1,2.6226043701171875e-06
+belief denies something true,5,0.5,3,0,0.25
+items without a counting/convention note,47,0.4148936170212766,25,1,3.5762786865234375e-07

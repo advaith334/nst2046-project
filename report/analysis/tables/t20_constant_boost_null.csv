@@ -1,0 +1,7 @@
+model,band,observed,predicted_constant_boost,pairs
+mistral-nemo,Confident and correct,0.40493223117434024,0.30124930897496616,57
+mistral-nemo,Unsure (top option under 90%),0.5840686869829702,0.7264173635028024,30
+mistral-nemo,Confident and wrong,-0.08074007753707033,0.10142284132619105,9
+mistral-small,Confident and correct,0.10257206344951732,0.10024252066292759,89
+mistral-small,Unsure (top option under 90%),0.46331579356490177,0.503496233655237,5
+mistral-small,Confident and wrong,-0.00013259285927735842,0.003080960918126263,2

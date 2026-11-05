@@ -1,0 +1,6 @@
+run,attempt_rows,trials,cost_usd,scores_differ_from_raw_table
+r1_pilot,830,516,0.85,0
+r2_calibration,414,414,0.81,0
+r2_calsmall,441,414,0.09,0
+r3_longtail,598,576,0.47,0
+r4_main,3791,3552,1.33,0

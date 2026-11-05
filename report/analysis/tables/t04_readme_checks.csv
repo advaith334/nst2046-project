@@ -1,0 +1,77 @@
+section,claim,readme,recomputed,status
+3,trials in r1_pilot,516,516,match
+3,trials in r4_main,3552,3552,match
+3,trials in r3_longtail,576,576,match
+3,trials in round 2,828,828,match
+4 table,mistral-nemo no_belief false rate %,15,15,match
+4 table,mistral-nemo stored_incorrect false rate %,55,55,match
+4 table,mistral-nemo stated_incorrect false rate %,48,48,match
+4 table,mistral-nemo stored_incorrect_labelled false rate %,32,32,match
+4 table,mistral-nemo stored_unrelated false rate %,16,16,match
+4 table,mistral-nemo stored_correct false rate %,2,2,match
+4 table,mistral-small no_belief false rate %,3,3,match
+4 table,mistral-small stored_incorrect false rate %,16,16,match
+4 table,mistral-small stated_incorrect false rate %,11,11,match
+4 table,mistral-small stored_incorrect_labelled false rate %,11,11,match
+4 table,mistral-small stored_unrelated false rate %,5,5,match
+4 table,mistral-small stored_correct false rate %,2,2,match
+4 table,llama-8b no_belief false rate %,14,14,match
+4 table,llama-8b stored_incorrect false rate %,15,15,match
+4 table,llama-8b stated_incorrect false rate %,26,26,match
+4 table,llama-8b stored_incorrect_labelled false rate %,16,16,match
+4 table,llama-8b stored_unrelated false rate %,16,16,match
+4 table,llama-8b stored_correct false rate %,12,12,match
+4 table,gemma-moe no_belief false rate %,0,0,match
+4 table,gemma-moe stored_incorrect false rate %,1,1,match
+4 table,gemma-moe stated_incorrect false rate %,2,2,match
+4 table,gemma-moe stored_incorrect_labelled false rate %,0,0,match
+4 table,gemma-moe stored_unrelated false rate %,0,0,match
+4 table,gemma-moe stored_correct false rate %,0,0,match
+4 table,qwen-small no_belief false rate %,2,2,match
+4 table,qwen-small stored_incorrect false rate %,3,3,match
+4 table,qwen-small stated_incorrect false rate %,2,2,match
+4 table,qwen-small stored_incorrect_labelled false rate %,2,2,match
+4 table,qwen-small stored_unrelated false rate %,0,0,match
+4 table,qwen-small stored_correct false rate %,0,0,match
+4 table,claude-sonnet no_belief false rate %,0,0,match
+4 table,claude-sonnet stored_incorrect false rate %,0,0,match
+4 table,claude-sonnet stated_incorrect false rate %,0,0,match
+4 table,claude-sonnet stored_incorrect_labelled false rate %,0,0,match
+4 table,claude-sonnet stored_unrelated false rate %,0,0,match
+4 table,claude-sonnet stored_correct false rate %,0,0,match
+4 paired,mistral-nemo stored_incorrect vs no_belief flips (toward/away),41/2,41/2,match
+4 paired,mistral-nemo stated_incorrect vs no_belief flips (toward/away),34/2,34/2,match
+4 paired,mistral-nemo stored_incorrect_labelled vs stored_incorrect flips (toward/away),1/23,1/23,match
+4 paired,mistral-nemo stored_incorrect_labelled vs no_belief flips (toward/away),20/3,20/3,match
+4 paired,mistral-nemo stored_correct vs no_belief flips (toward/away),0/12,0/12,match
+4 paired,mistral-nemo stated_incorrect vs stored_incorrect flips (toward/away),4/11,4/11,match
+4 paired,mistral-small stored_incorrect vs no_belief flips (toward/away),12/0,12/0,match
+4 paired,mistral-small stored_incorrect_labelled vs no_belief flips (toward/away),8/0,8/0,match
+4 paired,llama-8b stated_incorrect vs no_belief flips (toward/away),14/2,14/2,match
+4 paired,llama-8b stated_incorrect vs stored_incorrect flips (toward/away),12/1,12/1,match
+4,Nemo items raised / lowered,25/1,25/1,match
+4,Mistral Small items raised,8,8,match
+4/5,Qwen unreadable answers (all 592),15,15,match
+5,Llama other-wrong answers (all 592),74,74,match
+5,belief asserts false / denies true,43/5,43/5,match
+4,useful-memory checks all correct,100%,100% of readable (1 unreadable),match
+3 r1,claude-sonnet right in every condition,100%,100%,match
+3 r1,qwen-large right in every condition,100%,100%,match
+3 r1,Llama wrong overall,about 15%,14%,match
+3 r2,Llama 34% -> 26% (README gives no evidence mode; this is pooled over both),34->26,32->26,MISMATCH
+3 r2,Llama 34% -> 26% if read as with-evidence only,34->26,34->26,match
+3 r2,Nemo with evidence,37->40,37->40,match
+3 r2,Nemo without evidence,35->44,35->44,match
+3 r3,Nemo round 3,19->60,19->60,match
+3 r3,Nemo round 3 flips,21/1,21/1,match
+3 r3,Nemo round 3 p,~0.00001,1.1e-05,match
+3 r3,Gemma round 3,"0->6, p=0.25","0->6, p=0.25",match
+4,Qwen3.5-397B at ceiling in every round (round 3 correct rate vs Claude),matched Claude,96.9% vs 100.0%,MISMATCH
+0,total API cost about $3.60,about 3.60,3.56,match
+3,round 1 cost,0.87,0.85,MISMATCH
+3,round 4 cost,1.33,1.33,match
+4,README example 'primes': Nemo moved toward the belief,yes,yes,match
+4,README example 'hexagon': Nemo moved toward the belief,yes,yes,match
+4,README example 'seawater': Nemo moved toward the belief,yes,yes,match
+4,README example 'Singapore': Nemo moved toward the belief,yes,yes,match
+3,"Round 2 small models ran before round 3 (Nemo first trial, r2 vs r3)",r2 first,"r3 08:51-09:10 UTC, r2 09:11-09:28 UTC",MISMATCH
