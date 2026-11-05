@@ -1,0 +1,8 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+nemo-base-local,stored_incorrect vs no_belief,91,0.21978021978021978,0.7032967032967034,47,3,3.708322537931963e-11
+nemo-base-local,stated_incorrect vs no_belief,82,0.21951219512195122,0.6585365853658537,38,2,1.4933903003111482e-09
+nemo-base-local,stored_incorrect_labelled vs no_belief,91,0.21978021978021978,0.6153846153846154,38,2,1.4933903003111482e-09
+nemo-base-local,stored_unrelated vs no_belief,90,0.2222222222222222,0.24444444444444444,11,9,0.8238029479980469
+nemo-base-local,stored_correct vs no_belief,89,0.21348314606741572,0.0,0,19,3.814697265625e-06
+nemo-base-local,stored_incorrect_labelled vs stored_incorrect,95,0.7052631578947368,0.6105263157894737,4,13,0.049041748046875
+nemo-base-local,stated_incorrect vs stored_incorrect,86,0.686046511627907,0.6511627906976745,10,13,0.6776394844055176
