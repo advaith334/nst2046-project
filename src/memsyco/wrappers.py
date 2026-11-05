@@ -1,7 +1,8 @@
 """Variant runs: does the wording around a memory drive the effect, and does a harness fix help?
 
 Each variant may replace prompt templates (`RunConfig.templates`), set its own conditions, or name
-a fix from `fixes.py`. Each is its own run, logged like any other; the summary compares them.
+a fix from `fixes.py` or a probe from `frontier/probes.py`. Each is its own run, logged like any
+other; the summary compares them.
 """
 
 from __future__ import annotations
@@ -13,6 +14,7 @@ import pandas as pd
 
 from .config import RunConfig, load_yaml
 from .fixes import FIXES
+from .frontier.probes import PROBES
 from .report import to_markdown, write_report
 from .runner import run
 from .schema import Case, Condition, ModelSpec
@@ -33,7 +35,11 @@ def run_variants(cfg: RunConfig, config_path: Path, cases: list[Case], models: l
         if "conditions" in variant:
             update["conditions"] = [Condition(c) for c in variant["conditions"]]
         vcfg = cfg.model_copy(update=update)
-        vclient = FIXES[variant["fix"]](client) if "fix" in variant else client
+        vclient = client
+        if "fix" in variant:
+            vclient = FIXES[variant["fix"]](vclient)
+        if "probe" in variant:
+            vclient = PROBES[variant["probe"]](vclient)
         vdir = out_dir / name
         left = None if max_cost is None else max_cost - spent
         if left is not None and left <= 0:

@@ -15,7 +15,7 @@ from .schema import FACTUAL_CONDITIONS, USEFUL_CONDITIONS
 RAW_COLUMNS = [
     "trial_id", "model_alias", "model_slug", "model_returned", "provider", "case_id", "case_kind",
     "category", "evidence_mode", "condition", "rep", "label_on", "selected_display", "selected", "auto_score",
-    "p_answer", "p_incorrect", "finish_reason", "latency_s", "error", "response_text",
+    "p_answer", "p_incorrect", "finish_reason", "latency_s", "error", "response_text", "transcript",
 ]
 
 
@@ -66,6 +66,8 @@ def raw_table(df: pd.DataFrame, cases: dict) -> pd.DataFrame:
     out = rescore(df, cases)
     out["p_answer"] = out.apply(lambda r: prob(r, "answer"), axis=1)
     out["p_incorrect"] = out.apply(lambda r: prob(r, "incorrect"), axis=1)
+    if "transcript" in out:
+        out["transcript"] = out["transcript"].map(lambda t: json.dumps(t, ensure_ascii=False) if isinstance(t, list) else None)
     return out[[c for c in RAW_COLUMNS if c in out.columns]].sort_values(["model_alias", "case_id", "condition", "rep"])
 
 

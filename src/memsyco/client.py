@@ -29,6 +29,8 @@ class Completion:
     logprobs: list[dict[str, Any]] | None = None
     latency_s: float = 0.0
     raw: dict[str, Any] = field(default_factory=dict)
+    # Turns beyond the single request, set by multi-turn probes (frontier/probes.py)
+    transcript: list[dict[str, str]] | None = None
 
 
 class Client(Protocol):

@@ -689,6 +689,9 @@ The MS1 report isn't in this repo. These are checked as worded in the analysis a
       beliefs
 - [ ] Add items, not repetitions, for Mistral Small: about 66 items before it could pass Holm by item
 - [x] Add a base model through a local server (round 14)
+- [ ] Frontier tests F1–F4 (headroom, test awareness, silent accommodation, pressure), each in two tracks
+      (frontier models; the main study's models): built in their own [frontier/](frontier/README.md)
+      folder, not yet run. F5–F7 are specs in [frontier/planned/](frontier/planned/)
 
 ---
 

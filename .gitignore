@@ -7,3 +7,6 @@ runs/**/trials.jsonl
 runs/smoke*/
 data/external/
 .DS_Store
+
+# Frontier tests (frontier/): full trial logs stay local, like the main study
+frontier/runs/**/trials.jsonl

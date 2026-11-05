@@ -79,6 +79,13 @@ Times are SGT. "Session" points to the Claude Code session log.
 | Claude Code subagents: statistics, qualitative coding, item audit, literature, societal brief, evidence trail | "spawn subagents and get a lot of work done", 5 Nov | **Pending at time of writing.** AI-coded qualitative work must be labelled as such | Evidence-trail output is this file and its siblings; AI-checked only. Do not cite any of it until a member has read it. [TEAM TO COMPLETE] |
 | Report drafting by any member | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] | [TEAM TO COMPLETE] |
 
+### Frontier tests (Aditya, 5 Nov, branch `aditya/work`)
+
+| Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
+|---|---|---|---|
+| Claude Code (Opus 5.5): test design | "come up with some independent tests ... on frontier models", hypothesis that models are "benchmaxxed" | Six tests proposed; Aditya chose four (now labelled F1–F4) | Design is AI-written. Predictions are left for Aditya to write before running |
+| Claude Code (Opus 5.5): code, items and configs | "build tests 1, 4 5 and 6" (now F1–F4) | **AI-generated:** everything under `frontier/` and `src/memsyco/frontier/`, `tests/test_frontier.py`, and the small shared-harness changes listed in `frontier/README.md`. 64 computed items, 24 misconception items | All 48 tests pass and a full dry run works. The 64 keys were re-checked by independent code (0 mismatches). The 24 misconception items need the two-member check |
+
 ## Honest limits on "verification"
 
 - **Most verification so far is AI checking AI.** A clean-clone audit by the same tool family is not independent. The guidelines say using AI is expected but "outsourcing judgment is not", so item checks and scoring must be done by people.
