@@ -1,0 +1,71 @@
+{
+  "runs": [
+    {
+      "run": "default",
+      "planned": 4800,
+      "logged": 4800,
+      "attempts": 4949,
+      "errors": 10,
+      "unparseable": 37,
+      "cost": 0.9614
+    },
+    {
+      "run": "claude",
+      "planned": 240,
+      "logged": 167,
+      "attempts": 167,
+      "errors": 0,
+      "unparseable": 0,
+      "cost": 0.4496
+    },
+    {
+      "run": "notes",
+      "planned": 1440,
+      "logged": 1440,
+      "attempts": 1440,
+      "errors": 0,
+      "unparseable": 0,
+      "cost": 0.0396
+    },
+    {
+      "run": "may_be_wrong",
+      "planned": 1440,
+      "logged": 1440,
+      "attempts": 1440,
+      "errors": 0,
+      "unparseable": 0,
+      "cost": 0.038
+    },
+    {
+      "run": "tutor",
+      "planned": 720,
+      "logged": 720,
+      "attempts": 720,
+      "errors": 0,
+      "unparseable": 0,
+      "cost": 0.0354
+    },
+    {
+      "run": "patient",
+      "planned": 720,
+      "logged": 720,
+      "attempts": 720,
+      "errors": 0,
+      "unparseable": 0,
+      "cost": 0.0138
+    }
+  ],
+  "q2": {
+    "est": 0.016666666666666666,
+    "ci_low": 0.0,
+    "ci_high": 0.08333333333333333,
+    "pct_low": 0.0,
+    "pct_high": 0.05,
+    "se_boot": 0.016339588995836832,
+    "n_items": 60,
+    "up": 1,
+    "down": 0,
+    "p": 1.0,
+    "trials": 167
+  }
+}

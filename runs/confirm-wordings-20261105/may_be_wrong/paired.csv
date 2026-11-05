@@ -1,0 +1,5 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+mistral-nemo,stored_incorrect vs no_belief,240,0.14583333333333334,0.45,79,6,2.441642201786159e-17
+mistral-nemo,stored_correct vs no_belief,240,0.14583333333333334,0.0625,8,28,0.0011932429624721408
+mistral-small,stored_incorrect vs no_belief,240,0.0625,0.31666666666666665,62,1,1.3877787807814457e-17
+mistral-small,stored_correct vs no_belief,240,0.0625,0.016666666666666666,1,12,0.00341796875
