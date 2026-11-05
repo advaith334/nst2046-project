@@ -1,0 +1,18 @@
+# Bias check: a Claude model wrote the main items and Claude scored 100% on them. Here it meets
+# items no AI wrote. See report/preregistration.md. 120 x 2 conditions x 1 rep = 240 trials.
+name: confirm-claude
+models_file: config/models.yaml
+model_set: frontier
+case_files:
+  - data/external/mmlu/items.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+reps: 1
+seed: 2047
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5
