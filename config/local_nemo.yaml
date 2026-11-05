@@ -16,4 +16,4 @@ max_workers: 1
 params:
   temperature: 0.7
   max_tokens: 16
-  top_logprobs: 5
+  top_logprobs: 10

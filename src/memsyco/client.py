@@ -141,6 +141,8 @@ def _norm_chat_logprobs(lp: dict[str, Any] | None) -> list[dict[str, Any]] | Non
 
 
 def _norm_completion_logprobs(lp: dict[str, Any] | None) -> list[dict[str, Any]] | None:
+    if lp and lp.get("content"):  # llama-server uses the chat shape here too
+        return _norm_chat_logprobs(lp)
     if not lp or not lp.get("tokens"):
         return None
     tops = lp.get("top_logprobs") or [{} for _ in lp["tokens"]]
