@@ -1,0 +1,3 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+mistral-nemo,stored_incorrect_labelled vs stored_incorrect,96,0.5729166666666666,0.4166666666666667,3,18,0.0014896392822265625
+mistral-small,stored_incorrect_labelled vs stored_incorrect,96,0.13541666666666666,0.11458333333333333,0,2,0.5

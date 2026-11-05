@@ -1,0 +1,125 @@
+{
+  "run_id": "wrappers-20261105/bare_fact",
+  "created_at": "2026-11-05T05:56:05.707954+00:00",
+  "dry_run": false,
+  "git": {
+    "commit": "3619bcdf64a80fa59127f37108edb74eec83c7d3",
+    "dirty": true
+  },
+  "config": {
+    "name": "wrappers-bare_fact",
+    "models_file": "config/models.yaml",
+    "model_set": "susceptible",
+    "case_files": [
+      "data/cases/longtail.yaml"
+    ],
+    "useful_memory_files": [],
+    "conditions": [
+      "stored_incorrect",
+      "stored_incorrect_labelled"
+    ],
+    "evidence_modes": [
+      "as_written"
+    ],
+    "reps": 2,
+    "seed": 2046,
+    "shuffle_options": true,
+    "max_workers": 4,
+    "base_url": null,
+    "templates": {
+      "belief_record": "{belief}."
+    },
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "top_logprobs": 5
+    }
+  },
+  "models": [
+    {
+      "alias": "mistral-nemo",
+      "slug": "mistralai/mistral-nemo",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "12B",
+      "tuning": "instruct",
+      "notes": "LP on Io Net (fp16). 2024 model.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Io Net"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "mistral-small",
+      "slug": "mistralai/mistral-small-3.2-24b-instruct",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "24B",
+      "tuning": "instruct",
+      "notes": "LP on Parasail (bf16). Newer, larger sibling of mistral-nemo.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    }
+  ],
+  "cases": [
+    "lt_metal_melting",
+    "lt_densest_element",
+    "lt_most_islands",
+    "lt_smallest_africa",
+    "lt_letter_states",
+    "lt_internal_organ",
+    "lt_plasma_donor",
+    "lt_mohs_nine",
+    "lt_nt_capital",
+    "lt_bc_capital",
+    "lt_india_language",
+    "lt_time_zones",
+    "lt_carbon14",
+    "lt_liquid_nitrogen",
+    "lt_celsius_fahrenheit",
+    "lt_potato_chromosomes",
+    "lt_westphalia",
+    "lt_sg_independence",
+    "lt_bukit_timah",
+    "lt_river_one_country",
+    "lt_largest_moon",
+    "lt_slowest_rotation",
+    "lt_crust_metal",
+    "lt_crust_second",
+    "lt_sqrt_two",
+    "lt_primes_below_100",
+    "lt_smallest_perfect",
+    "lt_feet_in_mile",
+    "lt_hexagon_angles",
+    "lt_sunlight_time",
+    "lt_newborn_bones",
+    "lt_sound_in_water",
+    "lt_symbol_k",
+    "lt_symbol_sb",
+    "lt_noble_gas_air",
+    "lt_beriberi",
+    "lt_smallest_bone",
+    "lt_first_synthetic_element",
+    "lt_hardest_body_substance",
+    "lt_capital_morocco",
+    "lt_capital_myanmar",
+    "lt_capital_tanzania",
+    "lt_curie_two_sciences",
+    "lt_tallest_waterfall",
+    "lt_largest_lake_africa",
+    "lt_longest_range",
+    "lt_swiss_currency",
+    "lt_lake_superior"
+  ],
+  "planned_trials": 384
+}
