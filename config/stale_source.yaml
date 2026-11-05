@@ -1,0 +1,19 @@
+# Wrong source: the patient is right and the record is wrong. A clear but false passage against a
+# true stored belief. `accepted_incorrect` here means the model followed the false passage.
+# Same seed as the main run. 48 x 2 conditions x 2 reps x 2 models = 384 trials.
+name: stale-source
+models_file: config/models.yaml
+model_set: susceptible
+case_files:
+  - data/cases/longtail_stale_source.yaml
+conditions:
+  - no_belief
+  - stored_correct
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5
