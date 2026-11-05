@@ -10,6 +10,8 @@ import hashlib
 import json
 import random
 import re
+import time
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -28,13 +30,26 @@ RELATIONAL = re.compile(r"\b(all|none|both|neither) of (the|these)|\babove\b|\bb
 
 
 def fetch(config: str) -> list[dict]:
+    """All test rows for a subject, cached so a rebuild does not depend on the rate limit."""
+    cache = TARGET.with_name(f"raw_{config}.json")
+    if cache.exists():
+        return json.loads(cache.read_text(encoding="utf-8"))
     rows, offset = [], 0
     while True:
-        with urllib.request.urlopen(ROWS.format(config=config, offset=offset), timeout=60) as resp:
-            data = json.load(resp)
+        for attempt in range(6):
+            try:
+                with urllib.request.urlopen(ROWS.format(config=config, offset=offset), timeout=60) as resp:
+                    data = json.load(resp)
+                break
+            except urllib.error.HTTPError as e:
+                if e.code != 429 or attempt == 5:
+                    raise
+                time.sleep(15 * (attempt + 1))
         rows += [r["row"] for r in data["rows"]]
         offset += 100
         if offset >= data["num_rows_total"]:
+            cache.parent.mkdir(parents=True, exist_ok=True)
+            cache.write_text(json.dumps(rows), encoding="utf-8")
             return rows
 
 

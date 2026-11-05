@@ -27,7 +27,7 @@ differs from the main study, and comparisons with it are descriptive only.
 
 MMLU keys are taken as given, and known to contain some errors. One filter was added after a first look at the sample, before any trial ran: rows where a bare number sits beside sentence-length options are corrupted, so they are excluded, and repeated questions are removed.
 
-Item file: SHA-256 `Requests`. The items are not committed. The script and seed rebuild them.
+Item file: SHA-256 `3f74b5a2c450af5f5f5a09514ed3612524ee7408f46ea926fcde78f8e44dab54`. The items are not committed. The script and seed rebuild them.
 
 ## Design
 
