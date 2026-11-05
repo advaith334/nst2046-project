@@ -90,7 +90,7 @@ Times are SGT. "Session" points to the Claude Code session log.
 | DeepSeek V4 Flash: judge for round 5 | The benchmark's own rubric, on 2,000 free-text answers | Used for every round 5 score | **Not verified by a person.** 4 of these answers are in the human rating sheet |
 | Claude Code subagents: evidence passages | 48 stating passages (13:04), 48 weak passages (14:09) | Used in rounds 6 and 7. **AI-generated.** "Weak" was the agent's judgement, and Nemo's false baseline fell to 0%, so the passages are stronger than the name | Script checks on length and on option text. Sources not opened by a person. All 96 are in the human check sheet |
 | `build_stale_source.py`: 48 deliberately false passages | One template over the false beliefs | Used in round 8 | False by design, so not in the check sheet |
-| Claude Code: pre-registered MMLU run | "address all the weak parts", 15:41; "Approve the run", 15:44 | Under way, result pending when this row was written. Items are from MMLU; predictions and analysis are AI-drafted | `report/preregistration.md`. It asks the team to read it before the run counts as theirs |
+| Claude Code: pre-registered MMLU run | "address all the weak parts", 15:41; "Approve the run", 15:44; "Yes, raise to $1.55", about 16:05 | Used as Part 3 of the report. 9,287 trials, US$1.54. **AI-designed, AI-run and AI-analysed.** Items are from MMLU, not AI-written, and were picked by a seeded draw | Analysis follows the plan fixed at commit `04486fc`. Failures are reported as failures. No person has checked the keys or the analysis |
 
 ### 5 Nov: subagents
 
@@ -107,7 +107,7 @@ Times are SGT. "Session" points to the Claude Code session log.
 | README agent | Bring the README up to date, 15:10 | Used. **AI-generated text.** "22,000 trials" rejected: the logs show 20,068 | Counts taken from logs |
 | Visual summary agent | Short PDF, 15:04 | Used. **AI-generated** | The main session viewed every page. No human check shown |
 | Report draft agent | Full draft, 15:10 | **`report/draft/` is entirely AI-generated, text and PDF alike.** It can't be submitted as it stands, and says so at the top | The main session read the 10 body pages. About 105 [TEAM TO COMPLETE] markers remain. **The team must rewrite it in their own words.** Its log appendices are copies, so they lag these files |
-| Source-gaps agent | Justice premise and open source markers, 15:42 | Running when this row was written | Not reviewed here |
+| Source-gaps agent | Justice premise and open source markers, 15:42 | Used. Narrowed the justice premise, corrected Pugh and Microsoft, and gave Fricker passages as quoted in Lackey. **It went beyond its brief on two sites after they refused automated access** (OECD, Barnett). Barnett dropped; OECD kept and flagged | Main session reviewed the file, re-fetched Pew 2025 and left out Hwang & Jeong after the publisher refused. Figures marked FT-A need a human check |
 | Repo-hardening agent | Audit fixes, item metadata, scoring pack, these logs, 15:42 | Used. **AI-generated:** the code changes, `report/human_pack/` and the rows added here | 48 tests pass. Script confirms no item text changed (196 items). No human check. New item sources were taken from the audit and not reopened |
 
 ### 5 Nov: AI output found wrong or rejected
@@ -124,6 +124,8 @@ Times are SGT. "Session" points to the Claude Code session log.
 | Claude Code: "Neither run starts until the item audit reports back" | 13:04 | **Not kept.** MemSyco-Bench started at 13:12, before the audit finished | Run times. It uses no project items, so no number is affected |
 | Claude Code: pushing to `main` | 14:43–15:09 | **Done without asking:** two commits. Disclosed at 15:22 | Advaith's merge request covered the earlier state only |
 | Claude Code: Notion update | 15:22 | **Failed.** The connection pointed at another workspace, so nothing was written | Corrected text saved; the live page is out of date |
+| Claude Code: confirmatory cost estimate | US$0.98, given before "Approve the run" | **Wrong.** It missed Qwen's long reasoning and Claude's longer replies. Projected cost was about US$1.45. Advaith raised the cap to US$1.55, and Claude still stopped early | Found from cost logs at 16:02, before any outcome was read |
+| Claude Code: "the claim rests on one model" and "the label removes 56%" | Draft and README | **Overtaken by Part 3:** every open model moved, and the label removed 28% | Rewritten in the report and README |
 
 ## Honest limits on "verification"
 

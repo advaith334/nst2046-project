@@ -6,11 +6,12 @@ differs across models, and whether labelling the memory as *unverified* helps.
 
 Team: Advaith, Aditya, Elkan and Tony. Roles: [TEAM TO CONFIRM].
 
-> **Status (Milestone 2):** harness built; three screening rounds, the main study and ten follow-up
-> rounds run. That is **20,068 trials** in all: 5,472 in rounds 1–4, 12,784 in paid follow-ups, 1,728
-> local and free, and 84 smoke tests (20,670 logged attempts with retries). Total API spend:
-> **$4.39**. All test items and evidence passages are still unverified **drafts**, no response has
-> been hand-scored, and every follow-up was designed after the main results were seen.
+> **Status (Milestone 2):** harness built; three screening rounds, the main study, ten follow-up
+> rounds and one pre-registered confirmatory run done. That is **29,355 trials** in all: 5,472 in
+> rounds 1–4, 12,784 in paid follow-ups, 9,287 confirmatory, 1,728 local and free, and 84 smoke
+> tests. Total API spend: **$5.93**. Our own test items and evidence passages are still unverified
+> **drafts**, and no response has been hand-scored. Rounds 5–14 were designed after the main results
+> were seen. Round 15 was pre-registered and uses MMLU items that no AI wrote.
 >
 > **AI disclosure:** all code, 87 of the 89 test items and this README are AI-generated. See
 > [section 5](#5-limitations).
@@ -34,12 +35,31 @@ Team: Advaith, Aditya, Elkan and Tony. Roles: [TEAM TO CONFIRM].
 "Points" means percentage points of answers. Square brackets are 95% intervals from resampling
 items, not trials. Effects are rises in false answers over the same model's no-belief baseline.
 
+**Round 15 is the strongest evidence here.** It was pre-registered before any trial and uses 120
+randomly drawn MMLU items. The rest of this table is exploratory, and round 15 overrides it where
+they differ. Results are in the [confirmatory write-up](report/analysis/confirm/confirm_results.md).
+
+| Pre-registered test | Result | Verdict |
+|---|---|---|
+| Harm above zero, Nemo | +55 [+47, +62] | Pass |
+| Harm above zero, Mistral Small | +35 [+28, +43] | Pass |
+| Label reduces Nemo's harm | +15 [+10, +21], 28% of the harm | Pass |
+| Labelled memory stays above no belief, Nemo | +40 [+32, +48] | Pass |
+| Benefit above zero, Nemo | +44 [+37, +52] | Pass |
+| Harm differs from zero: Llama, Qwen3.5-9B, Gemma 4 | +30, +12, +6, all pass Holm | All differ |
+| Tutor frame cuts Nemo's harm and benefit | +53 [+41, +68], +33 [+20, +48] | Pass |
+| Patient frame cuts Nemo's harm and benefit | +29 [+19, +40], +7 [-1, +15] | **Benefit cut fails** |
+| Nemo's harm similar in school and health | +15 [-1, +30], school minus health | Not settled |
+| Does Claude's harm differ from zero? | +2 [0, +8], 60 items | Not detected, **incomplete** |
+
+Exploratory results from the rounds before it:
+
 | Finding | Evidence |
 |---|---|
 | On long-tail facts, a stored false belief can pull a model's answer toward it | Mistral Nemo: 15% → **55%** false answers, +41 points [+28, +54]. +44 [+25, +62] on the 24 items not used for screening |
 | This is scoped to long-tail facts | Nemo's round 2 items (misconceptions, logic, numerical) gave only +3 to +9 points |
 | Exact rates are specific to our wording | Nemo's stored-belief rate runs from **25% to 79%** across wordings, with the belief unchanged. Five runs of one identical prompt span only 55–61% |
-| Mistral Small shows a weaker effect, on less solid evidence | +12 [+6, +23], from only 8 items. Passes Holm on trials, fails Holm at item level (p = 0.30) |
+| Mistral Small's effect was weak on our items (clear in round 15) | +12 [+6, +23], from only 8 items. Passes Holm on trials, fails Holm at item level (p = 0.30) |
 | "Unaffected" holds only for our multiple-choice task | Llama, Gemma 4, Qwen3.5-9B and Claude Sonnet 5.5 showed no detectable effect on our items. On MemSyco-Bench all five open models moved, by +21 to +64 points. Claude was not in that run |
 | No detected difference between a stored belief and a stated one | Nemo: stored 55% vs stated 48%, difference -7 [-17, +1]. This is not proof that they are equal |
 | The "unverified" label helps Nemo but does not fix it | Nemo: 55% → 32%, removing 56% [36, 78] of the effect and leaving it +18 [+7, +30] above baseline |
@@ -47,7 +67,7 @@ items, not trials. Effects are rises in false answers over the same model's no-b
 | No loss of useful memory detected, but only on easy checks | 95 of 95 readable answers right, label on or off. These checks were too easy to show the cost above |
 | Uncertainty is only a partial mechanism | It helps predict flips, but about half of Nemo's shift (46–61%, depending on the cut-off) came from answers it held confidently and correctly |
 | Evidence shrinks the effect steeply in Nemo | No passage +41, weak passage +17, stating passage +1 |
-| No fix was shown to sort false memories from true ones | Tutor frame: 31 points fewer false answers, 22 points less accuracy on true memories |
+| No fix was shown to sort false memories from true ones here. Round 15 gives one unconfirmed lead | Tutor frame: 31 points fewer false answers, 22 points less accuracy on true memories |
 | Instruction tuning was not necessary for the effect in one pair | Local Nemo base +50, instruct +48 on the same prompt, gap +2 [-10, +15] |
 
 ---
@@ -144,8 +164,9 @@ weak points in its claims.
 | 12 | Patient frame | 48 | 2 | 768 | $0.01 | 5 Nov 06:30–06:35 | Same trade-off |
 | 13 | Three harness fixes | 48 + 4 useful-memory checks | 2 | 1,248 | $0.03 | 5 Nov 05:49–06:03 | None sorts false memories from true |
 | 14 | Local base vs instruct | 48 | 1 pair, 3 arms | 1,728 | Free | 5 Nov 05:48–06:42 | Effect the same size in base, in points |
+| 15 | Confirmatory (pre-registered) | 120 MMLU | 6 | 9,287 | $1.54 | 5 Nov 07:46–10:13 | All five primary hypotheses pass; every open model moved |
 | | Smoke tests | | | 84 | $0.04 | 27 Oct, 5 Nov | Harness checks |
-| | **Total** | | | **20,068** | **$4.39** | | |
+| | **Total** | | | **29,355** | **$5.93** | | |
 
 Trial counts and costs come from the logs. Costs include retries and extra calls: the judge in
 round 5, and the second call in the answer-first and memory-gate fixes.
@@ -402,7 +423,7 @@ round 5, and the second call in the answer-first and memory-gate fixes.
     zero, and it loses 19 points of accuracy.
   - **Rule:** no shift beyond noise, Nemo -6 [-16, +1], Small +6 [-1, +17].
   - **Mistral Small:** no change passes Holm at item level, and it has little benefit to lose.
-- **What it changed:** no fix is shown to sort false memories from true ones. Every intervention
+- **What it changed:** no fix here is shown to sort false memories from true ones, though round 15 leaves one lead. Every intervention
   tested on both sides that cut Nemo's false answers a lot also cut its accuracy on true memories.
 
 ### Round 14: Local base vs instruct
@@ -433,6 +454,33 @@ round 5, and the second call in the answer-first and memory-gate fixes.
   limits are large: one pair, quantised, on a transcript prompt no one would use with a base model.
 
 ---
+
+### Round 15: Confirmatory run
+
+Every round before this one used AI-written items, and most were designed after seeing results. So
+we wrote down the hypotheses and analysis first, in the
+[pre-registration](report/preregistration.md), then ran 120 items drawn at random from MMLU: 60
+school and 60 health.
+
+| Model | Correct, no memory | False, no memory | False, false memory | False, labelled | Correct, true memory | Harm | Benefit |
+|---|---|---|---|---|---|---|---|
+| Nemo | 50% | 15% | 70% | 55% | 94% | +55 | +44 |
+| Mistral Small | 75% | 8% | 43% | 28% | 98% | +35 | +23 |
+| Llama | 55% | 17% | 46% | 34% | 81% | +30 | +26 |
+| Qwen3.5-9B | 90% | 4% | 17% | 9% | 98% | +12 | +7 |
+| Gemma 4 | 89% | 5% | 12% | 8% | 95% | +6 | +6 |
+| Claude Sonnet 5.5, incomplete | 93% | 3% | 3% | not run | not run | +2 | not run |
+
+- **What held up.** All five primary hypotheses passed, and the effect now reaches every open model.
+- **What changed.** Llama moved +30 here after showing nothing on our items. The label removed 28%
+  of Nemo's harm, against 56% in the main study.
+- **What failed.** The prediction that the patient frame would cut Nemo's benefit: +7 [-1, +15].
+  In an exploratory reading it left 39% of the harm and kept 81% of the benefit. Small showed no such
+  gap, and the same frame kept no benefit in round 12, so this is a lead to replicate.
+- **What not to compare.** The memory sentence here repeats the question, which may strengthen the
+  effect. Differences from the main study are descriptive only.
+- **Changes from the plan.** The budget rose from $1.25 to $1.55 after 326 trials, on cost alone.
+  Claude still stopped at its cap: 167 of 240 trials, with 60 items complete.
 
 ## 4. Main study results
 
@@ -565,7 +613,7 @@ Full per-condition tables, with 95% confidence intervals, are in
   written from one model's knowledge may suit that family. This has not been tested directly.
 - **AI judge in MemSyco-Bench.** Every score in round 5 comes from one model, DeepSeek V4 Flash, with
   no human check.
-- **Nothing was pre-registered.** The 42 paired comparisons were in the code before the main run, but
+- **Only round 15 was pre-registered.** The 42 paired comparisons were in the code before the main run, but
   not formally registered. Everything else, including all of rounds 5–14, was designed after seeing
   the data, so treat those p-values as descriptive.
 
@@ -684,15 +732,16 @@ The MS1 report isn't in this repo. These are checked as worded in the analysis a
 
 **Next experiments:**
 
-- [ ] Rerun `Notes:`, the "may be wrong" caveat and "Student believes" **with a true-memory arm**, on
-      the same day as a baseline. This is the most informative cheap test
-- [ ] Pre-register a fresh item set crossing item type with baseline confidence, on Nemo, Mistral
-      Small and Llama
+- [x] Rerun `Notes:` and the "may be wrong" caveat with a true-memory arm, on the same day as a
+      baseline (round 15)
+- [x] Pre-register a fresh item set (round 15, on MMLU items)
+- [ ] Replicate the patient frame and the caveat on fresh items, with a memory sentence that doesn't
+      repeat the question. This is now the most informative cheap test
+- [ ] Finish Claude's arm: 73 trials left, about $0.20
+- [ ] Check the MMLU keys on the items that moved, and run the planned sensitivity analysis
 - [ ] Rebalance items so half the false beliefs deny a truth, and add logic items or say why not
 - [ ] Swap the answer format so reasoning comes first (Nemo, Gemma, Llama)
-- [ ] Ask why Llama uses stored preferences and follows stated beliefs, yet doesn't adopt stored
-      beliefs
-- [ ] Add items, not repetitions, for Mistral Small: about 66 items before it could pass Holm by item
+- [ ] Ask why Llama showed nothing on our items and +30 on MMLU
 - [x] Add a base model through a local server (round 14)
 
 ---

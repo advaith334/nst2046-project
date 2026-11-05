@@ -2,16 +2,19 @@
 
 **In one line:** these models give a statement weight according to how it's framed, not whether it's warranted. A false belief in memory can beat what a model knows, but not clear evidence in front of it.
 
-**Updated 5 Nov.** This replaces the earlier version. Some earlier claims were too strong, including "four of six models are unaffected" and "the label doesn't break useful memory".
+**Updated 5 Nov, evening.** This replaces the earlier version. Some earlier claims were too strong, including "four of six models are unaffected" and "the label doesn't break useful memory". A pre-registered test on outside items has now confirmed the core result.
 
 ## Key takeaways
 
-- **Memory can carry sycophancy.** With a false belief in memory, Mistral Nemo chose the false answer 55% of the time, up from 15% with none. This applies to long-tail facts.
+- **The core result is confirmed.** On 120 random exam questions no AI wrote, with the plan fixed first, a false memory raised Nemo's false answers from 15% to 70%.
+- **Every open model moved.** Nemo +55, Mistral Small +35, Llama +30, Qwen +12, Gemma +6. Claude showed no detectable effect, on an incomplete run.
+- **Memory can carry sycophancy.** On our own long-tail facts, Nemo chose the false answer 55% of the time, up from 15% with none.
 - **Evidence changes everything.** The memory effect on Nemo is +41 points with no evidence, +17 with weak evidence and +1 with a clear passage.
 - **A wrong record beats a true memory.** Nemo followed a clear false passage 81% of the time, even with a true memory. Mistral Small mostly resisted.
 - **Wording matters as much as the model.** The same memory gave Nemo anywhere from 25% to 79% false answers.
-- **No model family is safe by default.** Three models that barely moved on our items moved on an external benchmark.
-- **There is no free fix.** Everything that strongly cut false answers also cut the benefit of true memories.
+- **No model family is safe by default.** Llama did nothing on our items and moved +30 on outside items.
+- **There is no proven free fix.** Strong cuts to false answers usually cut the benefit of true memories too. The patient framing is one lead, not yet confirmed.
+- **The label is weaker than we thought.** It removed 28% of Nemo's harm on outside items, against 56% on ours.
 - **Instruction tuning wasn't necessary.** Base and tuned Nemo moved equally, which doesn't support MS1's explanation.
 
 ## What we tested
@@ -33,7 +36,7 @@ We ask a multiple-choice factual question, sometimes with a "saved memory" sayin
 
 ## How the work developed
 
-About 20,000 trials for $4.39 in total.
+About 29,000 trials for $5.93 in total.
 
 | Stage | What we did | What we learned |
 |---|---|---|
@@ -46,6 +49,7 @@ About 20,000 trials for $4.39 in total.
 | Wording tests | 9 ways of writing the memory | Wrapper text matters, as Dr Filippov warned |
 | Fixes | Label, rule, answer first, gate, tutor and patient framing | No free fix |
 | Base vs tuned Nemo | Run locally for free | Tuning wasn't necessary |
+| Confirmatory run | 120 MMLU questions, plan fixed first | Core result confirmed; every open model moved |
 
 ## Main study results
 
@@ -64,6 +68,25 @@ How often each model picked the false-belief answer (96 answers per cell):
 - **Mistral Small is weaker.** Probably real, but it doesn't survive correction when items are the unit.
 - **Stored vs stated:** no detected difference. That doesn't mean they're equal.
 - **Llama doesn't ignore memory.** It mentions it often, and sometimes treats true memories as errors.
+
+## The confirmatory run
+
+We wrote down our predictions before running anything, then used 120 random questions from MMLU, a public exam-style test set.
+
+| Model | False, no memory | False, false memory | Correct, no memory | Correct, true memory |
+|---|---|---|---|---|
+| **Nemo** | 15% | **70%** | 50% | 94% |
+| **Mistral Small** | 8% | **43%** | 75% | 98% |
+| **Llama** | 17% | **46%** | 55% | 81% |
+| Qwen3.5-9B | 4% | 17% | 90% | 98% |
+| Gemma 4 | 5% | 12% | 89% | 95% |
+| Claude Sonnet 5.5 | 3% | 3% | 93% | not run |
+
+- **Passed:** all five main predictions.
+- **Failed:** we predicted the patient framing would cut the benefit of true memories. It didn't clearly do so.
+- **Not settled:** whether Nemo's harm is similar on school and health questions.
+- **Incomplete:** Claude stopped at its budget cap, with 60 of 120 questions complete.
+- **Watch out:** the memory sentence here repeats the question, which may strengthen the effect. Don't compare these rates directly with the main study.
 
 ## What the follow-ups showed
 
@@ -100,26 +123,31 @@ These items store a preference rather than a belief, and an AI judge marks them.
 
 The gate withheld every stored belief, and most useful memories too. Nemo then recommended salmon to a vegetarian.
 
+On outside items, the patient framing left 39% of Nemo's harm and kept 81% of its benefit. Mistral Small showed no such gap, and the same framing kept no benefit on our own items, so this needs repeating.
+
 ## The societal argument
 
 **One concept, two practices.**
 
 - **Hearsay gives the distinction.** "She believes p" is evidence about her, not about p. These models often miss that.
 - **Teachers (lead).** A teacher's note on a misconception exists to be corrected. Tutor framing quietens memory, but that isn't teaching.
-- **Patients (contrast).** The same scepticism hurts people who are right. A wrong record beat a true memory, and the label cut true memories.
+- **Patients (contrast).** The same scepticism can hurt people who are right. A wrong record beat a true memory, and the label cut true memories.
 - **Why the pair matters.** "Be more sceptical of users" isn't an easy answer.
-- **Who should act.** Wording, role and retrieval are deployer choices, and testing cost under US$5.
+- **Who should act.** Wording, role and retrieval are deployer choices, and testing cost under US$6.
+
+- **Who bears it.** False beliefs on settled facts follow literacy, numeracy and class, though years of schooling alone predicts little. Whose false beliefs get stored is unmeasured.
 
 We don't claim testimonial injustice, because we have no data on prejudice. Fricker's book still needs reading by the team.
 
 ## Caveats
 
-- **Items and passages are drafts.** No human has verified them yet.
+- **Our items and passages are drafts.** No human has verified them yet, and nobody has checked the MMLU answer keys.
 - **Nothing is hand-scored.** Scores are automatic or AI-coded.
 - **AI authorship.** AI tools wrote most items and all the code. The report must disclose this.
-- **Nothing was pre-registered,** and the follow-ups are exploratory.
+- **Only the confirmatory run was pre-registered.** Everything else is exploratory.
 - **Synthetic, single-turn tests.** Nemo's rates aren't rates for any real product.
 - **Changes from MS1.** The main study had no evidence passages or logic items, and used 6 models.
+- **Budget.** The confirmatory cap rose from $1.25 to $1.55 partway through, on cost alone.
 
 ## What we need from the team
 

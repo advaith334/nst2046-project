@@ -8,6 +8,7 @@ Chart values are read from the analysis tables and run summaries at build time.
 Numbers that appear only in prose are listed in CHECKS and tested against those
 same files, so the build stops if a source number and the page disagree.
 """
+import base64
 import csv
 import html
 import pathlib
@@ -152,6 +153,20 @@ CHECKS = [
     ("label removes, instruct", 39, pct(removed(inst))),
     ("all trials", 20068, sum(int(r["trials"]) for r in spend)),
     ("5 Nov trials", 14512, sum(int(r["trials"]) for r in spend if r["group"] in ("5 Nov follow-ups", "local (free)"))),
+]
+CONF = ROOT / "report/analysis/confirm/tables"
+_tests = {r["id"]: r for r in csv.DictReader(open(CONF / "tests.csv"))}
+_models = {r["model"]: r for r in csv.DictReader(open(CONF / "models.csv"))}
+_runs = list(csv.DictReader(open(CONF / "runs.csv")))
+_pts = lambda x: int(float(x) * 100 + 0.5)
+CHECKS += [
+    ("H1", 55, _pts(_tests["H1"]["est"])), ("H2", 35, _pts(_tests["H2"]["est"])), ("H3", 15, _pts(_tests["H3"]["est"])),
+    ("H5", 44, _pts(_tests["H5"]["est"])), ("Llama", 30, _pts(_tests["H6a"]["est"])), ("Gemma", 6, _pts(_tests["H6b"]["est"])),
+    ("Qwen", 12, _pts(_tests["H6c"]["est"])), ("patient benefit cut", 7, _pts(_tests["H7d"]["est"])),
+    ("Nemo false memory", 70, _pts(_models["mistral-nemo"]["false_stored_incorrect"])),
+    ("confirmatory trials", 9287, sum(int(r["logged"]) for r in _runs)),
+    ("trials with confirmatory", 29355, sum(int(r["trials"]) for r in spend) + sum(int(r["logged"]) for r in _runs)),
+    ("spend x100", 593, round((sum(float(r["cost_usd"]) for r in spend) + sum(float(r["cost"]) for r in _runs)) * 100)),
 ]
 bad = [c for c in CHECKS if c[1] != c[2]]
 if bad:
@@ -596,7 +611,7 @@ table.cond td { padding: 6px 8px 6px 0; border-bottom: 1px solid #e4e3dc; height
 """
 
 
-def page(n, eyebrow, title, body, scope, total=8):
+def page(n, eyebrow, title, body, scope, total=9):
     return f"""
 <section class="page" data-n="{n}">
   <div class="eyebrow">{eyebrow}</div>
@@ -617,7 +632,7 @@ p1 = f"""
       <div class="q">When does a remembered false belief change a chatbot's facts, and can we fix that without losing useful memory?</div>
       <div class="k">Our claim</div>
       <div class="claim">These models weigh a statement by how it is framed, not by whether it is warranted.</div>
-      <div class="mini" style="font-size:16px">Mainly Mistral Nemo, an open model, on long-tail facts: a stored false belief beat what it half-knew, but not a clear source.</div>
+      <div class="mini" style="font-size:16px">Strongest in Mistral Nemo, and confirmed on external items (page 8): a stored false belief beat what it half-knew, but not a clear source.</div>
       <div class="mini" style="margin-top:22px">Advaith, Aditya, Elkan, Tony. Draft, 5 Nov 2026.</div>
     </div>
     <div>
@@ -627,7 +642,7 @@ p1 = f"""
   </div>
   </div>
   <footer><div class="scope">Mistral Nemo's false answers, 96 per bar, 48 items. Rises use unrounded rates. Post hoc, across runs: “no passage” ran 27 Oct, the others 5 Nov.
-  Synthetic single-turn tests, unverified draft items. Rates depend on wording (page 4) and are not rates for any product.</div><div class="pn">1 / 8</div></footer>
+  Synthetic single-turn tests, unverified draft items. Rates depend on wording (page 4) and are not rates for any product.</div><div class="pn">1 / 9</div></footer>
 </section>"""
 
 rail = lambda: '<div class="rail">' + svg(718, 12, arrow(0, 6, 718, AXIS, 3)) + "</div>"
@@ -678,7 +693,7 @@ p2 = page(
   Item type and Nemo were both chosen after seeing data, which is why the +44 on new items matters.</div>
 </div>""",
     "Bars: Nemo's rise in false answers, points (harder items: with, then without a passage; pilot: Llama). Rounds differ in items and design, so they compare unlike things. "
-    "All work: 20,068 trials, seven hosted models plus a local Nemo pair, $4.39.",
+    "All work: 29,355 trials, seven hosted models plus a local Nemo pair, $5.93.",
 )
 
 p3 = page(
@@ -781,7 +796,7 @@ p5 = page(
     <h3>The gate fails its own test</h3>
     <p>It withheld all 384 stored beliefs. Nemo then got 12 of 16 useful checks right.</p>
     <h3>Best leads, not proven</h3>
-    <p>Single wording parts look cheap, but their intervals include the line. “Notes:” cut false answers from 60% to 25%, at an unknown cost.</p>
+    <p>Single wording parts look cheap, but their intervals include the line. “Notes:” cut false answers from 60% to 25%. Page 8 measures the cost.</p>
   </div>
 </div>""",
     "Mistral Nemo, 96 answers per condition. Shares of the main run's +41 harm and +24 benefit. Every point is post hoc and crosses runs (27 Oct vs 5 Nov). "
@@ -819,7 +834,7 @@ p6 = page(
       <div class="card"><b class="w">Teachers</b>
         <div class="mini">The record is a diagnosis to act on. Default wording agrees with the error (55%). Tutor wording turns memory down (24%), but true memory stops helping too.</div></div>
     </div>
-    <div class="owe">One credibility dial cannot serve both. Deployers set the weight, so they owe a test. Our whole study cost $4.39.</div>
+    <div class="owe">One credibility dial cannot serve both. Deployers set the weight, so they owe a test. Our whole study cost $5.93.</div>
     <div class="mini" style="margin-top:12px;font-size:15.5px"><b style="color:#141413">Who this touches:</b> students, teachers, patients, pharmacists and nurses, and the deployers who choose the model and its wording.</div>
   </div>
 </div>""",
@@ -866,7 +881,7 @@ p7 = page(
 </div>
 <div class="drop-h">Claims the evidence made us drop</div>
 <div class="drop">
-  <div><div class="o">Some models are unaffected</div><div class="n">Only on our items</div></div>
+  <div><div class="o">Some models are unaffected</div><div class="n">Llama +30 on external items</div></div>
   <div><div class="o">Tuning causes it</div><div class="n">Base model: +50</div></div>
   <div><div class="o">The label has no cost</div><div class="n">97% to 85% on true memory</div></div>
   <div><div class="o">Llama ignores memory</div><div class="n">It reads it and often corrects it (AI-coded)</div></div>
@@ -883,15 +898,36 @@ def job(i, meter, what, detail, who, whonote):
       <div class="o">{who}<span>{whonote}</span></div></div>"""
 
 
+_fig = base64.b64encode((ROOT / "report/figures/fig8_confirmatory.png").read_bytes()).decode()
 p8 = page(
     8,
+    "Part 3: the pre-registered test",
+    "Fixed in advance, on items no AI wrote: the effect held, and every open model moved",
+    f"""
+<div class="p5">
+  <div><img alt="False and correct answers by model on 120 MMLU items" style="width:100%" src="data:image/png;base64,{_fig}">
+    <p style="font-size:15px;line-height:1.3;color:#52514e;margin:10px 0 0">*Claude hit its budget cap: 167 of 240 trials, 60 items complete. No effect detected, but the arm is incomplete.</p></div>
+  <div class="side">
+    <h3>All five main predictions passed</h3>
+    <p>Nemo +55, Small +35. The label helped (+15) but left false answers well above baseline. True memories helped (+44).</p>
+    <h3>Three claims changed</h3>
+    <p>Llama moved +30, after nothing on our items. The label removed 28% of Nemo's harm, not 56%. Gemma (+6) and Qwen (+12) moved too.</p>
+    <h3>One prediction failed</h3>
+    <p>The patient frame did not clearly cut benefit (+7, interval −1 to +15). It left 39% of Nemo's harm and kept 81% of its benefit. Small showed no such gap, so this is a lead to replicate.</p>
+  </div>
+</div>""",
+    "120 random MMLU items, 60 school and 60 health. Plan committed before any trial. Budget raised from $1.25 to $1.55 on cost alone. The memory sentence repeats the question, so comparing with Parts 1 and 2 is descriptive only.",
+)
+
+p9 = page(
+    9,
     "What is left",
     "Not finished: five jobs only people can do by 8 Nov",
     f"""
 <div class="p8">
   <div>
-    {job(1, "0 of 52 checked", "Verify every test item", "Items and passages are all drafts. 9 long-tail items list no source. A wrong key changes the numbers.", "Two members", "Promised in MS1")}
-    {job(2, "0 of 40 scored", "Double-score a sample", "Rate blind, report agreement. The 40 rows are drawn; the tool needs the trial logs, which are not in git.", "Two raters", "Advaith shares logs")}
+    {job(1, "0 of 52 checked", "Verify every test item", "Our items and passages are all drafts, and the check sheet is ready. A wrong key changes the numbers.", "Two members", "Promised in MS1")}
+    {job(2, "0 of 100 scored", "Double-score a sample", "Rate blind, report agreement. 60 + 40 blinded rows and a guide are ready.", "Two raters", "Advaith shares logs")}
     {job(3, "Book not read", "Read Fricker and the sources", "Her book has not been read; our notes rest on secondary summaries. Check every citation.", "Societal section owner", "Dr Filippov to share")}
     {job(4, "0 interviews", "Talk to a teacher or pharmacist", "No first-hand voice yet. Get teaching-team approval before collecting anything personal.", "One or two members", "Adds first-hand depth")}
     {job(5, "0 of 4 rows", "Own the report and contributions", "Own your row, check the logs, and rewrite the AI-generated draft report so you can defend it.", "All four members", "Due 8 Nov, 23:59 SGT")}
@@ -900,17 +936,17 @@ p8 = page(
     <h3>Honest limits</h3>
     <div class="l"><b>AI-generated</b><span>All code, 87 of 89 test items, and the draft report.</span></div>
     <div class="l"><b>Nothing hand-scored</b><span>Answers scored by script. Text coding and the benchmark judged by AI.</span></div>
-    <div class="l"><b>Post hoc</b><span>Item type and Nemo were chosen after seeing data. All 5 Nov comparisons are post hoc too.</span></div>
-    <div class="l"><b>Narrow test</b><span>Synthetic single turns, in English, on long-tail facts.</span></div>
+    <div class="l"><b>Post hoc</b><span>Everything before the pre-registered run was chosen after seeing data.</span></div>
+    <div class="l"><b>Narrow test</b><span>Synthetic single turns, in English, on long-tail facts and exam items.</span></div>
     <div class="l"><b>Not product rates</b><span>Nemo's rates hold for our wording only, and change with it.</span></div>
   </div>
 </div>""",
     "Status from the repo on 5 Nov 2026; work done outside the repo will not show here. Who does what is a suggestion from MS1 and the logs, for the team to agree. "
-    "Next test: rerun “Notes:”, the caveat and “Student believes” with a true-memory arm.",
+    "Next test: replicate the patient frame and the caveat on fresh items.",
 )
 
 doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>NST2046 Visual Summary</title>
-<style>{CSS}</style></head><body>{p1}{p2}{p3}{p4}{p5}{p6}{p7}{p8}
+<style>{CSS}</style></head><body>{p1}{p2}{p3}{p4}{p5}{p6}{p7}{p8}{p9}
 <script>
 document.querySelectorAll('.page').forEach(p => {{
   const b = p.querySelector('.body');

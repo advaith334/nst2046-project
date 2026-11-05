@@ -47,7 +47,7 @@ def val(model, cond, col):
     return float(s.iloc[0]) * 100 if len(s) else None
 
 
-fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 2.75), sharey=True, gridspec_kw={"wspace": 0.07})
+fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 2.75), sharey=True, gridspec_kw={"wspace": 0.14})
 for i, (m, _) in enumerate(ORDER):
     y = len(ORDER) - 1 - i
     nb, si, lb = val(m, "no_belief", "false"), val(m, "stored_incorrect", "false"), val(m, "stored_incorrect_labelled", "false")
