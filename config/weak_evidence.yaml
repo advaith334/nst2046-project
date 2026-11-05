@@ -1,0 +1,20 @@
+# Weak evidence: the middle ground between no passage (Nemo 55% false) and a passage stating the
+# fact (Nemo 1%). Passages lean toward the answer without stating it, as the prof suggested.
+# 48 x 3 conditions x 2 reps x 2 models = 576 trials.
+name: weak-evidence
+models_file: config/models.yaml
+model_set: susceptible
+case_files:
+  - data/cases/longtail_weak_evidence.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+  - stored_incorrect_labelled
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5
