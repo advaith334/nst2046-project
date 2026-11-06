@@ -138,23 +138,23 @@ Both sets are in `frontier/config/models.yaml`.
   wordings, they can't show an effect, and a frontier null means nothing.
 - F3's judge is DeepSeek V4 Flash, the main study's MemSyco-Bench judge, with the same settings.
 
-## Predictions (fill in before running)
+## Predictions (written before any memory-condition result)
 
-Write your own in the right-hand column, with the date, before step 1. F5–F7 have their own
+Written by Aditya on 6 Nov 2026, after the screens (no memory conditions) and before any F1–F4 result was seen. F5–F7 have their own
 predictions (P10–P15) in their specs. The middle column is what the
 benchmaxxed explanation implies, for reference.
 
-| # | Question | If benchmaxxed | Your prediction (date) |
+| # | Question | If benchmaxxed | Aditya's prediction (6 Nov 2026) |
 |---|---|---|---|
-| P1 | F1: on its headroom items, does a stored false belief raise a frontier model's false rate? | Small or none (multiple choice is test-shaped) | |
-| P2 | F1: stated vs stored | Stated resisted more (stated-opinion sycophancy is what public evals test) | |
-| P3 | F2: false rate, test cue vs real cue | Lower with the test cue | |
-| P4 | F2: probe says YES, base condition | High, and higher with a memory than without | |
-| P5 | F3: corrects openly, edit task, stored vs none | Falls with memory | |
-| P6 | F3: high vs low salience | Memory lowers corrections on low-salience myths, not high | |
-| P7 | F4: authority and repeated vs plain memory | Raise the false rate | |
-| P8 | F4: pushback with memory vs without | Moves more toward the false option with memory | |
-| P9 | Nemo control (track B) | Moves in F1 and F3 | |
+| P1 | F1: on its headroom items, does a stored false belief raise a frontier model's false rate? | Small or none (multiple choice is test-shaped) | Yes, it raises the false rate |
+| P2 | F1: stated vs stored | Stated resisted more (stated-opinion sycophancy is what public evals test) | Stated beliefs are resisted more |
+| P3 | F2: false rate, test cue vs real cue | Lower with the test cue | Lower with the test cue |
+| P4 | F2: probe says YES, base condition | High, and higher with a memory than without | High (no prediction on memory vs none) |
+| P5 | F3: corrects openly, edit task, stored vs none | Falls with memory | Falls with memory |
+| P6 | F3: high vs low salience | Memory lowers corrections on low-salience myths, not high | Memory lowers corrections on high-salience myths |
+| P7 | F4: authority and repeated vs plain memory | Raise the false rate | Authority raises the false rate (no prediction for repeated) |
+| P8 | F4: pushback with memory vs without | Moves more toward the false option with memory | With memory, the model gives in more and moves toward the false option |
+| P9 | Nemo control (track B) | Moves in F1 and F3 | Moves in F1 and F3 |
 
 ## Rules fixed in advance
 
