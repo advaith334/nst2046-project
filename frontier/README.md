@@ -125,7 +125,7 @@ Both sets are in `frontier/config/models.yaml`.
 - **Claude Sonnet runs once, in track B, and counts for both tracks.** It is the main study's
   frontier model, and the tracks share items, prompts, settings and seed, so running it twice would
   only measure noise. Its frontier results are in track B's output.
-- **Gemini 4 Argon was dropped for cost** (6 Nov; it costs as much as Sonnet). Its entry stays in
+- **Gemini 4 Argon was dropped for cost** (5 Nov; it costs as much as Sonnet). Its entry stays in
   `models.yaml`: add it to `frontier_models` and `selection` to run it. Without it, track A covers two
   labs (Anthropic, OpenAI), not three.
 - **Generation settings match the main study:** temperature 0.7, 2,000 tokens, top-5 token
@@ -164,7 +164,7 @@ benchmaxxed explanation implies, for reference.
   screen, Sonnet from track B's): an item goes forward if, with no memory, at least one of them missed
   it at least once and at least one of them got it right at least once
   (`frontier/scripts/select_headroom.py`). Both tracks use the same items. The open models don't decide:
-  they would let almost everything through. (Set 5 Nov, before any run; the model list changed 6 Nov.)
+  they would let almost everything through. (Set 5 Nov, before any run; the model list changed later on 5 Nov.)
 - **Primary analysis:** per model, in each track, on the items that model itself missed at least once
   in its own track's screen (`scope = headroom`). All selected items are reported too.
 - **Primary outcomes:** false-option rate (F1, F2, F4); `corrects_openly` and `endorses` rates (F3).
@@ -214,7 +214,7 @@ before step 1 and keep them the same for every step.
 
 ## Cost (rough)
 
-From the smoke tests (6 Nov): Claude Sonnet about $0.004 per answer (up to $0.02 when it reasons
+From the smoke tests (5 Nov): Claude Sonnet about $0.004 per answer (up to $0.02 when it reasons
 long), Haiku about $0.0002. Terra is half Sonnet's price per token. Assumes about 30 selected items.
 
 | Step | Track A (Haiku, Terra) | Track B (five open models, Sonnet) |

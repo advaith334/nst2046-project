@@ -10,7 +10,7 @@
 #                    existing runs. Llama uses the follow-ups' host. Mistral Nemo is the positive control.
 # Claude Sonnet, the main study's frontier model, runs once, in track B. The tracks share items,
 # prompts, settings and seed, so its results also count as track A's third frontier model.
-# Gemini 4 Argon was dropped for cost on 6 Nov (Sonnet's price); its entry is kept below for later.
+# Gemini 4 Argon was dropped for cost on 5 Nov (Sonnet's price); its entry is kept below for later.
 
 sets:
   frontier_models: [claude-haiku, gpt-terra-openai]
@@ -24,7 +24,7 @@ models:
   # --- Frontier ---
   # Copied from config/models.yaml: the main study's Claude, reasoning at its default. Keep in sync.
   # One change: 8,000 tokens (as Qwen in the main study). On the computed items it can reason past
-  # 2,000 and never answer (1 of 5 in the 6 Nov smoke test; 0 of 592 in the main study). A higher
+  # 2,000 and never answer (1 of 5 in the 5 Nov smoke test; 0 of 592 in the main study). A higher
   # limit changes only replies that would otherwise be cut off.
   - alias: claude-sonnet
     slug: anthropic/claude-sonnet-5.5
@@ -49,12 +49,12 @@ models:
     slug: openai/gpt-6.1-terra
     family: gpt
     size: frontier (mid)
-    notes: "Reasoning at its default. No logprobs: OpenAI rejects them for reasoning models (smoke test, 6 Nov). Named apart from config/models.yaml's unpinned gpt-terra, which never ran."
+    notes: "Reasoning at its default. No logprobs: OpenAI rejects them for reasoning models (smoke test, 5 Nov). Named apart from config/models.yaml's unpinned gpt-terra, which never ran."
     extra_body:
       provider: {order: [OpenAI], allow_fallbacks: false}
       max_tokens: 8000
       logprobs: false
-  # Not in any set (dropped for cost, 6 Nov). Add it to frontier_models and selection to run it.
+  # Not in any set (dropped for cost, 5 Nov). Add it to frontier_models and selection to run it.
   - alias: gemini-argon
     slug: google/gemini-4-argon
     family: gemini
