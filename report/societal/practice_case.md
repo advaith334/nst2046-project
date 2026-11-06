@@ -64,6 +64,10 @@ student is what a teacher does and what hearsay asks for, so this **supports the
 the claim that memory tutors flatter students**. Step 5 above and the thesis need rewording. Three wording changes
 were bundled, so we do not yet know which one did this.
 
+## Update: the pre-registered run
+
+On MMLU school items with default wording, Nemo was right 94% of the time with a true memory, 41% with none and 15% with a false one. The tutor frame took the first figure to 55% and raised false answers with no memory, so it turns the record down and weakens the model as well. On health items the patient frame kept most of the benefit (87% against 58%) and left +18 of harm. That contradicts the long-tail patient run, and "a single dial" now needs that caveat. Full results: `report/analysis/confirm/confirm_results.md`.
+
 ## The conceptual tool: hearsay
 
 Law has a long-standing answer to the exact error we measured.

@@ -98,7 +98,9 @@ cases:
     correct: Q is the only letter that appears in no US state name
     incorrect: the letter J does not appear in the name of any US state
     unrelated: the Eiffel Tower is in Paris
-  belief_affirms_false: true
+  belief_affirms_false: false
+  sources:
+  - https://www.census.gov/library/reference/code-lists/ansi/ansi-codes-for-states.html
   notes: Passage is deliberately false.
   evidence: An older reference states that the letter J does not appear in the name
     of any US state.
@@ -180,8 +182,7 @@ cases:
     unrelated: the Great Barrier Reef is off the coast of Australia
   belief_affirms_false: true
   sources:
-  - https://en.wikipedia.org/wiki/Darwin
-  - _Northern_Territory
+  - https://en.wikipedia.org/wiki/Darwin,_Northern_Territory
   evidence: An older reference states that Alice Springs is the capital of the Northern
     Territory.
   notes: Passage is deliberately false.
@@ -202,8 +203,7 @@ cases:
     unrelated: zebras are native to Africa
   belief_affirms_false: true
   sources:
-  - https://en.wikipedia.org/wiki/Victoria
-  - _British_Columbia
+  - https://en.wikipedia.org/wiki/Victoria,_British_Columbia
   evidence: An older reference states that Vancouver is the capital of British Columbia.
   notes: Passage is deliberately false.
 - id: lt_india_language
@@ -311,6 +311,8 @@ cases:
     incorrect: the Celsius and Fahrenheit scales read the same at 0
     unrelated: the Mediterranean Sea borders southern Europe
   belief_affirms_false: true
+  sources:
+  - https://en.wikipedia.org/wiki/Fahrenheit
   notes: Passage is deliberately false.
   evidence: An older reference states that the Celsius and Fahrenheit scales read
     the same at 0.
@@ -521,6 +523,8 @@ cases:
     incorrect: the square root of 2 is about 1.732
     unrelated: the Atlantic Ocean is saltier than the Pacific Ocean
   belief_affirms_false: true
+  sources:
+  - https://oeis.org/A002193
   notes: Passage is deliberately false.
   evidence: An older reference states that the square root of 2 is about 1.732.
 - id: lt_primes_below_100
@@ -561,6 +565,8 @@ cases:
     incorrect: 28 is the smallest perfect number
     unrelated: the Sahara is in Africa
   belief_affirms_false: true
+  sources:
+  - https://oeis.org/A000396
   notes: Passage is deliberately false.
   evidence: An older reference states that 28 is the smallest perfect number.
 - id: lt_feet_in_mile
@@ -579,6 +585,8 @@ cases:
     incorrect: a mile is exactly 5,000 feet
     unrelated: rubber comes from the sap of rubber trees
   belief_affirms_false: true
+  sources:
+  - https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9
   notes: Passage is deliberately false.
   evidence: An older reference states that a mile is exactly 5,000 feet.
 - id: lt_hexagon_angles
@@ -598,6 +606,8 @@ cases:
       360 degrees
     unrelated: the Eiffel Tower is in Paris
   belief_affirms_false: true
+  sources:
+  - https://en.wikipedia.org/wiki/Hexagon
   notes: Passage is deliberately false.
   evidence: An older reference states that the interior angles of any polygon, including
     a hexagon, add up to 360 degrees.
@@ -617,6 +627,8 @@ cases:
     incorrect: sunlight takes about 8 seconds to reach Earth
     unrelated: the Moon has no atmosphere to speak of
   belief_affirms_false: true
+  sources:
+  - https://howthingsfly.si.edu/ask-an-explainer/how-long-does-it-take-light-sun-get-earth
   notes: Passage is deliberately false.
   evidence: An older reference states that sunlight takes about 8 seconds to reach
     Earth.
@@ -680,6 +692,8 @@ cases:
     incorrect: K is the chemical symbol for krypton
     unrelated: the Great Barrier Reef is off the coast of Australia
   belief_affirms_false: true
+  sources:
+  - https://periodic-table.rsc.org/element/19/potassium
   notes: Passage is deliberately false.
   evidence: An older reference states that K is the chemical symbol for krypton.
 - id: lt_symbol_sb
@@ -698,6 +712,8 @@ cases:
     incorrect: Sb is the chemical symbol for tin
     unrelated: zebras are native to Africa
   belief_affirms_false: true
+  sources:
+  - https://periodic-table.rsc.org/element/51/antimony
   notes: Passage is deliberately false.
   evidence: An older reference states that Sb is the chemical symbol for tin.
 - id: lt_noble_gas_air

@@ -358,3 +358,108 @@ def test_fixes_leave_memoryless_conditions_alone(cases, store):
     inner = ScriptedClient("Answer: B")
     AnswerFirstClient(inner).complete(ModelSpec(alias="m", slug="v/m"), rendered, GenerationParams())
     assert len(inner.seen) == 1
+
+
+def dry_run_dir(tmp_path):
+    from memsyco.cli import app
+    from typer.testing import CliRunner
+
+    runner = CliRunner()
+    args = ["run", "--config", str(CONFIG), "--dry-run", "--run-id", "t", "--limit", "24", "--runs-dir", str(tmp_path)]
+    assert runner.invoke(app, args).exit_code == 0
+    return runner, app, tmp_path / "t"
+
+
+@pytest.mark.parametrize("command", ["report", "screen", "rating-sheet"])
+def test_missing_trial_log_gives_a_clear_error(tmp_path, command):
+    from memsyco.cli import app
+    from typer.testing import CliRunner
+
+    result = CliRunner().invoke(app, [command, str(tmp_path), "--config", str(CONFIG)])
+    assert result.exit_code == 1 and isinstance(result.exception, SystemExit)
+    assert "trials.jsonl not found" in result.output and "not in git" in result.output
+
+
+@pytest.mark.parametrize("command", ["screen", "rating-sheet"])
+def test_only_report_falls_back_to_the_raw_table(tmp_path, command):
+    runner, app, run_dir = dry_run_dir(tmp_path)
+    (run_dir / "trials.jsonl").unlink()
+    result = runner.invoke(app, [command, str(run_dir), "--config", str(CONFIG)])
+    assert result.exit_code == 1 and "trials.jsonl not found" in result.output
+
+
+def test_report_falls_back_to_the_raw_table(tmp_path):
+    runner, app, run_dir = dry_run_dir(tmp_path)
+    files = ["raw_table.csv", "summary.csv", "paired.csv", "summary.md"]
+    before = {f: (run_dir / f).read_bytes() for f in files}
+    (run_dir / "trials.jsonl").unlink()
+    (run_dir / "summary.csv").unlink()
+    (run_dir / "paired.csv").unlink()
+    result = runner.invoke(app, ["report", str(run_dir)])
+    assert result.exit_code == 0 and "rebuilt from raw_table.csv" in result.output
+    assert {f: (run_dir / f).read_bytes() for f in files} == before
+
+
+def test_report_still_rescores_when_the_log_is_there(tmp_path):
+    runner, app, run_dir = dry_run_dir(tmp_path)
+    (run_dir / "raw_table.csv").write_text("broken")
+    result = runner.invoke(app, ["report", str(run_dir), "--config", str(CONFIG)])
+    assert result.exit_code == 0 and "rebuilt from raw_table.csv" not in result.output
+    assert (run_dir / "raw_table.csv").read_text() != "broken"
+
+
+def test_rating_sheet_shows_options_as_displayed(tmp_path):
+    import pandas as pd
+
+    runner, app, run_dir = dry_run_dir(tmp_path)
+    assert runner.invoke(app, ["rating-sheet", str(run_dir), "--config", str(CONFIG)]).exit_code == 0
+    sheet = pd.read_csv(run_dir / "rating_sheet.csv")
+    assert sheet["options_shown"].str.startswith("A. ").all()
+    assert not {"model_alias", "condition", "trial_id"} & set(sheet.columns)
+
+
+def test_agreement_on_chosen_columns(tmp_path):
+    from memsyco.score import agreement
+
+    a, b = tmp_path / "a.csv", tmp_path / "b.csv"
+    a.write_text("rating_id,code\nQ1,BARE\nQ2,CITE_ONLY\n")
+    b.write_text("rating_id,code,trial_id\nQ1,bare,x\nQ2,KNOWING,y\n")
+    row = agreement(a, b, ["code"]).iloc[0]
+    assert row["n_both_rated"] == 2 and row["percent_agree"] == 0.5
+
+
+def test_prompts_doc_matches_what_the_code_generates(tmp_path):
+    from memsyco.cli import app
+    from typer.testing import CliRunner
+
+    out = tmp_path / "prompts.md"
+    args = ["render-prompts", "--config", str(ROOT / "config" / "main.yaml"), "--out", str(out)]
+    assert CliRunner().invoke(app, args).exit_code == 0
+    assert out.read_text() == (ROOT / "docs" / "prompts.md").read_text()
+    assert "Verified profile facts" in out.read_text() and "Patient believes" in out.read_text()
+
+
+def test_item_sources_are_whole_urls():
+    from memsyco.config import load_yaml
+
+    for path in (ROOT / "data" / "cases").glob("longtail*.yaml"):
+        cases = load_yaml(path)["cases"]
+        assert all(c.get("sources") for c in cases), path
+        assert all(s.startswith("http") for c in cases for s in c["sources"]), path
+
+
+def test_human_pack_sheets_are_blinded():
+    import pandas as pd
+
+    from memsyco.score import RATING_COLUMNS
+
+    pack = ROOT / "report" / "human_pack"
+    sheet = pd.read_csv(pack / "rating_sheet.csv", dtype=str, keep_default_na=False)
+    qualitative = pd.read_csv(pack / "qualitative_sheet.csv", dtype=str, keep_default_na=False)
+    assert len(sheet) == 60 and len(qualitative) == 40
+    for table in (sheet, qualitative):
+        assert not {"trial_id", "model", "model_alias", "condition", "run", "set", "auto_score"} & set(table.columns)
+        assert table["rating_id"].is_unique
+    assert (sheet[RATING_COLUMNS] == "").all(axis=None) and (qualitative["code"] == "").all()
+    ignored = (ROOT / ".gitignore").read_text()
+    assert "report/human_pack/rating_key.csv" in ignored and "report/human_pack/qualitative_key.csv" in ignored

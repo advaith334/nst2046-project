@@ -53,7 +53,7 @@ section,claim,readme,recomputed,status
 4,Mistral Small items raised,8,8,match
 4/5,Qwen unreadable answers (all 592),15,15,match
 5,Llama other-wrong answers (all 592),74,74,match
-5,belief asserts false / denies true,43/5,43/5,match
+5,belief asserts false / denies true,42/6,42/6,match
 4,useful-memory checks all correct,100%,100% of readable (1 unreadable),match
 3 r1,claude-sonnet right in every condition,100%,100%,match
 3 r1,qwen-large right in every condition,100%,100%,match

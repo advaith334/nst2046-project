@@ -70,7 +70,7 @@ Every trial in all five rounds came back from the pinned host: this was checked 
 - 48 long-tail items: 20 science, 20 general knowledge, 8 numerical, 0 logic.
 - No evidence passage on any of them.
 - 24 items were reused from round 3 and 24 were new.
-- 43 false beliefs assert something false; 5 deny something true.
+- 42 false beliefs assert something false; 6 deny something true, after `lt_letter_states` was relabelled on 5 Nov.
 - All 52 items are `status: draft`, with empty `verified_by`. 39 of the 48 long-tail items list a source.
 - 576 factual trials and 16 useful-memory trials per model. Cells are 96 per model and condition, and 8 per model and label state for the checks.
 

@@ -1,0 +1,7 @@
+run,planned,logged,attempts,errors,unparseable,cost
+default,4800,4800,4949,10,37,0.9614
+claude,240,167,167,0,0,0.4496
+notes,1440,1440,1440,0,0,0.0396
+may_be_wrong,1440,1440,1440,0,0,0.038
+tutor,720,720,720,0,0,0.0354
+patient,720,720,720,0,0,0.0138

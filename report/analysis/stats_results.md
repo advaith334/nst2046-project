@@ -351,7 +351,7 @@ Rounds 2 and 3 share no items. Rounds 1 and 2 share 11; rounds 3 and 4 share 24.
 | Drop any one item | Nemo's effect stays +39 to +43 | No single item drives it |
 | Concentration | Top 5 items give 26% of the effect, top 10 give 51% | Broad, as the README says |
 | By category | Science +40, general +40, numerical +44 | Similar across topics |
-| Belief direction | Asserts false (43 items) +40; denies true (5 items) +50 | Too few denial items to compare |
+| Belief direction | Asserts false (42 items) +38; denies true (6 items) +58 | Too few denial items to compare |
 | Drop the 1 item noted as depending on a counting convention | +41 | Not driven by that item. No item is verified yet |
 | Where Nemo's false answers come from | Correct answers fall 32 points, other wrong answers 8 | Mostly right answers turning wrong, which is the harmful case |
 | Qwen's 7 unreadable stored/no-belief answers, worst case both ways | Effect between -2 and +5 | Dropping them cannot hide a large effect |

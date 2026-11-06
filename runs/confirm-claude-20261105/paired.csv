@@ -1,0 +1,2 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+claude-sonnet,stored_incorrect vs no_belief,60,0.03333333333333333,0.05,1,0,1.0
