@@ -1,0 +1,179 @@
+{
+  "run_id": "mainmodels-accommodation-20261106",
+  "created_at": "2026-11-06T12:22:44.505744+00:00",
+  "git": {
+    "commit": "c771af5a3cd6ea145100df83ffac0f896f7eca23",
+    "dirty": true
+  },
+  "config": {
+    "name": "mainmodels-accommodation",
+    "models_file": "frontier/config/models.yaml",
+    "model_set": "main_models",
+    "judge_model": "judge",
+    "items_file": "frontier/data/accommodation.yaml",
+    "reps": 2,
+    "seed": 2046,
+    "max_workers": 4,
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 500,
+      "top_logprobs": 0
+    }
+  },
+  "models": [
+    {
+      "alias": "mistral-nemo",
+      "slug": "mistralai/mistral-nemo",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "12B",
+      "tuning": "instruct",
+      "notes": "Main-study spec. Also the positive control.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Io Net"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "mistral-small",
+      "slug": "mistralai/mistral-small-3.2-24b-instruct",
+      "mode": "chat",
+      "family": "mistral",
+      "size": "24B",
+      "tuning": "instruct",
+      "notes": "Main-study spec.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "llama-8b-deepinfra",
+      "slug": "meta-llama/llama-3.1-8b-instruct",
+      "mode": "chat",
+      "family": "llama",
+      "size": "8B",
+      "tuning": "instruct",
+      "notes": "The 5 Nov follow-ups' spec. The main study used Novita, which no longer serves this model.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "DeepInfra",
+            "Cloudflare"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "gemma-moe",
+      "slug": "google/gemma-4-26b-a4b-it",
+      "mode": "chat",
+      "family": "gemma",
+      "size": "26B MoE (4B active)",
+      "tuning": "instruct",
+      "notes": "Main-study spec.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Google"
+          ],
+          "allow_fallbacks": false
+        }
+      }
+    },
+    {
+      "alias": "qwen-small",
+      "slug": "qwen/qwen3.5-9b",
+      "mode": "chat",
+      "family": "qwen",
+      "size": "9B",
+      "tuning": "instruct",
+      "notes": "Main-study spec: thinking on, 8000 tokens.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Parasail"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    },
+    {
+      "alias": "claude-sonnet",
+      "slug": "anthropic/claude-sonnet-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "frontier",
+      "tuning": "instruct",
+      "notes": "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    }
+  ],
+  "judge": {
+    "alias": "deepseek-flash",
+    "slug": "deepseek/deepseek-v4-flash",
+    "mode": "chat",
+    "family": "deepseek",
+    "size": "",
+    "tuning": "instruct",
+    "notes": "Judge only, never a test subject. Main-study spec.",
+    "extra_body": {
+      "provider": {
+        "order": [
+          "DeepInfra",
+          "Fireworks",
+          "SiliconFlow"
+        ],
+        "allow_fallbacks": true
+      },
+      "reasoning": {
+        "enabled": false
+      }
+    }
+  },
+  "cases": [
+    "fa_mmr_autism",
+    "fa_antibiotics_cold",
+    "fa_moon_landing",
+    "fa_5g_covid",
+    "fa_flat_earth",
+    "fa_hiv_aids",
+    "fa_climate_warming",
+    "fa_goldfish_memory",
+    "fa_brain_ten_percent",
+    "fa_sugar_hyperactive",
+    "fa_bulls_red",
+    "fa_napoleon_height",
+    "fa_viking_horns",
+    "fa_knuckle_arthritis",
+    "fa_shaving_thicker",
+    "fa_ostrich_head",
+    "fa_einstein_maths",
+    "fa_blue_blood",
+    "fa_hair_after_death",
+    "fa_medieval_flat_earth",
+    "fa_head_heat",
+    "fa_alcohol_warms",
+    "fa_camel_hump",
+    "fa_lemming_suicide"
+  ],
+  "planned_trials": 1152
+}

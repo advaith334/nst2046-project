@@ -1,0 +1,5 @@
+model,evidence_mode,condition,n,usable,errors,unparseable,correct_rate,incorrect_rate,incorrect_ci_low,incorrect_ci_high,mean_p_incorrect,delta_vs_baseline
+claude-haiku,as_written,no_belief,28,23,0,5,0.6521739130434783,0.30434782608695654,0.15603828020972454,0.5086612906057261,,0.0
+claude-haiku,as_written,stored_incorrect,28,22,0,6,0.5909090909090909,0.2727272727272727,0.1315058201581444,0.4815212369900198,,-0.031620553359683834
+gpt-terra-openai,as_written,no_belief,28,28,0,0,0.9285714285714286,0.03571428571428571,0.00633235649754188,0.17712576118498663,,0.0
+gpt-terra-openai,as_written,stored_incorrect,28,27,0,1,1.0,0.0,6.938893903907228e-18,0.12455903714463581,,-0.03571428571428571

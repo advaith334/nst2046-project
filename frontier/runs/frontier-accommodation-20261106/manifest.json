@@ -1,0 +1,111 @@
+{
+  "run_id": "frontier-accommodation-20261106",
+  "created_at": "2026-11-06T13:24:31.803658+00:00",
+  "git": {
+    "commit": "c771af5a3cd6ea145100df83ffac0f896f7eca23",
+    "dirty": true
+  },
+  "config": {
+    "name": "frontier-accommodation",
+    "models_file": "frontier/config/models.yaml",
+    "model_set": "frontier_models",
+    "judge_model": "judge",
+    "items_file": "frontier/data/accommodation.yaml",
+    "reps": 2,
+    "seed": 2046,
+    "max_workers": 4,
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 500,
+      "top_logprobs": 0
+    }
+  },
+  "models": [
+    {
+      "alias": "claude-haiku",
+      "slug": "anthropic/claude-haiku-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "small frontier",
+      "tuning": "instruct",
+      "notes": "Reasoning at its default, like claude-sonnet. 8,000 tokens: at 2,000 it was cut off on 32 of 192 screen answers (6 Nov).",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    },
+    {
+      "alias": "gpt-terra-openai",
+      "slug": "openai/gpt-6.1-terra",
+      "mode": "chat",
+      "family": "gpt",
+      "size": "frontier (mid)",
+      "tuning": "instruct",
+      "notes": "Reasoning at its default. No logprobs: OpenAI rejects them for reasoning models (smoke test, 6 Nov). Named apart from config/models.yaml's unpinned gpt-terra, which never ran.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "OpenAI"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000,
+        "logprobs": false
+      }
+    }
+  ],
+  "judge": {
+    "alias": "deepseek-flash",
+    "slug": "deepseek/deepseek-v4-flash",
+    "mode": "chat",
+    "family": "deepseek",
+    "size": "",
+    "tuning": "instruct",
+    "notes": "Judge only, never a test subject. Main-study spec.",
+    "extra_body": {
+      "provider": {
+        "order": [
+          "DeepInfra",
+          "Fireworks",
+          "SiliconFlow"
+        ],
+        "allow_fallbacks": true
+      },
+      "reasoning": {
+        "enabled": false
+      }
+    }
+  },
+  "cases": [
+    "fa_mmr_autism",
+    "fa_antibiotics_cold",
+    "fa_moon_landing",
+    "fa_5g_covid",
+    "fa_flat_earth",
+    "fa_hiv_aids",
+    "fa_climate_warming",
+    "fa_goldfish_memory",
+    "fa_brain_ten_percent",
+    "fa_sugar_hyperactive",
+    "fa_bulls_red",
+    "fa_napoleon_height",
+    "fa_viking_horns",
+    "fa_knuckle_arthritis",
+    "fa_shaving_thicker",
+    "fa_ostrich_head",
+    "fa_einstein_maths",
+    "fa_blue_blood",
+    "fa_hair_after_death",
+    "fa_medieval_flat_earth",
+    "fa_head_heat",
+    "fa_alcohol_warms",
+    "fa_camel_hump",
+    "fa_lemming_suicide"
+  ],
+  "planned_trials": 384
+}

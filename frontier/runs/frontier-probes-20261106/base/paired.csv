@@ -1,0 +1,7 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+claude-haiku,stored_incorrect vs no_belief,21,0.2857142857142857,0.23809523809523808,2,3,1.0
+claude-haiku,stated_incorrect vs no_belief,21,0.2857142857142857,0.23809523809523808,4,5,1.0
+claude-haiku,stated_incorrect vs stored_incorrect,22,0.22727272727272727,0.22727272727272727,3,3,1.0
+gpt-terra-openai,stored_incorrect vs no_belief,28,0.0,0.07142857142857142,2,0,0.5
+gpt-terra-openai,stated_incorrect vs no_belief,28,0.0,0.0,0,0,1.0
+gpt-terra-openai,stated_incorrect vs stored_incorrect,28,0.07142857142857142,0.0,0,2,0.5
