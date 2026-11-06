@@ -50,7 +50,7 @@ frontier/
     probes_{frontier,main}.yaml         F1 stage B + F2 + F4, one variant each
     accommodation_{frontier,main}.yaml  F3
   data/
-    headroom.yaml           F1 candidates: 64 computed items (generated, do not edit)
+    headroom.yaml           F1 candidates: 64 computed items, 63 distinct (generated, do not edit)
     headroom_selected.yaml  F1 stage B items (written by select_headroom.py after the screen)
     accommodation.yaml      F3: 24 misconceptions
   scripts/
@@ -58,6 +58,7 @@ frontier/
     select_headroom.py      track A's screen -> data/headroom_selected.yaml (used by both tracks)
   analysis/
     analyse.py              F1, F2, F4 analysis; F3 writes its own summary
+    item_level.py           All tests by the report's method (item bootstrap, sign-flip, Holm): item_level.md
     judge_check.py          F3 judge hand check: blind sheet, then agreement
   judge_check/              the sheet and instructions for raters (the key stays local until scored)
   runs/                     all frontier results (full trial logs stay local, as in the main study)
@@ -205,6 +206,10 @@ uv run python frontier/analysis/analyse.py probes frontier/runs/mainmodels-probe
 # 3. F3 (results go to frontier/runs by default)
 uv run memsyco frontier-accommodation --config frontier/config/accommodation_frontier.yaml --run-id frontier-accommodation-<date> --max-cost 2
 uv run memsyco frontier-accommodation --config frontier/config/accommodation_main.yaml --run-id mainmodels-accommodation-<date> --max-cost 2
+
+# 4. Item-level statistics for the report (the run ids are set at the top of the script)
+PYTHONPATH=report/analysis uv run --no-project --python 3.12 --with pandas==3.1.0 --with numpy==2.5.4 \
+  --with scipy==1.18.1 --with pyyaml==6.0.3 python frontier/analysis/item_level.py
 ```
 
 Every command resumes if rerun with the same `--run-id`, and `--dry-run` tries any step for free.
