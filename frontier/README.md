@@ -112,7 +112,7 @@ Both sets are in `frontier/config/models.yaml`.
 
 | Track (set) | Model | Settings |
 |---|---|---|
-| A (`frontier_models`) | Claude Haiku 5.5, GPT-6.1 Terra | New. Pinned to the maker's host, reasoning at its default. Terra gets 8,000 tokens in case it reasons, as Qwen does, and sends no token-probability request (OpenAI rejects it for reasoning models) |
+| A (`frontier_models`) | Claude Haiku 5.5, GPT-6.1 Terra | New. Pinned to the maker's host, reasoning at its default. Both get 8,000 tokens because they reason, as Qwen does (Haiku was raised from 2,000 after its screen). Terra and sends no token-probability request (OpenAI rejects it for reasoning models) |
 | B (`main_models`) | Mistral Nemo, Mistral Small 3.2, Llama 3.1 8B, Gemma 4 26B, Qwen3.5-9B | **The main study's set (`main`), as run there**: same hosts and settings, Qwen thinking on with 8,000 tokens. A test fails if anything drifts from `config/models.yaml` |
 | B, counted in both | Claude Sonnet 5.5 | As in the main study, but 8,000 tokens: on computed items it can reason past 2,000 and never answer (smoke test) |
 

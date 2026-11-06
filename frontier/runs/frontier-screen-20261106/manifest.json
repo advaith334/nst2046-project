@@ -1,0 +1,141 @@
+{
+  "run_id": "frontier-screen-20261106",
+  "created_at": "2026-11-06T10:34:03.949369+00:00",
+  "dry_run": false,
+  "git": {
+    "commit": "02f47f7033826b762291a3388ba90b7bbae56549",
+    "dirty": true
+  },
+  "config": {
+    "name": "frontier-screen",
+    "models_file": "frontier/config/models.yaml",
+    "model_set": "frontier_models",
+    "case_files": [
+      "frontier/data/headroom.yaml"
+    ],
+    "useful_memory_files": [],
+    "conditions": [
+      "no_belief"
+    ],
+    "evidence_modes": [
+      "as_written"
+    ],
+    "reps": 3,
+    "seed": 2046,
+    "shuffle_options": true,
+    "max_workers": 4,
+    "base_url": null,
+    "templates": {},
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "top_logprobs": 5
+    }
+  },
+  "models": [
+    {
+      "alias": "claude-haiku",
+      "slug": "anthropic/claude-haiku-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "small frontier",
+      "tuning": "instruct",
+      "notes": "Reasoning at its default, like claude-sonnet. 8,000 tokens: at 2,000 it was cut off on 32 of 192 screen answers (6 Nov).",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    },
+    {
+      "alias": "gpt-terra-openai",
+      "slug": "openai/gpt-6.1-terra",
+      "mode": "chat",
+      "family": "gpt",
+      "size": "frontier (mid)",
+      "tuning": "instruct",
+      "notes": "Reasoning at its default. No logprobs: OpenAI rejects them for reasoning models (smoke test, 6 Nov). Named apart from config/models.yaml's unpinned gpt-terra, which never ran.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "OpenAI"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000,
+        "logprobs": false
+      }
+    }
+  ],
+  "cases": [
+    "fh_mult_1",
+    "fh_mult_2",
+    "fh_mult_3",
+    "fh_mult_4",
+    "fh_mult_5",
+    "fh_mult_6",
+    "fh_mult_7",
+    "fh_mult_8",
+    "fh_weekday_1",
+    "fh_weekday_2",
+    "fh_weekday_3",
+    "fh_weekday_4",
+    "fh_weekday_5",
+    "fh_weekday_6",
+    "fh_weekday_7",
+    "fh_weekday_8",
+    "fh_days_1",
+    "fh_days_2",
+    "fh_days_3",
+    "fh_days_4",
+    "fh_days_5",
+    "fh_days_6",
+    "fh_days_7",
+    "fh_days_8",
+    "fh_primecount_1",
+    "fh_primecount_2",
+    "fh_primecount_3",
+    "fh_primecount_4",
+    "fh_primecount_5",
+    "fh_primecount_6",
+    "fh_primecount_7",
+    "fh_primecount_8",
+    "fh_nthprime_1",
+    "fh_nthprime_2",
+    "fh_nthprime_3",
+    "fh_nthprime_4",
+    "fh_nthprime_5",
+    "fh_nthprime_6",
+    "fh_nthprime_7",
+    "fh_nthprime_8",
+    "fh_letters_1",
+    "fh_letters_2",
+    "fh_letters_3",
+    "fh_letters_4",
+    "fh_letters_5",
+    "fh_letters_6",
+    "fh_letters_7",
+    "fh_letters_8",
+    "fh_modpow_1",
+    "fh_modpow_2",
+    "fh_modpow_3",
+    "fh_modpow_4",
+    "fh_modpow_5",
+    "fh_modpow_6",
+    "fh_modpow_7",
+    "fh_modpow_8",
+    "fh_digitsum_1",
+    "fh_digitsum_2",
+    "fh_digitsum_3",
+    "fh_digitsum_4",
+    "fh_digitsum_5",
+    "fh_digitsum_6",
+    "fh_digitsum_7",
+    "fh_digitsum_8"
+  ],
+  "planned_trials": 384
+}

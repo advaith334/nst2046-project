@@ -36,14 +36,15 @@ models:
       max_tokens: 8000
   # New to the project. Reasoning at the host's default, like Sonnet. Terra and Argon may reason by
   # default, and reasoning counts against the token limit, so they get 8,000 tokens as Qwen does in
-  # the main study. Haiku keeps Sonnet's 2,000. Check `cut_off` in the smoke test (README, step 0).
+  # the main study. Haiku got 8,000 too after its screen (6 Nov). Check `cut_off` (README, step 0).
   - alias: claude-haiku
     slug: anthropic/claude-haiku-5.5
     family: claude
     size: small frontier
-    notes: "Reasoning at its default, like claude-sonnet."
+    notes: "Reasoning at its default, like claude-sonnet. 8,000 tokens: at 2,000 it was cut off on 32 of 192 screen answers (6 Nov)."
     extra_body:
       provider: {order: [Anthropic], allow_fallbacks: false}
+      max_tokens: 8000
   - alias: gpt-terra-openai
     slug: openai/gpt-6.1-terra
     family: gpt
