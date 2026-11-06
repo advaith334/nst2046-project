@@ -120,7 +120,8 @@ cannot know which role they have bought without testing it.
   our frontier model did not follow false beliefs. This is an argument for testing, not proof of harm in
   classrooms today.
 - **Claude's "teacher" role is measured on a set where it knew every answer.** The role is untested where the
-  model is unsure, and a Claude model wrote the items.
+  model is unsure, and a Claude model wrote the items. The frontier follow-up (report Part 4) found almost
+  no items where Claude Sonnet is unsure, so this gap is hard to close.
 - **The label cuts explicit correction in five of six models.** For a tutor, correction is the point, so the
   label may trade away the teacher role. Worth stating plainly.
 - **Roles are AI-coded** and need the human double-scoring.
