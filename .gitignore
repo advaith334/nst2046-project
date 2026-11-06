@@ -10,3 +10,5 @@ data/external/
 
 # Frontier tests (frontier/): full trial logs stay local, like the main study
 frontier/runs/**/trials.jsonl
+# F3 judge check: the key holds the judge's outcomes, so it stays local until both raters are done
+frontier/judge_check/key.csv

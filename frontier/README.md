@@ -58,6 +58,8 @@ frontier/
     select_headroom.py      track A's screen -> data/headroom_selected.yaml (used by both tracks)
   analysis/
     analyse.py              F1, F2, F4 analysis; F3 writes its own summary
+    judge_check.py          F3 judge hand check: blind sheet, then agreement
+  judge_check/              the sheet and instructions for raters (the key stays local until scored)
   runs/                     all frontier results (full trial logs stay local, as in the main study)
   planned/                  specs for F5–F7: design, items, predictions, files to build, cost
 src/memsyco/frontier/       code used only by these tests
@@ -169,8 +171,9 @@ benchmaxxed explanation implies, for reference.
 - **Tests:** exact McNemar on matched trials, with item counts beside them. Comparisons across
   variants are across runs, so gaps within run-to-run noise (about 11% of Nemo trials differ on
   identical prompts) are not findings. Everything is exploratory; no correction claims confirmation.
-- **Judge (F3):** before relying on it, two people hand-score a sample of 60 rows of `judged.csv`
-  blind to the `outcome` column, and report agreement with the judge.
+- **Judge (F3):** before relying on it, two people hand-score a sample of replies blind to the
+  model, the memory and the judge's outcome, and report agreement with the judge. Planned as 60; the
+  sheet has 64 (4 per model and task, both tracks). See `frontier/judge_check/INSTRUCTIONS.md`.
 
 ## How to run
 
