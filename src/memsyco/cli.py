@@ -1,4 +1,5 @@
-"""Command line: memsyco validate | render-prompts | run | report | screen | bench | rating-sheet | agreement | list-models."""
+"""Command line: memsyco validate | render-prompts | run | report | screen | wrappers | bench |
+frontier-accommodation | rating-sheet | agreement | list-models."""
 
 from __future__ import annotations
 
@@ -217,6 +218,24 @@ def bench(config: Path = Path("config/memsyco_bench.yaml"), dry_run: bool = Fals
     run_bench(cfg, client, out_dir, run_id, limit=limit, max_cost=max_cost)
     write_report(out_dir)
     typer.echo(f"results in {out_dir}/ (summary.md, paired.csv, scored.csv, trials.jsonl)")
+
+
+@app.command("frontier-accommodation")
+def frontier_accommodation(config: Path = Path("frontier/config/accommodation_frontier.yaml"), dry_run: bool = False,
+                           run_id: str | None = None, limit: int | None = None, runs_dir: Path = Path("frontier/runs"),
+                  max_cost: float | None = typer.Option(None, help="Stop once this many USD are spent, judge calls included.")) -> None:
+    """Frontier test F3 (silent accommodation): free-text tasks with and without a stored false belief, AI-judged."""
+    from .frontier.accommodation import FakeAccommodationClient, load_config as load_acc_config, run as run_acc, write_report
+    from .client import OpenAICompatClient
+
+    load_dotenv()
+    cfg = load_acc_config(config)
+    run_id = run_id or f"{datetime.now():%Y%m%d-%H%M%S}-{cfg.name}{'-dry' if dry_run else ''}"
+    client = FakeAccommodationClient() if dry_run else OpenAICompatClient()
+    out_dir = runs_dir / run_id
+    run_acc(cfg, client, out_dir, run_id, limit=limit, max_cost=max_cost)
+    write_report(out_dir)
+    typer.echo(f"results in {out_dir}/ (summary.md, paired.csv, judged.csv, trials.jsonl)")
 
 
 @app.command("rating-sheet")

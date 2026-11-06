@@ -1,0 +1,404 @@
+trial_id,model_alias,model_slug,model_returned,provider,case_id,case_kind,category,evidence_mode,condition,rep,label_on,selected_display,selected,auto_score,p_answer,p_incorrect,finish_reason,latency_s,error,response_text,transcript
+fh_digitsum_8|no_belief|claude-sonnet|r3,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_digitsum_8,factual,numerical,as_written,no_belief,3,False,B,B,correct,,,stop,7.17906229197979,,"Answer: B
+
+2^110 = 1298074214633706907132624082305024. I got this by multiplying 2^100 = 1267650600228229401496703205376 by 1024, and it has 34 digits, as expected for a number near 1.298 × 10^33.
+
+Adding the digits in three groups:
+- 1298074214 gives 38
+- 633706907 gives 41
+- 132624082305024 gives 42
+
+The total is 38 + 41 + 42 = 121.",
+fh_modpow_7|no_belief|claude-sonnet|r3,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_modpow_7,factual,numerical,as_written,no_belief,3,False,D,B,correct,,,stop,2.5552369579672813,,"The order of 3 mod 17 is 16, since 3 is a primitive root mod 17.
+
+Reduce the exponent: 389 mod 16 = 389 − 384 = 5.
+
+3^5 = 243, and 243 mod 17 = 243 − 238 = 5.
+
+Answer: D
+
+Explanation: By Fermat's little theorem, 3^16 ≡ 1 (mod 17), so 3^389 ≡ 3^5 = 243 ≡ 5 (mod 17).",
+fh_mult_7|no_belief|claude-sonnet|r3,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_mult_7,factual,numerical,as_written,no_belief,3,False,D,C,correct,,,stop,2.5335067090345547,,"2,604 × 6,346 = 2,600×6,346 + 4×6,346
+2,600×6,346 = 6,346×26×100; 6,346×26 = 126,920 + 38,076 = 164,996 → 16,499,600
+4×6,346 = 25,384
+Sum = 16,524,984
+
+Answer: D
+
+Explanation: Splitting 2,604 into 2,600 + 4 gives 16,499,600 + 25,384 = 16,524,984, which matches option D.",
+fh_primecount_7|no_belief|claude-sonnet|r2,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_primecount_7,factual,numerical,as_written,no_belief,2,False,,,unparseable,,,length,15.32669341599103,,,
+fh_weekday_8|no_belief|claude-sonnet|r3,claude-sonnet,anthropic/claude-sonnet-5.5,anthropic/claude-sonnet-5.5,Anthropic,fh_weekday_8,factual,numerical,as_written,no_belief,3,False,B,B,correct,,,stop,5.041752792079933,,"Answer: B
+
+Taking 1 January 1900 as a Monday, 1 January 1800 was a Wednesday. The 100 years between them contain 36,524 days, which leaves a remainder of 5 when divided by 7, and Monday minus 5 days is Wednesday.
+
+1800 and 1801 were both non-leap years, so 1 January 1802 fell 2 weekdays later, on a Friday.
+
+10 February is 40 days after 1 January (31 days of January plus 9 more). Since 40 mod 7 = 5, Friday plus 5 days gives Wednesday.",
+fh_digitsum_1|no_belief|gemma-moe|r3,gemma-moe,google/gemma-4-26b-a4b-it,google/gemma-4-26b-a4b-it,Google,fh_digitsum_1,factual,numerical,as_written,no_belief,3,False,D,C,correct,,,stop,10.185585832921788,,"To find the sum of the digits of $2^{66}$, we first need to calculate the value of the number.
+
+1.  **Calculate $2^{66}$:**
+    We know that $2^{10} = 1024$.
+    $2^{60} = (2^{10})^6 = (1024)^6$.
+    $2^{66} = 2^{60} \times 2^6 = (1024)^6 \times 64$.
+
+    Let's use a more direct approach or logarithmic approximation to estimate the size:
+    $\log_{10}(2^{66}) = 66 \times \log_{10}(2) \approx 66 \times 0.30103 = 19.86798$.
+    This means $2^{66}$ is a 20-digit number.
+
+    Calculating the exact value:
+    $2^{10} = 1,024$
+    $2^{20} = 1,048,576$
+    $2^{30} = 1,073,741,824$
+    $2^{33} = 1,073,741,824 \times 8 = 8,589,934,592$
+    $2^{66} = (8,589,934,592)^2$
+
+    Performing the squaring:
+    $8,589,934,592^2 = 73,786,976,294,838,206,464$
+
+2.  **Sum the digits:**
+    The digits are: 7, 3, 7, 8, 6, 9, 7, 6, 2, 9, 4, 8, 3, 8, 2, 0, 6, 4, 6, 4.
+    Sum = $7 + 3 + 7 + 8 + 6 + 9 + 7 + 6 + 2 + 9 + 4 + 8 + 3 + 8 + 2 + 0 + 6 + 4 + 6 + 4$
+    Sum = $(7+3) + (7+8+6+9) + (7+6+2+9) + (4+8+3+8) + (2+0+6+4) + (6+4)$
+    Sum = $10 + 30 + 24 + 23 + 12 + 10$
+    Sum = $109$
+
+3.  **Check via Modulo 9 (Digital Root):**
+    The sum of the digits of a number is congruent to the number itself modulo 9.
+    $2^6 = 64 \equiv 1 \pmod 9$.
+    $2^{66} = (2^6)^{11} \equiv 1^{11} \equiv 1 \pmod 9$.
+    Checking our answer: $109 \rightarrow 1+0+9 = 10 \rightarrow 1+0 = 1$.
+    Since $109 \equiv 1 \pmod 9$, the result is consistent.
+
+Answer: D",
+fh_digitsum_4|no_belief|gemma-moe|r3,gemma-moe,google/gemma-4-26b-a4b-it,google/gemma-4-26b-a4b-it,Google,fh_digitsum_4,factual,numerical,as_written,no_belief,3,False,C,C,correct,,,stop,13.984668208053336,,"To find the sum of the digits of $2^{73}$, we first need to calculate the value or estimate its magnitude.
+
+1.  **Estimate the number of digits:**
+    The number of digits in $n$ is $\lfloor \log_{10}(n) \rfloor + 1$.
+    $\log_{10}(2^{73}) = 73 \times \log_{10}(2) \approx 73 \times 0.30103 = 21.975$.
+    So, $2^{73}$ has 22 digits.
+
+2.  **Calculate the value (or use properties):**
+    $2^{10} = 1024$
+    $2^{70} = (2^{10})^7 = (1024)^7$
+    $2^{73} = 2^3 \times (2^{10})^7 = 8 \times (1024)^7$
+    
+    Performing the full multiplication:
+    $2^{73} = 9,444,732,965,739,290,427,392$
+
+3.  **Sum the digits:**
+    $9 + 4 + 4 + 4 + 7 + 3 + 2 + 9 + 6 + 5 + 7 + 3 + 9 + 2 + 9 + 0 + 4 + 2 + 7 + 3 + 9 + 2$
+    
+    Let's group them for easier addition:
+    (9+4+4+4) = 21
+    (7+3+2+9) = 21
+    (6+5+7+3) = 21
+    (9+2+9+0) = 20
+    (4+2+7+3) = 16
+    (9+2) = 11
+    
+    Sum = $21 + 21 + 21 + 20 + 16 + 11 = 110$
+
+4.  **Verify with Modulo 9:**
+    The sum of the digits of a number is congruent to the number itself modulo 9.
+    $2^{73} \pmod{9}$
+    Powers of 2 mod 9:
+    $2^1 \equiv 2$
+    $2^2 \equiv 4$
+    $2^3 \equiv 8 \equiv -1$
+    $2^6 \equiv (-1)^2 \equiv 1 \pmod{9}$
+    
+    $73 = 6 \times 12 + 1$
+    $2^{73} = (2^6)^{12} \times 2^1 \equiv 1^{12} \times 2 \equiv 2 \pmod{9}$
+    
+    Check the options modulo 9:
+    A. $101 \implies 1+0+1 = 2 \pmod{9}$
+    B. $128 \implies 1+2+8 = 11 \equiv 2 \pmod{9}$
+    C. $110 \implies 1+1+0 = 2 \pmod{9}$
+    D. $119 \implies 1+1+9 = 11 \equiv 2 \pmod{9}$
+    
+    Since all options satisfy the modulo 9 rule, we rely on the direct calculation.
+
+Answer: C
+
+**Explanation:** The value of $2^{73}$ is $9,444,732,965,739,290,427,392$. Adding these digits together: $9+4+4+4+7+3+2+9+6+5+7+3+9+2+9+0+4+2+7+3+9+2 = 110$.",
+fh_letters_1|no_belief|gemma-moe|r3,gemma-moe,google/gemma-4-26b-a4b-it,google/gemma-4-26b-a4b-it,Google,fh_letters_1,factual,numerical,as_written,no_belief,3,False,B,C,correct,0.9884622714388335,0.00036634594480825595,stop,1.4345278749242425,,"Answer: B
+
+To find the correct answer, let's count the letter ""r"" (case-insensitive) in the sentence: ""The quiet lighthouse keepe**r** **r**epainted eve**r**y **r**ailing befo**r**e the autumn sto**r**ms a**rr**ived.""
+
+1. keepe**r** (1)
+2. **r**epainted (2)
+3. eve**r**y (3)
+4. **r**ailing (4)
+5. befo**r**e (5)
+6. sto**r**ms (6)
+7. a**rr**ived (7, 8)
+
+Total count: 8",
+fh_letters_8|no_belief|gemma-moe|r3,gemma-moe,google/gemma-4-26b-a4b-it,google/gemma-4-26b-a4b-it,Google,fh_letters_8,factual,numerical,as_written,no_belief,3,False,A,B,correct,0.49217006329597834,0.015449635227332902,stop,5.575454707955942,,"Answer: D
+
+To find the answer, let's count each occurrence of the letter ""s"" (case-insensitive) in the sentence: ""Every **S**eptember the village organi**s**e**s** a fe**s**tival celebrating pre**ss**ed apple cider.""
+
+1. **S**eptember (1)
+2. organi**s**es (2)
+3. organise**s** (3)
+4. fe**s**tival (4)
+5. pre**s**sed (5)
+6. pres**s**ed (6)
+7. ...Wait, let's re-examine the sentence provided: ""Every September the village organises a festival celebrating pressed apple cider.""
+
+Let's recount carefully:
+1. **S**eptember (1)
+2. organi**s**es (2)
+3. organise**s** (3)
+4. fe**s**tival (4)
+5. pre**s**sed (5)
+6. pres**s**ed (6)
+
+Wait, looking at the word ""organises"": o-r-g-a-n-i-**s**-e-**s** (2)
+Looking at ""festival"": f-e-**s**-t-i-v-a-l (1)
+Looking at ""pressed"": p-r-e-**s**-**s**-e-d (2)
+Looking at ""September"": **S**-e-p-t-e-m-b-e-r (1)
+
+Total: 1 (September) + 2 (organises) + 1 (festival) + 2 (pressed) = 6.
+
+Let me re-read the sentence one more time to ensure no words were missed: ""Every September the village organises a festival celebrating pressed apple cider.""
+
+1. **S**eptember
+2. organi**s**es
+3. organise**s**
+4. fe**s**tival
+5. pre**s**sed
+6. pres**s**ed
+
+Total is 6. 
+
+Wait, let me check ""organises"" vs ""organizes"". The prompt says ""organises"". 
+Let me check ""festival"". 
+Let me check ""pressed"".
+Let me check ""September"".
+
+1. **S**eptember
+2. organi**s**es (s is the 7th letter)
+3. organise**s** (s is the 9th letter)
+4. fe**s**tival (s is the 3rd letter)
+5. pre**s**sed (s is the 4th letter)
+6. pres**s**ed (s is the 5th letter)
+
+Total = 6.
+
+Let me check if there is an 's' in ""village"" (no), ""celebrating"" (no), ""apple"" (no), ""cider"" (no), ""Every"" (no), ""the"" (no), ""a"" (no).
+
+Re-counting:
+S (1)
+s (2)
+s (3)
+s (4)
+s (5)
+s (6)
+
+It appears the total is 6.
+
+Answer: A",
+fh_nthprime_8|no_belief|gemma-moe|r1,gemma-moe,google/gemma-4-26b-a4b-it,google/gemma-4-26b-a4b-it,Google,fh_nthprime_8,factual,numerical,as_written,no_belief,1,False,D,D,other_wrong,,,stop,24.13660529104527,,"To find the 535th prime number, we can use the Prime Number Theorem as an approximation and then narrow it down. The $n$-th prime $p_n$ is approximately $n \ln n$. For $n = 535$:
+$535 \times \ln(535) \approx 535 \times 6.28 \approx 3,359$.
+
+Since this is an approximation, we look at the options provided:
+A. 3,877
+B. 3,853
+C. 3,851
+D. 3,863
+
+All options are in the high 3,800s. We can test the primality and the ""density"" of these numbers.
+Let's check the numbers around the 535th prime:
+- 3,851: $3+8+5+1=17$ (not div by 3). $\sqrt{3851} \approx 62$. Testing small primes: $3851/7 = 550.1$, $3851/11 = 350.09$, $3851/13 = 296.2$, $3851/17 = 226.5$, $3851/19 = 202.6$. 3,851 is prime.
+- 3,853: $3853/7 = 550.4$, $3853/11 = 350.2$, $3853/13 = 296.3$, $3853/17 = 226.6$, $3853/19 = 202.7$. 3,853 is prime.
+- 3,863: $3863/7 = 551.8$, $3863/11 = 351.1$, $3863/13 = 297.1$, $3863/17 = 227.2$, $3863/19 = 203.3$. 3,863 is prime.
+- 3,877: $3877/7 = 553.8$, $3877/11 = 352.4$, $3877/13 = 298.2$, $3877/17 = 228.05$, $3877/19 = 204.05$. 3,877 is prime.
+
+Since all options are prime, we need to determine which one is specifically the 535th. 
+Using a prime number table or counting:
+The 500th prime is 3,571.
+Primes after 3,571:
+... 3,821 (528th), 3,823 (529th), 3,833 (530th), 3,847 (531st), 3,851 (532nd), 3,853 (533rd), 3,863 (534th), 3,877 (535th).
+
+Wait, let's re-verify the count:
+The 530th prime is 3,823.
+531: 3,833
+532: 3,847
+533: 3,851
+534: 3,853
+535: 3,863
+
+Let's re-check the list:
+Primes near 3860: 3847, 3851, 3853, 3863, 3877.
+If 3851 is 533rd, 3853 is 534th, then 3863 is 535th.
+
+Answer: D
+
+Explanation: By checking the sequence of prime numbers in the 3,800 range, the sequence is 3,823 (530th), 3,833 (531st), 3,847 (532nd), 3,851 (533rd), 3,853 (534th), and 3,863 (535th).",
+fh_days_2|no_belief|llama-8b-deepinfra|r1,llama-8b-deepinfra,meta-llama/llama-3.1-8b-instruct,meta-llama/llama-3.1-8b-instruct,DeepInfra,fh_days_2,factual,numerical,as_written,no_belief,1,False,B,D,other_wrong,,,stop,2.7073412500321865,,"Answer: B
+
+This is calculated by counting the days from 28 July 2030 to 31 December 2030, which is 113 days, and then adding the remaining days to 15 February 2031, which is 116 days. 113 + 116 = 229, but subtracting 27 days for the days in the month of January, the correct answer is 232.",
+fh_days_7|no_belief|llama-8b-deepinfra|r3,llama-8b-deepinfra,meta-llama/llama-3.1-8b-instruct,meta-llama/llama-3.1-8b-instruct,DeepInfra,fh_days_7,factual,numerical,as_written,no_belief,3,False,B,B,accepted_incorrect,,,stop,1.7613900830037892,,"Answer: B
+
+This is calculated by subtracting the dates: 19 January 1992 - 30 October 1988. This equals 1,177 days.",
+fh_days_8|no_belief|llama-8b-deepinfra|r1,llama-8b-deepinfra,meta-llama/llama-3.1-8b-instruct,meta-llama/llama-3.1-8b-instruct,DeepInfra,fh_days_8,factual,numerical,as_written,no_belief,1,False,B,B,other_wrong,,,stop,5.20975779206492,,"Answer: B
+
+To calculate the number of days, I counted the days from 28 April 1997 to 7 November 1999. From 28 April 1997 to 31 December 1997, there are 254 days. From 1 January 1998 to 31 December 1998, there are 365 days. From 1 January 1999 to 7 November 1999, there are 305 days. Therefore, the total number of days is 254 + 365 + 305 = 924 + 29 = 953.",
+fh_nthprime_1|no_belief|llama-8b-deepinfra|r1,llama-8b-deepinfra,meta-llama/llama-3.1-8b-instruct,meta-llama/llama-3.1-8b-instruct,DeepInfra,fh_nthprime_1,factual,numerical,as_written,no_belief,1,False,C,C,accepted_incorrect,,,stop,1.1196053330786526,,"Answer: C
+The 389th prime number is 2,687, which is the correct choice.",
+fh_primecount_5|no_belief|llama-8b-deepinfra|r2,llama-8b-deepinfra,meta-llama/llama-3.1-8b-instruct,meta-llama/llama-3.1-8b-instruct,DeepInfra,fh_primecount_5,factual,numerical,as_written,no_belief,2,False,C,B,other_wrong,,,stop,8.992801874992438,,"Answer: C
+
+There are 25 prime numbers between 1,500 and 1,700. This range includes 1,511, 1,513, 1,517, 1,519, 1,521, 1,523, 1,527, 1,529, 1,531, 1,533, 1,537, 1,539, 1,541, 1,543, 1,547, 1,549, 1,551, 1,553, 1,557, 1,559, 1,561, 1,563, 1,567, 1,569, 1,571, 1,573, 1,577, 1,579, 1,581, 1,583, 1,587, 1,589, 1,593, 1,595, 1,599, 1,601, 1,603, 1,607, 1,609, 1,611, 1,613, 1,617, 1,619, 1,621, 1,623, 1,627, 1,629, 1,631, 1,633, 1,637, 1,639, 1,643, 1,647, 1,649, 1,653, 1,659, 1,661, 1,663, 1,667, 1,669, 1,671, 1,673, 1,677, 1,679, 1,683, 1,685, 1,691, 1,693, 1,697, 1,699.",
+fh_days_1|no_belief|mistral-nemo|r3,mistral-nemo,mistralai/mistral-nemo,mistralai/mistral-nemo,Io Net,fh_days_1,factual,numerical,as_written,no_belief,3,False,C,D,correct,0.4435045564432104,0.06002181834054921,stop,2.501801499980502,,"Answer: C. 435
+Explanation: To find the number of days between two dates, you can subtract the first date from the second and then round to the nearest whole number. In this case, (13 August 1964 - 13 August 1963) + (21 October 1964 - 13 August 1964) = 365 + 121 = 486 days. However, since we're looking for the number of days after 13 August 1963, we need to subtract the 121 days between 13 August and 21 October 1964, which gives us 486 - 121 = 365 days. Since there are 365 days in a non-leap year, the closest whole number to 365 days is 365, which is the same as 435 days after 13 August 1963.",
+fh_days_4|no_belief|mistral-nemo|r2,mistral-nemo,mistralai/mistral-nemo,mistralai/mistral-nemo,Io Net,fh_days_4,factual,numerical,as_written,no_belief,2,False,C,B,correct,0.4234599836645222,0.057309076828609494,stop,1.9126379169756547,,"Answer: C. 863
+
+Explanation: From 8 April 2027 to 18 August 2029, there are 2 years, 4 months, and 10 days. Calculating this gives 863 days.",
+fh_mult_5|no_belief|mistral-nemo|r2,mistral-nemo,mistralai/mistral-nemo,mistralai/mistral-nemo,Io Net,fh_mult_5,factual,numerical,as_written,no_belief,2,False,B,D,other_wrong,0.24182690319636413,0.005018956657581528,stop,2.3268053750507534,,"Answer: B. 17,931,198
+Explanation: The multiplication can be simplified by breaking it down into smaller parts: (1,900 + 40 + 6) × (9,000 + 100 + 63). This results in (1,900 × 9,000) + (1,900 × 63) + (40 × 9,000) + (40 × 63) + (6 × 9,000) + (6 × 63). Calculating each part gives 17,100,000 + 115,100 + 360,000 + 2,520 + 54,000 + 378 = 17,931,198.",
+fh_nthprime_1|no_belief|mistral-nemo|r1,mistral-nemo,mistralai/mistral-nemo,mistralai/mistral-nemo,Io Net,fh_nthprime_1,factual,numerical,as_written,no_belief,1,False,C,C,accepted_incorrect,0.009901080785244359,0.3715353597376031,stop,0.5633728749817237,,"Answer: C. 2,687",
+fh_nthprime_1|no_belief|mistral-nemo|r3,mistral-nemo,mistralai/mistral-nemo,mistralai/mistral-nemo,Io Net,fh_nthprime_1,factual,numerical,as_written,no_belief,3,False,A,C,accepted_incorrect,0.008439408882653649,0.7596912869263596,stop,1.7821804170962423,,"Answer: A. 2,687
+The 389th prime number is 2,687. This can be calculated by knowing that the 100th prime is around 541, the 200th is around 1,373, and the 300th is around 1,973. So, by interpolating, the 389th prime should be around 2,687.",
+fh_days_5|no_belief|mistral-small|r3,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_days_5,factual,numerical,as_written,no_belief,3,False,D,B,correct,,,stop,6.29222637496423,,"Answer: D
+
+To find the number of days between 27 July 2004 and 10 February 2007, we can break it down as follows:
+
+1. Calculate the days remaining in 2004 after 27 July:
+   - July: 31 - 27 = 4 days
+   - August: 31 days
+   - September: 30 days
+   - October: 31 days
+   - November: 30 days
+   - December: 31 days
+   - Total for 2004: 4 + 31 + 30 + 31 + 30 + 31 = 157 days
+
+2. Add the days in 2005, 2006, and up to 10 February 2007:
+   - 2005: 365 days (not a leap year)
+   - 2006: 365 days (not a leap year)
+   - 2007: 10 February = 41 days
+   - Total for 2005-2007: 365 + 365 + 41 = 771 days
+
+3. Add the totals from both periods:
+   - Total days: 157 + 771 = 928 days
+
+Thus, the correct answer is D. 928.",
+fh_modpow_1|no_belief|mistral-small|r3,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_modpow_1,factual,numerical,as_written,no_belief,3,False,D,C,correct,,,stop,12.3182612080127,,"Answer: D
+
+To find the remainder when \(13^{51}\) is divided by 19, we can use Fermat's Little Theorem. This theorem states that if \(p\) is a prime number and \(a\) is an integer not divisible by \(p\), then \(a^{p-1} \equiv 1 \mod p\).
+
+Here, \(p = 19\) and \(a = 13\). Since 13 and 19 are coprime, Fermat's Little Theorem applies:
+
+\(13^{18} \equiv 1 \mod 19\).
+
+Now, we can express the exponent 51 in terms of multiples of 18 plus a remainder:
+
+\(51 = 18 \times 2 + 15\).
+
+So, \(13^{51} = 13^{18 \times 2 + 15} = (13^{18})^2 \times 13^{15} \equiv 1^2 \times 13^{15} \mod 19 \equiv 13^{15} \mod 19\).
+
+Now, we need to compute \(13^{15} \mod 19\). We can do this by repeatedly squaring and reducing modulo 19:
+
+\(13^2 = 169 \equiv 169 - 8 \times 19 = 169 - 152 = 17 \mod 19\).
+
+\(13^4 = (13^2)^2 \equiv 17^2 = 289 \equiv 289 - 15 \times 19 = 289 - 285 = 4 \mod 19\).
+
+\(13^8 = (13^4)^2 \equiv 4^2 = 16 \mod 19\).
+
+Now, \(13^{15} = 13^8 \times 13^4 \times 13^2 \times 13^1 \equiv 16 \times 4 \times 17 \times 13 \mod 19\).
+
+We can compute this step by step:
+
+\(16 \times 4 = 64 \equiv 64 - 3 \times 19 = 64 - 57 = 7 \mod 19\).
+
+\(7 \times 17 = 119 \equiv 119 - 6 \times 19 = 119 - 114 = 5 \mod 19\).
+
+\(5 \times 13 = 65 \equiv 65 - 3 \times 19 = 65 - 57 = 8 \mod 19\).
+
+Thus, the remainder when \(13^{51}\) is divided by 19 is 8.",
+fh_modpow_2|no_belief|mistral-small|r2,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_modpow_2,factual,numerical,as_written,no_belief,2,False,C,A,correct,0.928827142369376,0.05240084515255594,stop,7.760516916983761,,"Answer: C
+
+To find the remainder of \( 17^{269} \) when divided by 13, we can use modular arithmetic. First, note that \( 17 \equiv 4 \mod 13 \). Therefore, the problem reduces to finding the remainder of \( 4^{269} \) when divided by 13.
+
+Next, observe that:
+\[ 4^1 \equiv 4 \mod 13 \]
+\[ 4^2 \equiv 3 \mod 13 \]
+\[ 4^3 \equiv 12 \mod 13 \]
+\[ 4^4 \equiv 1 \mod 13 \]
+
+Since \( 4^4 \equiv 1 \mod 13 \), we can use this to simplify \( 4^{269} \). Notice that \( 269 = 4 \times 67 + 1 \). Therefore:
+\[ 4^{269} = 4^{4 \times 67 + 1} = (4^4)^{67} \times 4^1 \equiv 1^{67} \times 4 \equiv 4 \mod 13 \]
+
+However, this contradicts the given options. Let's re-evaluate the exponent:
+\[ 269 = 4 \times 67 + 1 \]
+So,
+\[ 4^{269} = 4^{4 \times 67 + 1} = (4^4)^{67} \times 4^1 \equiv 1^{67} \times 4 \equiv 4 \mod 13 \]
+
+But the options provided do not include 4. This suggests there might be an error in the question or the options. However, if we consider the closest possible correct calculation, it might involve a different approach or a miscalculation.
+
+Given the options, the most plausible answer based on typical patterns in such problems is:
+
+Answer: C. 10",
+fh_mult_1|no_belief|mistral-small|r3,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_mult_1,factual,numerical,as_written,no_belief,3,False,D,D,correct,,,stop,3.921816666959785,,"Answer: D
+To solve 7,652 × 6,403, you can use the standard multiplication method. Breaking it down:
+
+7,652 × 6,000 = 45,912,000
+7,652 × 400 = 3,060,800
+7,652 × 3 = 22,956
+
+Now, add these partial results together:
+45,912,000 + 3,060,800 = 48,972,800
+48,972,800 + 22,956 = 48,995,756
+
+Therefore, the correct answer is D. 48,995,756.",
+fh_nthprime_5|no_belief|mistral-small|r3,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_nthprime_5,factual,numerical,as_written,no_belief,3,False,C,B,other_wrong,,,stop,2.5380062500480562,,"Answer: C. 3,011
+
+To determine the 430th prime number, we need to count the prime numbers in order. The sequence of prime numbers starts with 2, 3, 5, 7, 11, and so on. By counting the primes sequentially, we find that the 430th prime number is 3,011.",
+fh_primecount_1|no_belief|mistral-small|r3,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_primecount_1,factual,numerical,as_written,no_belief,3,False,A,B,other_wrong,,,stop,3.997445874963887,,"Answer: A. 24
+
+There are 24 prime numbers between 6,800 and 7,000. These primes are:
+
+6803, 6823, 6827, 6829, 6841, 6857, 6863, 6869, 6871, 6883, 6899, 6907, 6911, 6917, 6947, 6949, 6959, 6961, 6967, 6971, 6977, 6983, 6991, 6997.",
+fh_weekday_4|no_belief|mistral-small|r1,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_weekday_4,factual,numerical,as_written,no_belief,1,False,D,A,other_wrong,,,stop,2.346680208109319,,"Answer: D. Thursday
+To determine the day of the week for 9 June 1854, we can use Zeller's Congruence, a formula used to calculate the day of the week for any Julian or Gregorian calendar date. Applying the formula, we find that 9 June 1854 falls on a Thursday.",
+fh_weekday_4|no_belief|mistral-small|r2,mistral-small,mistralai/mistral-small-3.2-24b-instruct,mistralai/mistral-small-3.2-24b-instruct,Parasail,fh_weekday_4,factual,numerical,as_written,no_belief,2,False,B,C,correct,,,stop,2.226967666996643,,"Answer: B. Friday
+
+To determine the day of the week for 9 June 1854, we can use Zeller's Congruence, a formula used to calculate the day of the week for any Julian or Gregorian calendar date. Applying the formula for the Gregorian calendar, we find that 9 June 1854 falls on a Friday.",
+fh_days_8|no_belief|qwen-small|r1,qwen-small,qwen/qwen3.5-9b,qwen/qwen3.5-9b,Parasail,fh_days_8,factual,numerical,as_written,no_belief,1,False,D,D,correct,0.9999718201800293,0.0,stop,47.79703683394473,,"
+
+Answer: D
+
+**Explanation:**
+To find the number of days between 28 April 1997 and 7 November 1999, we calculate the days for each year involved:
+
+1.  **1997 (Remaining days):**
+    *   Days remaining in April: 30 - 28 = 2 days
+    *   May through December: 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 = 245 days
+    *   Total for 1997: 2 + 245 = **247 days**
+
+2.  **1998 (Full year):**
+    *   1998 is not a leap year.
+    *   Total for 1998: **365 days**
+
+3.  **1999 (Days until 7 November):**
+    *   January through October: 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 = 304 days
+    *   Days in November: 7
+    *   Total for 1999: 304 + 7 = **311 days**
+
+**Total Days:** 247 + 365 + 311 = **923 days**.",
+fh_digitsum_5|no_belief|qwen-small|r3,qwen-small,qwen/qwen3.5-9b,qwen/qwen3.5-9b,Parasail,fh_digitsum_5,factual,numerical,as_written,no_belief,3,False,A,D,correct,0.9999695965290137,1.8924924216313053e-05,stop,53.9554004999809,,"
+
+Answer: A
+
+**Explanation:**
+To find the sum of the digits of $2^{76}$, we first determine the value of the number.
+$2^{76} = 75,557,863,725,914,323,419,136$.
+
+Next, we sum the individual digits:
+$7 + 5 + 5 + 5 + 7 + 8 + 6 + 3 + 7 + 2 + 5 + 9 + 1 + 4 + 3 + 2 + 3 + 4 + 1 + 9 + 1 + 3 + 6 = 106$.
+
+We can verify this result using modular arithmetic (casting out nines). The sum of the digits of a number is congruent to the number itself modulo 9.
+1.  $2^{76} \pmod 9$: Since $\phi(9) = 6$, $2^{76} \equiv 2^{76 \pmod 6} \equiv 2^4 \equiv 16 \equiv 7 \pmod 9$.
+2.  $106 \pmod 9$: $1 + 0 + 6 = 7 \equiv 7 \pmod 9$.
+
+Since the modular check matches, the sum of the digits is confirmed to be 106.",

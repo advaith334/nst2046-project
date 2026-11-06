@@ -1,0 +1,19 @@
+# Cut-down F1 for the report, step 2: the test, run only if the screen passes the stop rule.
+# Up to 24 items x 2 conditions x 3 reps x 3 models = at most 432 trials. Cap: --max-cost 1.30.
+# data/f1_items.yaml is written by frontier/scripts/select_f1.py. See frontier/F1_cutdown.md.
+name: f1-test
+models_file: config/models.yaml
+model_set: f1_models
+case_files:
+  - data/f1_items.yaml
+conditions:
+  - no_belief
+  - stored_incorrect
+reps: 3
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

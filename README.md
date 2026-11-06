@@ -743,6 +743,10 @@ The MS1 report isn't in this repo. These are checked as worded in the analysis a
 - [ ] Swap the answer format so reasoning comes first (Nemo, Gemma, Llama)
 - [ ] Ask why Llama showed nothing on our items and +30 on MMLU
 - [x] Add a base model through a local server (round 14)
+- [ ] Frontier tests F1–F4 (headroom, test awareness, silent accommodation, pressure), each in two tracks
+      (frontier models; the main study's models): built in their own [frontier/](frontier/README.md)
+      folder, smoke-tested only. A cut-down F1 is set up in
+      [frontier/F1_cutdown.md](frontier/F1_cutdown.md). F5–F7 are specs in [frontier/planned/](frontier/planned/)
 
 ---
 

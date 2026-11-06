@@ -1,0 +1,18 @@
+# Cut-down F1 for the report, step 1: the screen. See frontier/F1_cutdown.md.
+# 64 items x no memory x 2 reps x 3 models = 384 trials. Cap: --max-cost 1.20.
+# Paths are relative to frontier/. Models come from frontier/config/models.yaml.
+name: f1-screen
+models_file: config/models.yaml
+model_set: f1_models
+case_files:
+  - data/headroom.yaml
+conditions:
+  - no_belief
+reps: 2
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

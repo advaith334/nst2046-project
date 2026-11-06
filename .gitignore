@@ -9,3 +9,6 @@ data/external/
 .DS_Store
 report/human_pack/rating_key.csv
 report/human_pack/qualitative_key.csv
+
+# Frontier tests (frontier/): full trial logs stay local, like the main study
+frontier/runs/**/trials.jsonl

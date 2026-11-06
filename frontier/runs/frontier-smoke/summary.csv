@@ -1,0 +1,5 @@
+model,evidence_mode,condition,n,usable,errors,unparseable,correct_rate,incorrect_rate,incorrect_ci_low,incorrect_ci_high,mean_p_incorrect,delta_vs_baseline
+claude-haiku,as_written,no_belief,4,4,0,0,1.0,0.0,0.0,0.48990002040399916,,0.0
+claude-sonnet,as_written,no_belief,4,4,0,0,1.0,0.0,0.0,0.48990002040399916,,0.0
+gemini-argon,as_written,no_belief,6,0,6,0,,,,,,
+gpt-terra-openai,as_written,no_belief,6,0,6,0,,,,,,

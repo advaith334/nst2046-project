@@ -1,0 +1,22 @@
+# Track A, frontier models: Claude Haiku 5.5 and GPT-6.1 Terra. Claude Sonnet 5.5 runs in track B
+# with identical settings, and counts for both.
+# The other track's file differs only in comments, `name` and `model_set` (a test checks this).
+# F3 silent accommodation: 24 well-known misconceptions, two free-text tasks each, with and
+# without a stored memory that the user believes the claim. Replies are sorted by an AI judge
+# into endorses / corrects openly / fixes silently / avoids; hand-check a sample.
+# New: every existing run is multiple choice or asks the question directly (MemSyco-Bench).
+# 24 items x 4 conditions x 2 reps x 2 models = 384 trials, each a reply plus a judge call.
+# Run with: uv run memsyco frontier-accommodation --config frontier/config/accommodation_frontier.yaml --run-id <id> --max-cost <usd>
+# Paths are relative to frontier/. Models come from frontier/config/models.yaml, not the main registry.
+name: frontier-accommodation
+models_file: config/models.yaml
+model_set: frontier_models
+judge_model: judge
+items_file: data/accommodation.yaml
+reps: 2
+seed: 2046
+max_workers: 4
+params:
+  temperature: 0.7
+  max_tokens: 500
+  top_logprobs: 0

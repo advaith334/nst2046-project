@@ -126,6 +126,13 @@ Times are SGT. "Session" points to the Claude Code session log.
 | Claude Code: Notion update | 15:22 | **Failed.** The connection pointed at another workspace, so nothing was written | Corrected text saved; the live page is out of date |
 | Claude Code: confirmatory cost estimate | US$0.98, given before "Approve the run" | **Wrong.** It missed Qwen's long reasoning and Claude's longer replies. Projected cost was about US$1.45. Advaith raised the cap to US$1.55, and Claude still stopped early | Found from cost logs at 16:02, before any outcome was read |
 | Claude Code: "the claim rests on one model" and "the label removes 56%" | Draft and README | **Overtaken by Part 3:** every open model moved, and the label removed 28% | Rewritten in the report and README |
+### Frontier tests (Aditya, 5 Nov, branch `aditya/work`)
+
+| Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
+|---|---|---|---|
+| Claude Code (Opus 5.5): test design | "come up with some independent tests ... on frontier models", hypothesis that models are "benchmaxxed" | Six tests proposed; Aditya chose four (now labelled F1–F4) | Design is AI-written. Predictions are left for Aditya to write before running |
+| Claude Code (Opus 5.5): code, items and configs | "build tests 1, 4 5 and 6" (now F1–F4) | **AI-generated:** everything under `frontier/` and `src/memsyco/frontier/`, `tests/test_frontier.py`, and the small shared-harness changes listed in `frontier/README.md`. 64 computed items, 24 misconception items | All 49 tests pass and a full dry run works. The 64 keys were re-checked by independent code (0 mismatches). The 24 misconception items need the two-member check |
+| Claude Code (Opus 5.5): review and cut-down F1, 6 Nov | Advaith: "review it", "cost it", "set it up" | **AI-generated:** the review, `frontier/F1_cutdown.md`, the F1 configs, selection and analysis scripts, and the fixes on merging. Predictions left blank for Aditya | All 64 keys recomputed by separate code with no mismatch. Tests and a dry run pass. **No paid trial run** |
 
 ## Honest limits on "verification"
 
