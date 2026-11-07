@@ -47,7 +47,7 @@ A post hoc run with no tutor role suggested the role removed the harm (Nemo +15,
 | R3 | Nemo's rise above zero in assistant frames | +7 [+1, +16] | 0.21 | **Fail** |
 | R4 | Llama's rise above zero in assistant frames | +12 [+5, +20] | 0.014 | Pass |
 
-**So the claim that a tutor role removes the harm is withdrawn.** Exploratory: wordings of one frame differ by up to 15 points. Llama's correct answers fall with a false note in both frames (-17 assistant, -12 tutor). Nemo's multiple-choice rise on these items was +63, so format matters far more than role, though that crosses runs.
+**So the claim that a tutor role removes the harm is withdrawn.** Exploratory: wordings of one frame differ by up to 10 points. Llama's correct answers fall with a false note in both frames (-17 assistant, -12 tutor). Nemo's multiple-choice rise on these items was +63, so format matters far more than role, though that crosses runs.
 
 ## How far this goes
 
