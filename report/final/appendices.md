@@ -109,6 +109,9 @@ MS1 also named Exa Agent and Codex. The session shows no use of either. Whether 
 |---|---|---|---|
 | Claude Code (Opus 5.5): tutoring simulation | Tony's idea of three roles; Advaith's "full autonomy" | **AI-designed, AI-run, AI-judged.** Code, plan, hypotheses and analysis in `tutoring/` | Plan committed before the run. Two AI judges. No person has checked a reply |
 | Claude Code: token limit in the tutoring simulation | Set at 500 in the plan | **Wrong.** It cut off 28 to 59% of open-model replies. Caught by checking `finish_reason` before writing up. Two post hoc reruns followed | Planned result kept and reported beside the rerun |
+| Claude Code: "three of five predictions failed", "second judge over every reply", "one role sentence", "F2 changed nothing" | Report and messages, 7 Nov | **Wrong or too strong.** Four of five failed; the reruns had one judge; three things changed; Small moved under the test cue. Found by an outside AI review | Corrected in the report |
+| Claude Code: "the tutor role removes the harm" | Draft of Part 5 and a message to the team | **Withdrawn.** A planned test with three wordings did not support it | Replaced in the report |
+| Claude Code subagents: outside review and adjacent research | Advaith asked how strong the report is | Used: `report/review/strength_review.md` and `report/literature/adjacent_work.md`. Same tool family as the author, so not independent. Figures read through an automated reader | Key review numbers recomputed in `report/analysis/extra/` |
 | Claude Code: second judge on F3 | Check whether F3 depends on one judge | Used: 83% agreement, kappa 0.76, same pattern | AI against AI, not a hand check |
 | Claude Code subagent: tutoring and psychosis research | Literature for the lead and side cases | Used, with figures for Eedi, Bergson and the OpenAI line re-checked in the main session. **A browser user-agent request was blocked as bot-check circumvention and not retried.** OpenAI and Khan help pages refused, so those details are left out or marked | Most reading went through an automated reader. No person has read these sources |
 | Claude Code: final report in LaTeX | "finish this report" | **The whole text of the report is AI-written** from the evidence files and Aditya's Part 4 text, which was also AI-drafted | Numbers checked against tables by script. The team must read it and own it before submitting |
@@ -274,6 +277,9 @@ Most study-design decisions on 27 October were proposed by the assistant and app
 | 93 | 7 Nov | Run a second AI judge over all of F3 and the tutoring run | Nobody has hand-checked the judges yet. This is AI against AI and does not replace that check | `frontier/analysis/second_judge.py`, `tutoring/README.md` | AI assistant, same grant |
 | 95 | 7 Nov | **Rerun Nemo, Mistral Small and Llama at 1,500 tokens, and add a no-role arm**, both post hoc, with the planned run still reported as planned | The 500-token limit was a design mistake: it cut off 28 to 59% of open-model replies. The tutor role or free text could each have removed the harm | `tutoring/README.md`, "After the run"; `tutoring/RESULTS.md` | AI assistant, under Advaith's autonomy grant. Results seen first |
 | 96 | 7 Nov | **Change the tutoring argument to fit the results:** memory tutors do not simply flatter; the harm sits with the general assistant; a note needs a stated purpose and a reader who knows the subject | Three of five predictions failed, and one reversed. The plan says the report's claims change with the results | `tutoring/RESULTS.md` | AI assistant; the team has not reviewed it |
+| 97 | 7 Nov | Commission an outside read of the report and a survey of adjacent research | Advaith asked how strong the work is and how to strengthen it | `report/review/strength_review.md`, `report/literature/adjacent_work.md` | Advaith asked; AI assistant ran it |
+| 98 | 7 Nov | **Run a planned frame test** with three wordings of each frame, because the no-role result failed Holm, three things changed at once, and the role gap was untested | Part 5's headline rested on one post hoc comparison | `tutoring/README.md`, "Frame test" | AI assistant, under Advaith's autonomy grant |
+| 99 | 7 Nov | **Withdraw the claim that a tutor role removes the harm.** Nemo +6 against +7. Replace the central claim: models do not check a stored statement against the truth | The planned test failed for Nemo and failed Holm for Llama. The review showed "framing, not warrant" conflicts with the dose-response, caveat and Part 5 | `tutoring/RESULTS.md`, `report/analysis/extra/` | AI assistant; the team has not reviewed it |
 | 94 | 7 Nov | Write the final report in LaTeX in the Milestone 1 format, with Aditya's Part 4 kept and shortened. `feat/f1-cutdown` is dropped, as Aditya ran the fuller F1 on Aditya's own credit | Advaith asked for LaTeX and the old format | `report/final/` | Advaith asked; AI assistant wrote it |
 
 **Still open: team to complete.**
@@ -625,9 +631,9 @@ MemSyco-Bench prompts come from the benchmark's own data and rubric, cited in Ap
 
 ## Appendix F: Evidence link
 
-**Repository.** https://github.com/advaith334/nst2046-project/tree/ms2-final (public). The tag marks the commit of this report. Frontier work is in `frontier/`, and the tutoring simulation is in `tutoring/`.
+**Repository.** https://github.com/advaith334/nst2046-project/tree/ms2-final (public). The tag marks the final commit of this report. Frontier work is in `frontier/`, and the tutoring simulation is in `tutoring/`.
 
-**What it holds.** The harness, configurations, items, exact prompt templates, raw response tables, per-run summaries, analysis scripts, figures and result tables. `report/analysis/confirm/confirm_analysis.py` rebuilds Part 3, `frontier/analysis/item_level.py` Part 4 and `tutoring/analysis/analyse.py` Part 5. Two more scripts rebuild every other reported number: `report/analysis/run_all.sh` and `report/analysis/followups/run_followups.sh`. Neither calls an API. Both need the trial logs.
+**What it holds.** The harness, configurations, items, exact prompt templates, raw response tables, per-run summaries, analysis scripts, figures and result tables. `report/analysis/confirm/confirm_analysis.py` rebuilds Part 3, `frontier/analysis/item_level.py` Part 4 and `tutoring/analysis/` Part 5, and `report/analysis/extra/` the log-odds and truth-sensitivity figures. Two more scripts rebuild every other reported number: `report/analysis/run_all.sh` and `report/analysis/followups/run_followups.sh`. Neither calls an API. Both need the trial logs.
 
 **What it does not hold.** Per-trial logs (`trials.jsonl`) are not in git, so token probabilities, reasoning text, spend and full requests cannot be checked from the repository alone. Raw response tables are in git, and checksums below fix the logs we hold. Frontier logs are on Aditya's machine and are not in this list.
 
@@ -645,6 +651,16 @@ MemSyco-Bench prompts come from the benchmark's own data and rubric, cited in Ap
 | `confirm-tutor-20261105` | `4fbd2253502ca2b621224607c00e2380` |
 | `confirm-wordings-20261105/may_be_wrong` | `e43daa6c09429e4c7cc62284a200a29b` |
 | `confirm-wordings-20261105/notes` | `d4836d6b0d9fa407ba7c89d365574c9a` |
+| `frames-20261107-assistant_b` | `37f9cd22e312d4a08ce3776886fa1667` |
+| `frames-20261107-assistant_c` | `94860302705861d4e88e74dedbaf31d6` |
+| `frames-20261107-neutral` | `05ae2d685a859b2a61576daa2dda6790` |
+| `frames-20261107-role_only` | `dfe2c1cebd137d80bfbd5006e1829488` |
+| `frames-20261107-tutor` | `bd05459eac97c88d9383fe94ff4e8ce3` |
+| `frames-20261107-tutor_b` | `a98da54b903afe821778f0f8664a0c65` |
+| `frames-20261107-tutor_c` | `58cd91dc8ac02b8aee8b2be5504417f4` |
+| `tutoring-20261107` | `a75da17d4999ec1c7e38522c22dd1bc6` |
+| `tutoring-long-20261107` | `a65da9c66b7d2b346b96c009e788b9fa` |
+| `tutoring-neutral-20261107` | `c6776245fbae54d4bbfe33b4d472a3dd` |
 | `evidence-20261105` | `b4288d0afe2fdf180de053fca1e87eab` |
 | `fixes-20261105/answer_first` | `399984ddf55e288aee99db32dbc82b7f` |
 | `fixes-20261105/memory_gate` | `cf18a5d9839a5410bba2ad0b07cc584d` |

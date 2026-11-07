@@ -6,7 +6,7 @@ differs across models, and whether labelling the memory as *unverified* helps.
 
 Team: Advaith, Aditya, Elkan and Tony. Roles: [TEAM TO CONFIRM].
 
-> **Status (Milestone 2):** the final report is in [report/final/](report/final/). About **37,750 trials** in all, for about **$21**: 5,472 in rounds 1-4, 12,784 in paid follow-ups, 9,287 confirmatory, 5,536 frontier tests on Aditya's account, 2,860 tutoring, 1,728 local and free, and 84 smoke tests. Our own test items and evidence passages are still unverified **drafts**, and no response has been hand-scored. Rounds 5-14 were designed after the main results were seen. Rounds 15-17 had plans committed first, though two tutoring reruns are post hoc.
+> **Status (Milestone 2):** the final report is in [report/final/](report/final/). About **40,270 trials** in all, for about **$21**: 5,472 in rounds 1-4, 12,784 in paid follow-ups, 9,287 confirmatory, 5,536 frontier tests on Aditya's account, 5,380 tutoring, 1,728 local and free, and 84 smoke tests. Our own test items and evidence passages are still unverified **drafts**, and no response has been hand-scored. Rounds 5-14 were designed after the main results were seen. Rounds 15-17 had plans committed first, though two tutoring reruns are post hoc. The central claim changed after an outside review: see the report.
 >
 > **AI disclosure:** all code, 87 of the 89 test items and this README are AI-generated. See
 > [section 5](#5-limitations).
@@ -30,7 +30,7 @@ Team: Advaith, Aditya, Elkan and Tony. Roles: [TEAM TO CONFIRM].
 "Points" means percentage points of answers. Square brackets are 95% intervals from resampling
 items, not trials. Effects are rises in false answers over the same model's no-belief baseline.
 
-**The tutoring case.** A three-role simulation found that in a tutor role a false note did not raise false answers, while with no role it did (Nemo +15, Llama +13). Only models that knew the answer could tell a false note from a true one. Three of five predictions failed. See [tutoring/RESULTS.md](tutoring/RESULTS.md).
+**The tutoring case.** In a three-role simulation, a false note added little to false answers in free text, in any frame, and a planned test did not support a tutor-role effect. Only models that knew the answer could tell a false note from a true one. Four of five predictions failed. See [tutoring/RESULTS.md](tutoring/RESULTS.md).
 
 **Frontier models.** Sonnet, Haiku and Terra did not detectably move, but they were almost never unsure, so resistance can't be separated from knowledge. See [frontier/README.md](frontier/README.md).
 
@@ -165,9 +165,9 @@ weak points in its claims.
 | 14 | Local base vs instruct | 48 | 1 pair, 3 arms | 1,728 | Free | 5 Nov 05:48–06:42 | Effect the same size in base, in points |
 | 15 | Confirmatory (pre-registered) | 120 MMLU | 6 | 9,287 | $1.54 | 5 Nov 07:46–10:13 | All five primary hypotheses pass; every open model moved |
 | 16 | Frontier tests F1-F4 (Aditya) | 64 computed, 24 myths | 8 | 5,536 | about $12 | 5-6 Nov | No detectable frontier effect, near ceiling |
-| 17 | Tutoring simulation, with two post hoc reruns | 60 MMLU school | 6 | 2,860 | $2.55 | 7 Nov | Role removes the harm; knowledge sorts the notes |
+| 17 | Tutoring simulation, two post hoc reruns, a planned frame test | 60 MMLU school | 6 | 5,380 | $2.76 | 7 Nov | False notes add little in free text; knowledge sorts the notes |
 | | Smoke tests | | | 84 | $0.04 | 27 Oct, 5 Nov | Harness checks |
-| | **Total** | | | **about 37,750** | **about $21** | | |
+| | **Total** | | | **about 40,270** | **about $21** | | |
 
 Trial counts and costs come from the logs. Costs include retries and extra calls: the judge in
 round 5, and the second call in the answer-first and memory-gate fixes.

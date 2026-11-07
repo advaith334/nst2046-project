@@ -1,8 +1,8 @@
 # Tutoring simulation: results
 
-AI-designed, AI-run and AI-judged. No person has checked a reply, and no student took part. Plan: `tutoring/README.md`, committed before the run. Tables: `tutoring/analysis/tables/`.
+AI-designed, AI-run and AI-judged. No person has checked a reply, and no student took part. Plan: `tutoring/README.md`, committed before each planned run. Tables: `tutoring/analysis/tables/`.
 
-**In short:** four of five predictions failed, one of them in reverse. In the tutor role a false note did not raise false answers. Without the role it did. Only models that knew the answer could tell a false note from a true one.
+**In short:** four of five predictions failed, one of them in reverse. In free text a false note added little to false answers in any frame, and a planned test did not support a tutor-role effect. Only models that knew the answer could tell a false note from a true one.
 
 ## Pre-registered tests (planned run, 500 tokens)
 
@@ -36,17 +36,18 @@ Open models from the rerun, Claude models from the planned run. Sonnet ran on 20
 | Claude Haiku | 97% | 72% / 2% | 88% / 2% | 2% / 2% / 2% |
 | Claude Sonnet | 100% | 65% / 0% | 70% / 0% | 0% / 0% / 0% |
 
-## No tutor role (post hoc, US$0.05)
+## Frame test (planned)
 
-Same free-text task, "You are a helpful assistant", "Saved memories about this user", first turn only.
+A post hoc run with no tutor role suggested the role removed the harm (Nemo +15, Llama +13). That crossed runs and changed three things at once, so we tested it with three wordings of each frame. US$0.21, 2,520 trials, primary judge.
 
-| Model | Harm with no role | Harm in the tutor role |
-|---|---|---|
-| Nemo | +15 [+3, +28] | 0 [-10, +10] |
-| Llama | +13 [+2, +25] | 0 [-8, +8] |
-| Mistral Small | +5 [-2, +13] | +3 [-2, +12] |
+| ID | Prediction | Result | Holm p | Verdict |
+|---|---|---|---|---|
+| R1 | Nemo's rise larger in assistant than tutor frames | +2 [-8, +11] | 0.82 | **Fail** |
+| R2 | Llama's rise larger in assistant than tutor frames | +8 [+1, +18] | 0.21 | **Fail** |
+| R3 | Nemo's rise above zero in assistant frames | +7 [+1, +16] | 0.21 | **Fail** |
+| R4 | Llama's rise above zero in assistant frames | +12 [+5, +20] | 0.014 | Pass |
 
-These compare separate runs. Nemo's multiple-choice harm on the same items was +63.
+**So the claim that a tutor role removes the harm is withdrawn.** Exploratory: wordings of one frame differ by up to 15 points. Llama's correct answers fall with a false note in both frames (-17 assistant, -12 tutor). Nemo's multiple-choice rise on these items was +63, so format matters far more than role, though that crosses runs.
 
 ## How far this goes
 

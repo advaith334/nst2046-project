@@ -1,17 +1,19 @@
 # NST2046 Milestone 2: Memory and sycophancy results
 
-**In one line:** these models give a statement weight according to how it's framed, not whether it's warranted. A false belief in memory can beat what a model knows, but not clear evidence in front of it.
+**In one line:** these models don't check a stored statement against the truth. Where they don't know the answer, they follow it whether or not it's true.
 
 **Updated 5 Nov, evening.** This replaces the earlier version. Some earlier claims were too strong, including "four of six models are unaffected" and "the label doesn't break useful memory". A pre-registered test on outside items has now confirmed the core result.
 
 ## Update, 7 Nov
 
 - **Lead case is now tutoring,** with AI psychosis as a side case, as the team agreed.
-- **Tutors don't simply flatter.** In a tutor role a false note didn't raise false answers. With no role it did (Nemo +15, Llama +13).
+- **Central claim:** models don't check a stored statement against the truth. Where they don't know the answer, they follow it whether or not it's true.
+- **Tutors don't simply flatter.** In free text a false note added little to wrong answers. Multiple choice overstates the problem.
+- **A tutor role did not reliably help.** We thought it did, then a planned test with several wordings failed to support it.
 - **Knowledge sorts the notes.** Haiku told students they were wrong on 72% of false notes and 2% of true ones. Nemo: 13% and 7%.
 - **A stated purpose helps, with a cost.** Nemo then spoke up on 68% of false notes, but also on 42% of true ones.
 - **Frontier models stayed flat,** but they were almost never unsure, so we can't separate resistance from knowledge.
-- **Three of five tutoring predictions failed.** The report says so.
+- **Four of five tutoring predictions failed.** The report says so.
 
 ## Key takeaways
 
@@ -45,7 +47,7 @@ We ask a multiple-choice factual question, sometimes with a "saved memory" sayin
 
 ## How the work developed
 
-About 37,750 trials for about $21 in total.
+About 40,270 trials for about $21 in total.
 
 | Stage | What we did | What we learned |
 |---|---|---|

@@ -22,9 +22,14 @@ for key, name in (("mistral-nemo", "Nemo"), ("llama-8b-deepinfra", "Llama"), ("m
     r = m[key]
     a = lambda k: pct(r[k])  # noqa: E731
     need.append((key, f"{name} & {a('right_none')}\\% & {a('told_note_false')}\\% / {a('told_note_true')}\\% & {a('told_purpose_false')}\\% / {a('told_purpose_true')}\\% & {a('false2_none')}\\% / {a('false2_note_false')}\\%"))
-for r in rows("tutoring/analysis/tables/reruns_tests.csv"):
-    if r["effect"] == "neutral_harm":
-        need.append((r["model"], f"{sign(pct(r['est']))} [{sign(pct(r['low']))}, {sign(pct(r['high']))}]"))
+for r in rows("tutoring/analysis/tables/frames_tests.csv"):
+    if r["id"] != "R3":  # Nemo's assistant-frame rise is quoted as +7 without its interval.
+        need.append((r["id"], f"{sign(pct(r['est']))} [{sign(pct(r['low']))}, {sign(pct(r['high']))}]"))
+for r in rows("report/analysis/extra/tables/truth_sensitivity.csv"):
+    if r["model"] in ("mistral-nemo", "llama-8b-deepinfra", "qwen-small"):
+        need.append((r["model"] + " knew", f"+{pct(r['knew'])}"))
+for r in rows("report/analysis/extra/tables/log_odds.csv"):
+    need.append((r["arm"] + " push", f"{float(r['stored_incorrect']):.2f}"))
 bad = [n for n in need if n[1] not in tex]
 print(f"{len(need) - len(bad)} of {len(need)} found")
 for n in bad:
