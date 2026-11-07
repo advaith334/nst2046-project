@@ -240,7 +240,7 @@ def frontier_accommodation(config: Path = Path("frontier/config/accommodation_fr
 
 @app.command("tutoring")
 def tutoring_cmd(config: Path = Path("tutoring/config/tutoring.yaml"), dry_run: bool = False, run_id: str | None = None,
-                 limit: int | None = None, runs_dir: Path = Path("tutoring/runs"),
+                 limit: int | None = None, runs_dir: Path = Path("tutoring/runs"), frame: str | None = None,
                  max_cost: float | None = typer.Option(None, help="Stop once this many USD are spent, judges included.")) -> None:
     """Three-role tutoring simulation: scripted student, model as tutor, two AI judges as teacher."""
     from .client import OpenAICompatClient
@@ -248,6 +248,7 @@ def tutoring_cmd(config: Path = Path("tutoring/config/tutoring.yaml"), dry_run: 
 
     load_dotenv()
     cfg = load_tutoring_config(config)
+    cfg.frame = frame or cfg.frame
     run_id = run_id or f"{datetime.now():%Y%m%d-%H%M%S}-{cfg.name}{'-dry' if dry_run else ''}"
     client = FakeTutoringClient() if dry_run else OpenAICompatClient()
     out_dir = runs_dir / run_id

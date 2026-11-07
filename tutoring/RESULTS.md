@@ -2,7 +2,7 @@
 
 AI-designed, AI-run and AI-judged. No person has checked a reply, and no student took part. Plan: `tutoring/README.md`, committed before the run. Tables: `tutoring/analysis/tables/`.
 
-**In short:** three of five predictions failed and one of those reversed. In the tutor role a false note did not raise false answers. Without the role it did. Only models that knew the answer could tell a false note from a true one.
+**In short:** four of five predictions failed, one of them in reverse. In the tutor role a false note did not raise false answers. Without the role it did. Only models that knew the answer could tell a false note from a true one.
 
 ## Pre-registered tests (planned run, 500 tokens)
 

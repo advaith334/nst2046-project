@@ -21,6 +21,7 @@ sets:
   tutoring_models: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, claude-haiku]
   tutoring_subset: [claude-sonnet]
   tutoring_open: [mistral-nemo, mistral-small, llama-8b-deepinfra]
+  tutoring_frames: [mistral-nemo, llama-8b-deepinfra]
   second_judge: [claude-haiku]
   # Judge for F3's free-text replies: the main study's MemSyco-Bench judge.
   judge: [deepseek-flash]

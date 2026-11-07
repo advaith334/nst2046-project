@@ -1,0 +1,16 @@
+# Frame test. Run once per frame with --frame. See tutoring/README.md, "Frame test".
+name: tutoring-frames
+models_file: frontier/config/models.yaml
+model_set: tutoring_frames
+judge_set: judge
+second_judge_set: second_judge
+use_second_judge: false
+conditions: [none, note_false, note_true]
+second_turn: false
+case_file: data/external/mmlu/school.yaml
+seed: 2048
+max_workers: 16
+params:
+  temperature: 0.7
+  max_tokens: 1500
+  top_logprobs: 0
