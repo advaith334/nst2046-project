@@ -9,7 +9,7 @@ R = pathlib.Path(".")
 tex = "".join(p.read_text() for p in sorted((R / "report/final/sections").glob("*.tex")))
 pct = lambda x: int(float(x) * 100 + 0.5 if float(x) >= 0 else float(x) * 100 - 0.5)  # noqa: E731
 rows = lambda f: list(csv.DictReader(open(R / f)))  # noqa: E731
-sign = lambda v: (f"+{v}" if v > 0 else f"$-${abs(v)}" if v < 0 else "0")  # noqa: E731
+sign = lambda v: (f"+{v}" if v > 0 else f"−{abs(v)}" if v < 0 else "0")  # noqa: E731
 need = []
 for r in rows("report/analysis/confirm/tables/tests.csv"):
     if r["id"] in ("H1", "H2", "H3", "H4", "H5", "H6a", "H6b", "H6c", "H7a", "H7b", "H7c", "H7d", "H8"):

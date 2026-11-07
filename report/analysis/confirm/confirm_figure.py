@@ -19,7 +19,7 @@ OUT = HERE.parents[1] / "figures" / "fig8_confirmatory.png"
 INK, MUTED, HAIR = "#0b0b0b", "#52514e", "#d9d8d3"
 FALSE, TRUE, NONE = "#eb6834", "#2a78d6", "#7d7c76"
 plt.rcParams.update({
-    "font.size": 9, "axes.edgecolor": MUTED, "axes.linewidth": 0.6, "text.color": INK, "axes.labelcolor": INK,
+    "font.family": "Times New Roman", "font.size": 9, "axes.edgecolor": MUTED, "axes.linewidth": 0.6, "text.color": INK, "axes.labelcolor": INK,
     "xtick.color": MUTED, "ytick.color": INK, "ytick.major.size": 0, "xtick.major.size": 3,
     "axes.spines.top": False, "axes.spines.right": False, "axes.spines.left": False, "axes.titlesize": 9.5,
     "axes.titleweight": "bold", "axes.titlelocation": "left", "savefig.dpi": 300, "savefig.facecolor": "white",
@@ -47,7 +47,7 @@ def val(model, cond, col):
     return float(s.iloc[0]) * 100 if len(s) else None
 
 
-fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 2.75), sharey=True, gridspec_kw={"wspace": 0.14})
+fig, (a, b) = plt.subplots(1, 2, figsize=(6.3, 2.45), sharey=True, gridspec_kw={"wspace": 0.14})
 for i, (m, _) in enumerate(ORDER):
     y = len(ORDER) - 1 - i
     nb, si, lb = val(m, "no_belief", "false"), val(m, "stored_incorrect", "false"), val(m, "stored_incorrect_labelled", "false")

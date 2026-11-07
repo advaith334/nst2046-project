@@ -23,7 +23,7 @@ MARKER = {"mistral-nemo": "o", "mistral-small": "s", "llama-8b": "^"}
 BLUE = COLOUR["mistral-nemo"]
 
 plt.rcParams.update({
-    "font.size": 9, "axes.edgecolor": MUTED, "axes.linewidth": 0.6, "axes.labelcolor": INK, "text.color": INK,
+    "font.family": "Times New Roman", "font.size": 9, "axes.edgecolor": MUTED, "axes.linewidth": 0.6, "axes.labelcolor": INK, "text.color": INK,
     "xtick.color": MUTED, "ytick.color": MUTED, "xtick.major.width": 0.6, "ytick.major.width": 0.6,
     "xtick.major.size": 3, "ytick.major.size": 0, "axes.spines.top": False, "axes.spines.right": False,
     "axes.titlesize": 9.5, "axes.titleweight": "bold", "axes.titlelocation": "left", "figure.dpi": 100,
@@ -51,7 +51,7 @@ def figure_effects():
         ("stated_incorrect", "stored_incorrect", "c  Stated by user\nvs stored"),
         ("stored_correct", "no_belief", "d  Stored correct\nvs no belief"),
     ]
-    fig, axes = plt.subplots(1, 4, figsize=(7.2, 3.1), sharey=True, sharex=True)
+    fig, axes = plt.subplots(1, 4, figsize=(6.3, 2.75), sharey=True, sharex=True)
     ypos = {m: len(MODELS) - 1 - i for i, m in enumerate(MODELS)}
     for ax, (cond, ref, title) in zip(axes, panels):
         grid(ax)

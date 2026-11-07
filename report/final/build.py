@@ -55,13 +55,22 @@ def table(rows: list[str]) -> str:
     n = len(head)
     body = [(r + [""] * n)[:n] for r in body]
     weights = [max(6, min(60, (sum(len(r[i]) for r in body) / max(1, len(body))) ** 0.75)) for i in range(n)]
+    # Every column is at least as wide as its longest word, so no word sticks out of its cell.
+    plain = lambda c: re.sub(r"`[^`]*`|https?://\S+|[*\[\]()]", " ", c)  # noqa: E731
+    longest = [max((len(w) for r in [head] + body for w in plain(r[i]).split()), default=4) for i in range(n)]
+    floors = [min(0.30, (ln * 5.1 + 12) / 495) for ln in longest]
     widths = [w / sum(weights) for w in weights]
-    spec = "".join(r">{\RaggedRight\arraybackslash}p{" + f"{w * 0.985:.3f}" + r"\dimexpr\linewidth-" + f"{2 * n}" + r"\tabcolsep\relax}" for w in widths)
+    for _ in range(4):
+        widths = [max(w, fl) for w, fl in zip(widths, floors)]
+        widths = [w / sum(widths) for w in widths]
+    # Wider text columns are justified like the body. Narrow columns stay left-aligned, because justifying them leaves large gaps.
+    align = lambda w: r"\justifying" if w >= 0.22 else r"\RaggedRight"  # noqa: E731
+    spec = "".join(">{" + align(w) + r"\arraybackslash}p{" + f"{w * 0.985:.3f}" + r"\dimexpr\linewidth-" + f"{2 * n}" + r"\tabcolsep\relax}" for w in widths)
     lines = [r"\begin{longtable}{@{}" + spec + "@{}}", r"\toprule", " & ".join(r"\textbf{" + inline(h) + "}" for h in head) + r" \\",
              r"\midrule", r"\endhead"]
     lines += [" & ".join(inline(c) for c in r) + r" \\" for r in body]
     lines += [r"\bottomrule", r"\end{longtable}"]
-    return "\n".join(lines)
+    return r"{\small" + "\n" + "\n".join(lines) + "\n}"
 
 
 def convert(md: str) -> str:

@@ -25,7 +25,8 @@ NEMO, SMALL = "mistral-nemo", "mistral-small"
 COLOUR = {NEMO: "#2a78d6", SMALL: "#eb6834"}
 NAME = {NEMO: "Mistral Nemo 12B", SMALL: "Mistral Small 24B"}
 
-plt.rcParams.update({
+plt.rcParams.update({"font.family": "Times New Roman",
+    
     "font.size": 9, "axes.edgecolor": MUTED, "axes.linewidth": 0.6, "axes.labelcolor": INK, "text.color": INK,
     "xtick.color": MUTED, "ytick.color": MUTED, "xtick.major.width": 0.6, "ytick.major.width": 0.6,
     "xtick.major.size": 3, "ytick.major.size": 0, "axes.spines.top": False, "axes.spines.right": False,
@@ -101,7 +102,7 @@ LEADER = {"tutor": (9.4, -9.3, "center"), "patient": (6.5, 11.5, "center"), "rul
 
 def figure_tradeoff():
     d = t("q3_tradeoff")
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.7), gridspec_kw={"width_ratios": [1.45, 1]})
+    fig, axes = plt.subplots(1, 2, figsize=(6.3, 2.75), gridspec_kw={"width_ratios": [1.45, 1]})
     for ax, m, tag in zip(axes, [NEMO, SMALL], "ab"):
         v = d[d.model == m]
         h, b = 100 * v.main_effect.iloc[0], 100 * v.main_benefit.iloc[0]
@@ -130,16 +131,16 @@ def figure_tradeoff():
             ax.annotate(name, (x, y), xytext=off, textcoords="offset points", fontsize=7.6, ha=ha, color=INK, fontweight="bold", zorder=5,
                         bbox=dict(facecolor=SURFACE, edgecolor="none", pad=0.4, alpha=0.85))
         ax.set_title(f"{tag}  {NAME[m]}", fontsize=9)
-        ax.set_xlabel("Harm removed: points cut from the\nfalse-memory effect")
+        ax.set_xlabel("Harm removed (points)")
     axes[0].set_xlim(-6, 54)
     axes[0].set_ylim(-14, 36)
     axes[1].set_xlim(-18, 26)
     axes[1].set_ylim(-14, 14)
-    axes[0].set_ylabel("Benefit kept: accuracy gain from\ntrue memory (points)")
+    axes[0].set_ylabel("Benefit kept (points)")
     handles = [Line2D([], [], marker=mk, ls="", mfc=MUTED, mec=SURFACE, ms=6.5, label=n) for mk, n in FAMILY.values()]
     handles += [Line2D([], [], marker="*", ls="", mfc=INK, mec=SURFACE, ms=10, label="Reference"), Line2D([], [], color=MUTED, lw=0.9, ls=(0, (4, 3)), label="Equal shares lost")]
     fig.legend(handles=handles, loc="lower center", ncol=6, fontsize=7.4, bbox_to_anchor=(0.52, -0.012), handletextpad=0.25, columnspacing=1.0)
-    fig.subplots_adjust(left=0.1, right=0.99, top=0.93, bottom=0.215, wspace=0.17)
+    fig.subplots_adjust(left=0.075, right=0.99, top=0.925, bottom=0.215, wspace=0.14)
     fig.savefig(FIGS / "fig6_fix_tradeoff.png")
     plt.close(fig)
 
