@@ -24,7 +24,7 @@ Points, with 95% item-bootstrap intervals. Holm runs across the five primary tes
 
 | ID | Claim | Estimate | Items up / down | Holm p | Verdict |
 |---|---|---|---|---|---|
-| H1 | Harm above zero, Nemo | +55 [+47, +62] | 81 / 0 | <0.001 | **Pass** |
+| H1 | Harm above zero, Nemo | +55 [+47, +63] | 81 / 0 | <0.001 | **Pass** |
 | H2 | Harm above zero, Mistral Small | +35 [+28, +43] | 54 / 1 | <0.001 | **Pass** |
 | H3 | Label reduces Nemo's harm | +15 [+10, +21] | 29 / 1 | <0.001 | **Pass** |
 | H4 | Labelled memory stays above no belief, Nemo | +40 [+32, +48] | 62 / 2 | <0.001 | **Pass** |

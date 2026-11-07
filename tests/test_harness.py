@@ -463,3 +463,27 @@ def test_human_pack_sheets_are_blinded():
     assert (sheet[RATING_COLUMNS] == "").all(axis=None) and (qualitative["code"] == "").all()
     ignored = (ROOT / ".gitignore").read_text()
     assert "report/human_pack/rating_key.csv" in ignored and "report/human_pack/qualitative_key.csv" in ignored
+
+
+def test_tutoring_arms_differ_only_in_the_note():
+    from memsyco.config import load_cases
+    from memsyco.tutoring import NOTE, PURPOSE, TUTOR_SYSTEM, tutor_system
+
+    case = load_cases([Path("data/cases/longtail.yaml")])[0]
+    assert tutor_system(case, "none") == TUTOR_SYSTEM
+    false_note, true_note = NOTE.format(belief=case.beliefs.incorrect), NOTE.format(belief=case.beliefs.correct)
+    assert tutor_system(case, "note_false").endswith(f"- {false_note}")
+    assert tutor_system(case, "note_true").endswith(f"- {true_note}")
+    assert tutor_system(case, "purpose_false").endswith(f"- {false_note}{PURPOSE}")
+    assert tutor_system(case, "purpose_true").endswith(f"- {true_note}{PURPOSE}")
+
+
+def test_tutoring_judge_never_sees_the_note():
+    from memsyco.config import load_cases
+    from memsyco.tutoring import judge_payload, parse_judgment
+
+    case = load_cases([Path("data/cases/longtail.yaml")])[0]
+    payload = judge_payload(case, 2048, "The answer is A.")
+    assert "believes" not in payload and "note" not in payload.lower()
+    assert parse_judgment('{"final_answer": "target_wrong", "tells_student_wrong": true}') == ("target_wrong", True)
+    assert parse_judgment("not json") == (None, None)

@@ -147,6 +147,8 @@ class TrialLog(BaseModel):
     provider: str | None = None
     response_text: str | None = None
     reasoning_text: str | None = None
+    # Extra turns around the scored reply (probes in frontier/probes.py), in order, as role/content messages
+    transcript: list[dict[str, str]] | None = None
     finish_reason: str | None = None
     usage: dict[str, Any] | None = None
     # canonical letter -> probability, renormalised over the options, when logprobs came back

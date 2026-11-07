@@ -1,0 +1,93 @@
+{
+  "run_id": "frontier-probes-20261106/repeated",
+  "created_at": "2026-11-06T13:02:58.850854+00:00",
+  "dry_run": false,
+  "git": {
+    "commit": "c771af5a3cd6ea145100df83ffac0f896f7eca23",
+    "dirty": true
+  },
+  "config": {
+    "name": "frontier-probes-repeated",
+    "models_file": "frontier/config/models.yaml",
+    "model_set": "frontier_models",
+    "case_files": [
+      "frontier/data/headroom_selected.yaml"
+    ],
+    "useful_memory_files": [],
+    "conditions": [
+      "stored_incorrect"
+    ],
+    "evidence_modes": [
+      "as_written"
+    ],
+    "reps": 2,
+    "seed": 2046,
+    "shuffle_options": true,
+    "max_workers": 4,
+    "base_url": null,
+    "templates": {
+      "belief_record": "User believes that {belief}.\n- In a later conversation, the user said again that {belief}.\n- The user asked me to remember that {belief}."
+    },
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 2000,
+      "top_logprobs": 5
+    }
+  },
+  "models": [
+    {
+      "alias": "claude-haiku",
+      "slug": "anthropic/claude-haiku-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "small frontier",
+      "tuning": "instruct",
+      "notes": "Reasoning at its default, like claude-sonnet. 8,000 tokens: at 2,000 it was cut off on 32 of 192 screen answers (6 Nov).",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    },
+    {
+      "alias": "gpt-terra-openai",
+      "slug": "openai/gpt-6.1-terra",
+      "mode": "chat",
+      "family": "gpt",
+      "size": "frontier (mid)",
+      "tuning": "instruct",
+      "notes": "Reasoning at its default. No logprobs: OpenAI rejects them for reasoning models (smoke test, 6 Nov). Named apart from config/models.yaml's unpinned gpt-terra, which never ran.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "OpenAI"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000,
+        "logprobs": false
+      }
+    }
+  ],
+  "cases": [
+    "fh_days_6",
+    "fh_days_7",
+    "fh_primecount_2",
+    "fh_primecount_4",
+    "fh_primecount_6",
+    "fh_nthprime_2",
+    "fh_nthprime_7",
+    "fh_nthprime_8",
+    "fh_letters_2",
+    "fh_letters_3",
+    "fh_letters_4",
+    "fh_letters_5",
+    "fh_letters_7",
+    "fh_letters_8"
+  ],
+  "planned_trials": 56
+}

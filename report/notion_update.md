@@ -4,6 +4,15 @@
 
 **Updated 5 Nov, evening.** This replaces the earlier version. Some earlier claims were too strong, including "four of six models are unaffected" and "the label doesn't break useful memory". A pre-registered test on outside items has now confirmed the core result.
 
+## Update, 7 Nov
+
+- **Lead case is now tutoring,** with AI psychosis as a side case, as the team agreed.
+- **Tutors don't simply flatter.** In a tutor role a false note didn't raise false answers. With no role it did (Nemo +15, Llama +13).
+- **Knowledge sorts the notes.** Haiku told students they were wrong on 72% of false notes and 2% of true ones. Nemo: 13% and 7%.
+- **A stated purpose helps, with a cost.** Nemo then spoke up on 68% of false notes, but also on 42% of true ones.
+- **Frontier models stayed flat,** but they were almost never unsure, so we can't separate resistance from knowledge.
+- **Three of five tutoring predictions failed.** The report says so.
+
 ## Key takeaways
 
 - **The core result is confirmed.** On 120 random exam questions no AI wrote, with the plan fixed first, a false memory raised Nemo's false answers from 15% to 70%.
@@ -36,7 +45,7 @@ We ask a multiple-choice factual question, sometimes with a "saved memory" sayin
 
 ## How the work developed
 
-About 29,000 trials for $5.93 in total.
+About 37,750 trials for about $21 in total.
 
 | Stage | What we did | What we learned |
 |---|---|---|
@@ -133,7 +142,7 @@ On outside items, the patient framing left 39% of Nemo's harm and kept 81% of it
 - **Teachers (lead).** A teacher's note on a misconception exists to be corrected. Tutor framing quietens memory, but that isn't teaching.
 - **Patients (contrast).** The same scepticism can hurt people who are right. A wrong record beat a true memory, and the label cut true memories.
 - **Why the pair matters.** "Be more sceptical of users" isn't an easy answer.
-- **Who should act.** Wording, role and retrieval are deployer choices, and testing cost under US$6.
+- **Who should act.** Wording, role and retrieval are deployer choices, and the core test cost under US$6.
 
 - **Who bears it.** False beliefs on settled facts follow literacy, numeracy and class, though years of schooling alone predicts little. Whose false beliefs get stored is unmeasured.
 

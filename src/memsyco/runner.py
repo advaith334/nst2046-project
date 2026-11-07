@@ -89,6 +89,7 @@ def run_trial(spec: TrialSpec, cfg: RunConfig, store: MemoryStore, client: Clien
         provider=comp.provider,
         response_text=comp.text,
         reasoning_text=comp.reasoning,
+        transcript=comp.transcript,
         finish_reason=comp.finish_reason,
         usage=comp.usage,
         option_probs=option_probs(comp.logprobs, omap, completion_mode, comp.text),

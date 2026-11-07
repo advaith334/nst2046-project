@@ -1,0 +1,17 @@
+# Post hoc: free text with no tutor role. See tutoring/README.md, "After the run".
+name: tutoring-neutral
+models_file: frontier/config/models.yaml
+model_set: tutoring_open
+judge_set: judge
+second_judge_set: second_judge
+use_second_judge: false
+frame: neutral
+conditions: [none, note_false]
+second_turn: false
+case_file: data/external/mmlu/school.yaml
+seed: 2048
+max_workers: 16
+params:
+  temperature: 0.7
+  max_tokens: 1500
+  top_logprobs: 0

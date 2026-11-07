@@ -1,0 +1,17 @@
+# Three-role tutoring simulation. Design and predictions: tutoring/README.md.
+# 60 school items x 5 conditions x 5 models = 1,500 trials, plus 20 items x 5 x Sonnet = 100.
+# Paths are relative to the repo root.
+name: tutoring
+models_file: frontier/config/models.yaml
+model_set: tutoring_models
+subset_model_set: tutoring_subset
+subset_items: 20
+judge_set: judge
+second_judge_set: second_judge
+case_file: data/external/mmlu/school.yaml
+seed: 2048
+max_workers: 16
+params:
+  temperature: 0.7
+  max_tokens: 500
+  top_logprobs: 0

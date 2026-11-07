@@ -1,0 +1,28 @@
+\newcommand{\TUTTRIALS}{2,860}
+\newcommand{\TUTCOST}{2.55}
+\newcommand{\TOTALTRIALS}{37,750}
+\newcommand{\TOTALCOST}{21}
+\newcommand{\TUTORINGPART}{Tony suggested simulating tutoring in three roles, and we did. A scripted student asks for help with a homework question. The model under test replies as a tutor in free text. Two AI judges act as the teacher, reading each reply with the key and no sight of the note. We used the 60 MMLU school items and five arms: no note, a false note, a true note, and each note with a sentence saying what it is for (``This note records what the student thinks. It is not a checked fact, so work the question out for yourself, and if the note is wrong, tell the student why.''). The student then pushes back: ``Are you sure? I thought it was X.'' Predictions were committed first. The judges agreed closely ($\kappa$ = 0.91 on the final answer, 0.92 on whether the tutor told the student they were wrong), but both are AI.
+
+Three of our five predictions failed. A false note did not raise Nemo's false answers (+2 [$-$7, +10]), a true note did not detectably raise its accuracy (+5 [$-$7, +18]), and the purpose sentence did not cut false answers (+3 [$-$5, +13]). The fourth passed: given a false note, Haiku told the student they were wrong far more often than Nemo (72\% against 13\%, +58 [+43, +70]). The fifth reversed: at the second turn Nemo was false less often with a false note than with none (32\% against 63\%, Holm $p$ = 0.004). We also made a mistake. Our 500-token limit cut off 28 to 59\% of open-model replies. A post hoc rerun at 1,500 tokens cut off 2 to 11\% and gave the same verdicts, and Table 4 uses it for the open models.
+
+\begin{table}[t]
+\caption{Tutoring simulation. ``Told wrong'' is the share of replies saying the student's own idea is mistaken, by false note / true note. Second turn is false answers after ``Are you sure?'', with no note / false note. Open models use the 1,500-token rerun; Claude models were not cut off, and Sonnet ran on 20 items. No-role harm is the rise in false answers with a false note and no tutor role, post hoc; n.r.\ is not run.}
+\small
+\begin{tabularx}{\linewidth}{@{}Lrrrrr@{}}
+\toprule
+\textbf{Tutor} & \textbf{Correct, no note} & \textbf{Told wrong, note} & \textbf{Told wrong, note + purpose} & \textbf{Second turn, false} & \textbf{No-role harm}\\
+\midrule
+Nemo & 57\% & 13\% / 7\% & 68\% / 42\% & 70\% / 43\% & +15 [+3, +28]\\
+Llama & 70\% & 22\% / 13\% & 45\% / 25\% & 40\% / 35\% & +13 [+2, +25]\\
+Mistral Small & 88\% & 45\% / 17\% & 83\% / 13\% & 5\% / 5\% & +5 [$-$2, +13]\\
+Claude Haiku & 97\% & 72\% / 2\% & 88\% / 2\% & 2\% / 2\% & n.r.\\
+Claude Sonnet & 100\% & 65\% / 0\% & 70\% / 0\% & 0\% / 0\% & n.r.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Three things follow from Table 4. First, the role matters. In the tutor role a false note did nothing in free text (Nemo 0 [$-$10, +10]). With no tutor role, on the same tasks, the harm came back: Nemo +15 and Llama +13, against +63 for Nemo on these items in multiple choice. The format took most of it away and one sentence of role took the rest, though these figures cross runs. Second, only a tutor that knows the answer can use a note as a teacher does. Haiku spoke up on 72\% of false notes and 2\% of true ones, a gap of +70 [+55, +82], and Nemo's gap was +7 [$-$3, +17]. The purpose sentence made Nemo speak up on 68\% of false notes, but also told 42\% of students with a correct note that they were wrong. Small improved cleanly (83\% against 13\%). Third, in a weak tutor the larger risk is live. ``Are you sure?'' alone took Nemo to the false answer 70\% of the time, while Haiku and Sonnet almost never moved.}
+\newcommand{\TUTORINGSOCIETAL}{Our simulation complicates that story and sharpens the case. In the tutor role a false note did not make any model assert the false answer more, so memory tutors do not simply flatter. In a general-assistant frame it did. But a tutor that stays quiet has not done a teacher's job either: Nemo told the student they were wrong on 13\% of false notes, against 72\% for Haiku. Saying what the note is for raised Nemo to 68\%, at the price of telling 42\% of students with a correct note that they were wrong, which is worse than silence. So a record needs a stated purpose and a reader who knows the subject. Neither is enough alone.}
+\newcommand{\TUTORINGNEXT}{The next step is to test with real students and teachers across sessions: whether a note with a stated purpose changes learning, not just replies, and whether a human reading the note, as in the Eedi trial, catches what a weak tutor gets wrong. On the technical side, we would find which words in the tutor role remove the harm, using a memory sentence that does not repeat the question.}
+\newcommand{\TUTORINGCONCLUSION}{Our tutoring simulation failed three of its five predictions, and that changed the argument. A tutor role removed the harm in free text, a general assistant did not, and only models that knew the answer could sort a false note from a true one.}

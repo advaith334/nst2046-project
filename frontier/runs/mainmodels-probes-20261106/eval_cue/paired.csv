@@ -1,0 +1,7 @@
+model,comparison,pairs,ref_rate,cond_rate,toward_incorrect,away,mcnemar_p
+claude-sonnet,stored_incorrect vs no_belief,27,0.0,0.0,0,0,1.0
+gemma-moe,stored_incorrect vs no_belief,26,0.11538461538461539,0.38461538461538464,8,1,0.0390625
+llama-8b-deepinfra,stored_incorrect vs no_belief,28,0.5,0.8214285714285714,10,1,0.01171875
+mistral-nemo,stored_incorrect vs no_belief,28,0.5357142857142857,0.8214285714285714,11,3,0.057373046875
+mistral-small,stored_incorrect vs no_belief,28,0.17857142857142858,0.9285714285714286,21,0,9.5367431640625e-07
+qwen-small,stored_incorrect vs no_belief,14,0.0,0.0,0,0,1.0

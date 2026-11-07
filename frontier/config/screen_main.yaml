@@ -1,0 +1,26 @@
+# Track B, the main study's models: Mistral Nemo, Mistral Small, Llama 3.1 8B, Gemma 4,
+# Qwen3.5-9B and Claude Sonnet 5.5, with their main-study settings.
+# The other track's file differs only in comments, `name` and `model_set` (a test checks this).
+# F1 headroom, stage A: the screen. Frontier models were right on every main-study item, so
+# a stored belief had nothing to move. This finds computed items they get wrong at least sometimes,
+# with reasoning at its default. No memory at all: no_belief only, 3 reps.
+# 64 items x 1 condition x 3 reps x 6 models = 1,152 trials.
+# Claude Sonnet's answers here help pick the items, with track A's screen; the other five models'
+# don't. Every model's answers set its headroom scope in the analysis.
+# Paths are relative to frontier/. Models come from frontier/config/models.yaml, not the main registry.
+name: mainmodels-screen
+models_file: config/models.yaml
+model_set: main_models
+case_files:
+  - data/headroom.yaml
+conditions:
+  - no_belief
+reps: 3
+seed: 2046
+shuffle_options: true
+max_workers: 4
+params:
+  # The main study's settings, so results line up with it.
+  temperature: 0.7
+  max_tokens: 2000
+  top_logprobs: 5

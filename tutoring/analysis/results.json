@@ -1,0 +1,21 @@
+{
+  "total": {
+    "trials": 1600,
+    "errors": 0,
+    "cost": 2.2746161412399997
+  },
+  "agreement": {
+    "final_answer_turn1": {
+      "kappa": 0.908311163259137,
+      "agree": 0.95
+    },
+    "told_turn1": {
+      "kappa": 0.9186786268588627,
+      "agree": 0.974375
+    },
+    "final_answer_turn2": {
+      "kappa": 0.8605201074431047,
+      "agree": 0.9166666666666666
+    }
+  }
+}

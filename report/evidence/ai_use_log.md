@@ -127,6 +127,23 @@ Times are SGT. "Session" points to the Claude Code session log.
 | Claude Code: confirmatory cost estimate | US$0.98, given before "Approve the run" | **Wrong.** It missed Qwen's long reasoning and Claude's longer replies. Projected cost was about US$1.45. Advaith raised the cap to US$1.55, and Claude still stopped early | Found from cost logs at 16:02, before any outcome was read |
 | Claude Code: "the claim rests on one model" and "the label removes 56%" | Draft and README | **Overtaken by Part 3:** every open model moved, and the label removed 28% | Rewritten in the report and README |
 
+### 7 Nov: final report
+
+| Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
+|---|---|---|---|
+| Claude Code (Opus 5.5): tutoring simulation | Tony's idea of three roles; Advaith's "full autonomy" | **AI-designed, AI-run, AI-judged.** Code, plan, hypotheses and analysis in `tutoring/` | Plan committed before the run. Two AI judges. No person has checked a reply |
+| Claude Code: token limit in the tutoring simulation | Set at 500 in the plan | **Wrong.** It cut off 28 to 59% of open-model replies. Caught by checking `finish_reason` before writing up. Two post hoc reruns followed | Planned result kept and reported beside the rerun |
+| Claude Code: second judge on F3 | Check whether F3 depends on one judge | Used: 83% agreement, kappa 0.76, same pattern | AI against AI, not a hand check |
+| Claude Code subagent: tutoring and psychosis research | Literature for the lead and side cases | Used, with figures for Eedi, Bergson and the OpenAI line re-checked in the main session. **A browser user-agent request was blocked as bot-check circumvention and not retried.** OpenAI and Khan help pages refused, so those details are left out or marked | Most reading went through an automated reader. No person has read these sources |
+| Claude Code: final report in LaTeX | "finish this report" | **The whole text of the report is AI-written** from the evidence files and Aditya's Part 4 text, which was also AI-drafted | Numbers checked against tables by script. The team must read it and own it before submitting |
+
+### Frontier tests (Aditya, 5 Nov, branch `aditya/work`)
+
+| Tool + purpose | Input/request summary | What was used or rejected | Verification + effect on decision |
+|---|---|---|---|
+| Claude Code (Opus 5.5): test design | "come up with some independent tests ... on frontier models", hypothesis that models are "benchmaxxed" | Six tests proposed; Aditya chose four (now labelled F1–F4) | Design is AI-written. Predictions are left for Aditya to write before running |
+| Claude Code (Opus 5.5): code, items and configs | "build tests 1, 4 5 and 6" (now F1–F4) | **AI-generated:** everything under `frontier/` and `src/memsyco/frontier/`, `tests/test_frontier.py`, and the small shared-harness changes listed in `frontier/README.md`. 64 computed items, 24 misconception items | All 49 tests pass and a full dry run works. The 64 keys were re-checked by independent code (0 mismatches). The 24 misconception items need the two-member check |
+
 ## Honest limits on "verification"
 
 - **Most verification so far is AI checking AI.** A clean-clone audit by the same tool family is not independent. The guidelines say using AI is expected but "outsourcing judgment is not", so item checks and scoring must be done by people.

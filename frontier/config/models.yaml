@@ -1,0 +1,117 @@
+# Model registry for the frontier tests F1-F4 only. The main study's registry, config/models.yaml,
+# is untouched. Slugs and hosts checked against the OpenRouter catalogue on 2026-11-05.
+#
+# Two tracks, each run separately with the same items and settings (frontier/README.md):
+#   frontier_models  Track A. Claude Haiku 5.5 and GPT-6.1 Terra, new to the project, pinned to their
+#                    maker's host, reasoning at the host's default as Claude Sonnet ran in the main
+#                    study. Anthropic and OpenAI hosts ignore temperature.
+#   main_models      Track B. The main study's six models (config/models.yaml, set `main`), copied
+#                    exactly (tests/test_frontier.py fails if they drift), so results line up with the
+#                    existing runs. Llama uses the follow-ups' host. Mistral Nemo is the positive control.
+# Claude Sonnet, the main study's frontier model, runs once, in track B. The tracks share items,
+# prompts, settings and seed, so its results also count as track A's third frontier model.
+# Gemini 4 Argon was dropped for cost on 5 Nov (Sonnet's price); its entry is kept below for later.
+
+sets:
+  frontier_models: [claude-haiku, gpt-terra-openai]
+  # F1's item selection: the three frontier models, read from both tracks' screens.
+  selection: [claude-sonnet, claude-haiku, gpt-terra-openai]
+  main_models: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, qwen-small, claude-sonnet]
+  # The tutoring simulation (tutoring/README.md). Sonnet runs on a subset, as it costs most.
+  tutoring_models: [mistral-nemo, mistral-small, llama-8b-deepinfra, gemma-moe, claude-haiku]
+  tutoring_subset: [claude-sonnet]
+  tutoring_open: [mistral-nemo, mistral-small, llama-8b-deepinfra]
+  second_judge: [claude-haiku]
+  # Judge for F3's free-text replies: the main study's MemSyco-Bench judge.
+  judge: [deepseek-flash]
+
+models:
+  # --- Frontier ---
+  # Copied from config/models.yaml: the main study's Claude, reasoning at its default. Keep in sync.
+  # One change: 8,000 tokens (as Qwen in the main study). On the computed items it can reason past
+  # 2,000 and never answer (1 of 5 in the 5 Nov smoke test; 0 of 592 in the main study). A higher
+  # limit changes only replies that would otherwise be cut off.
+  - alias: claude-sonnet
+    slug: anthropic/claude-sonnet-5.5
+    family: claude
+    size: frontier
+    notes: "No logprobs. Ignores temperature on every OpenRouter host, so runs at its default."
+    extra_body:
+      provider: {order: [Anthropic], allow_fallbacks: false}
+      max_tokens: 8000
+  # New to the project. Reasoning at the host's default, like Sonnet. Terra and Argon may reason by
+  # default, and reasoning counts against the token limit, so they get 8,000 tokens as Qwen does in
+  # the main study. Haiku got 8,000 too after its screen (6 Nov). Check `cut_off` (README, step 0).
+  - alias: claude-haiku
+    slug: anthropic/claude-haiku-5.5
+    family: claude
+    size: small frontier
+    notes: "Reasoning at its default, like claude-sonnet. 8,000 tokens: at 2,000 it was cut off on 32 of 192 screen answers (6 Nov)."
+    extra_body:
+      provider: {order: [Anthropic], allow_fallbacks: false}
+      max_tokens: 8000
+  - alias: gpt-terra-openai
+    slug: openai/gpt-6.1-terra
+    family: gpt
+    size: frontier (mid)
+    notes: "Reasoning at its default. No logprobs: OpenAI rejects them for reasoning models (smoke test, 5 Nov). Named apart from config/models.yaml's unpinned gpt-terra, which never ran."
+    extra_body:
+      provider: {order: [OpenAI], allow_fallbacks: false}
+      max_tokens: 8000
+      logprobs: false
+  # Not in any set (dropped for cost, 5 Nov). Add it to frontier_models and selection to run it.
+  - alias: gemini-argon
+    slug: google/gemini-4-argon
+    family: gemini
+    size: frontier
+    notes: "Reasoning at its default. Takes temperature."
+    extra_body:
+      provider: {order: [Google AI Studio], allow_fallbacks: false}
+      max_tokens: 8000
+
+  # --- Open: copied from config/models.yaml. Keep in sync. ---
+  - alias: mistral-nemo
+    slug: mistralai/mistral-nemo
+    family: mistral
+    size: 12B
+    notes: "Main-study spec. Also the positive control."
+    extra_body:
+      provider: {order: [Io Net], allow_fallbacks: false}
+  - alias: mistral-small
+    slug: mistralai/mistral-small-3.2-24b-instruct
+    family: mistral
+    size: 24B
+    notes: "Main-study spec."
+    extra_body:
+      provider: {order: [Parasail], allow_fallbacks: false}
+  - alias: llama-8b-deepinfra
+    slug: meta-llama/llama-3.1-8b-instruct
+    family: llama
+    size: 8B
+    notes: "The 5 Nov follow-ups' spec. The main study used Novita, which no longer serves this model."
+    extra_body:
+      provider: {order: [DeepInfra, Cloudflare], allow_fallbacks: false}
+  - alias: gemma-moe
+    slug: google/gemma-4-26b-a4b-it
+    family: gemma
+    size: 26B MoE (4B active)
+    notes: "Main-study spec."
+    extra_body:
+      provider: {order: [Google], allow_fallbacks: false}
+  - alias: qwen-small
+    slug: qwen/qwen3.5-9b
+    family: qwen
+    size: 9B
+    notes: "Main-study spec: thinking on, 8000 tokens."
+    extra_body:
+      provider: {order: [Parasail], allow_fallbacks: false}
+      max_tokens: 8000
+
+  # --- Judge: copied from config/models.yaml. ---
+  - alias: deepseek-flash
+    slug: deepseek/deepseek-v4-flash
+    family: deepseek
+    notes: "Judge only, never a test subject. Main-study spec."
+    extra_body:
+      provider: {order: [DeepInfra, Fireworks, SiliconFlow], allow_fallbacks: true}
+      reasoning: {enabled: false}

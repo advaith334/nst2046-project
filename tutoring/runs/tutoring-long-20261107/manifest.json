@@ -1,0 +1,78 @@
+{
+  "run_id": "tutoring-long-20261107",
+  "created_at": "2026-11-07T04:11:06.102400+00:00",
+  "git": {
+    "commit": "14ed2ae557786da75f981e222d8e39339742b481",
+    "dirty": true
+  },
+  "config": {
+    "name": "tutoring-long",
+    "models_file": "/Users/advaithkarthikeyan/dev/nst2046-project/frontier/config/models.yaml",
+    "model_set": "tutoring_open",
+    "subset_model_set": null,
+    "subset_items": 0,
+    "judge_set": "judge",
+    "second_judge_set": "second_judge",
+    "case_file": "/Users/advaithkarthikeyan/dev/nst2046-project/data/external/mmlu/school.yaml",
+    "seed": 2048,
+    "max_workers": 16,
+    "frame": "tutor",
+    "conditions": [
+      "none",
+      "note_false",
+      "note_true",
+      "purpose_false",
+      "purpose_true"
+    ],
+    "second_turn": true,
+    "use_second_judge": false,
+    "params": {
+      "temperature": 0.7,
+      "max_tokens": 1500,
+      "top_logprobs": 0
+    }
+  },
+  "judges": [
+    {
+      "alias": "deepseek-flash",
+      "slug": "deepseek/deepseek-v4-flash",
+      "mode": "chat",
+      "family": "deepseek",
+      "size": "",
+      "tuning": "instruct",
+      "notes": "Judge only, never a test subject. Main-study spec.",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "DeepInfra",
+            "Fireworks",
+            "SiliconFlow"
+          ],
+          "allow_fallbacks": true
+        },
+        "reasoning": {
+          "enabled": false
+        }
+      }
+    },
+    {
+      "alias": "claude-haiku",
+      "slug": "anthropic/claude-haiku-5.5",
+      "mode": "chat",
+      "family": "claude",
+      "size": "small frontier",
+      "tuning": "instruct",
+      "notes": "Reasoning at its default, like claude-sonnet. 8,000 tokens: at 2,000 it was cut off on 32 of 192 screen answers (6 Nov).",
+      "extra_body": {
+        "provider": {
+          "order": [
+            "Anthropic"
+          ],
+          "allow_fallbacks": false
+        },
+        "max_tokens": 8000
+      }
+    }
+  ],
+  "planned_trials": 900
+}

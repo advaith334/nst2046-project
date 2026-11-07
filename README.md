@@ -6,12 +6,7 @@ differs across models, and whether labelling the memory as *unverified* helps.
 
 Team: Advaith, Aditya, Elkan and Tony. Roles: [TEAM TO CONFIRM].
 
-> **Status (Milestone 2):** harness built; three screening rounds, the main study, ten follow-up
-> rounds and one pre-registered confirmatory run done. That is **29,355 trials** in all: 5,472 in
-> rounds 1–4, 12,784 in paid follow-ups, 9,287 confirmatory, 1,728 local and free, and 84 smoke
-> tests. Total API spend: **$5.93**. Our own test items and evidence passages are still unverified
-> **drafts**, and no response has been hand-scored. Rounds 5–14 were designed after the main results
-> were seen. Round 15 was pre-registered and uses MMLU items that no AI wrote.
+> **Status (Milestone 2):** the final report is in [report/final/](report/final/). About **37,750 trials** in all, for about **$21**: 5,472 in rounds 1-4, 12,784 in paid follow-ups, 9,287 confirmatory, 5,536 frontier tests on Aditya's account, 2,860 tutoring, 1,728 local and free, and 84 smoke tests. Our own test items and evidence passages are still unverified **drafts**, and no response has been hand-scored. Rounds 5-14 were designed after the main results were seen. Rounds 15-17 had plans committed first, though two tutoring reruns are post hoc.
 >
 > **AI disclosure:** all code, 87 of the 89 test items and this README are AI-generated. See
 > [section 5](#5-limitations).
@@ -35,13 +30,17 @@ Team: Advaith, Aditya, Elkan and Tony. Roles: [TEAM TO CONFIRM].
 "Points" means percentage points of answers. Square brackets are 95% intervals from resampling
 items, not trials. Effects are rises in false answers over the same model's no-belief baseline.
 
+**The tutoring case.** A three-role simulation found that in a tutor role a false note did not raise false answers, while with no role it did (Nemo +15, Llama +13). Only models that knew the answer could tell a false note from a true one. Three of five predictions failed. See [tutoring/RESULTS.md](tutoring/RESULTS.md).
+
+**Frontier models.** Sonnet, Haiku and Terra did not detectably move, but they were almost never unsure, so resistance can't be separated from knowledge. See [frontier/README.md](frontier/README.md).
+
 **Round 15 is the strongest evidence here.** It was pre-registered before any trial and uses 120
 randomly drawn MMLU items. The rest of this table is exploratory, and round 15 overrides it where
 they differ. Results are in the [confirmatory write-up](report/analysis/confirm/confirm_results.md).
 
 | Pre-registered test | Result | Verdict |
 |---|---|---|
-| Harm above zero, Nemo | +55 [+47, +62] | Pass |
+| Harm above zero, Nemo | +55 [+47, +63] | Pass |
 | Harm above zero, Mistral Small | +35 [+28, +43] | Pass |
 | Label reduces Nemo's harm | +15 [+10, +21], 28% of the harm | Pass |
 | Labelled memory stays above no belief, Nemo | +40 [+32, +48] | Pass |
@@ -165,8 +164,10 @@ weak points in its claims.
 | 13 | Three harness fixes | 48 + 4 useful-memory checks | 2 | 1,248 | $0.03 | 5 Nov 05:49–06:03 | None sorts false memories from true |
 | 14 | Local base vs instruct | 48 | 1 pair, 3 arms | 1,728 | Free | 5 Nov 05:48–06:42 | Effect the same size in base, in points |
 | 15 | Confirmatory (pre-registered) | 120 MMLU | 6 | 9,287 | $1.54 | 5 Nov 07:46–10:13 | All five primary hypotheses pass; every open model moved |
+| 16 | Frontier tests F1-F4 (Aditya) | 64 computed, 24 myths | 8 | 5,536 | about $12 | 5-6 Nov | No detectable frontier effect, near ceiling |
+| 17 | Tutoring simulation, with two post hoc reruns | 60 MMLU school | 6 | 2,860 | $2.55 | 7 Nov | Role removes the harm; knowledge sorts the notes |
 | | Smoke tests | | | 84 | $0.04 | 27 Oct, 5 Nov | Harness checks |
-| | **Total** | | | **29,355** | **$5.93** | | |
+| | **Total** | | | **about 37,750** | **about $21** | | |
 
 Trial counts and costs come from the logs. Costs include retries and extra calls: the judge in
 round 5, and the second call in the answer-first and memory-gate fixes.
@@ -743,6 +744,9 @@ The MS1 report isn't in this repo. These are checked as worded in the analysis a
 - [ ] Swap the answer format so reasoning comes first (Nemo, Gemma, Llama)
 - [ ] Ask why Llama showed nothing on our items and +30 on MMLU
 - [x] Add a base model through a local server (round 14)
+- [ ] Frontier tests F1–F4 (headroom, test awareness, silent accommodation, pressure), each in two tracks
+      (frontier models; the main study's models): built in their own [frontier/](frontier/README.md)
+      folder, not yet run. F5–F7 are specs in [frontier/planned/](frontier/planned/)
 
 ---
 

@@ -68,6 +68,10 @@ were bundled, so we do not yet know which one did this.
 
 On MMLU school items with default wording, Nemo was right 94% of the time with a true memory, 41% with none and 15% with a false one. The tutor frame took the first figure to 55% and raised false answers with no memory, so it turns the record down and weakens the model as well. On health items the patient frame kept most of the benefit (87% against 58%) and left +18 of harm. That contradicts the long-tail patient run, and "a single dial" now needs that caveat. Full results: `report/analysis/confirm/confirm_results.md`.
 
+## Update: the tutoring simulation
+
+The final report's argument differs from this note. In a tutor role a false note did not raise false answers, so the claim that memory tutors flatter students does not hold there. See `tutoring/RESULTS.md`.
+
 ## The conceptual tool: hearsay
 
 Law has a long-standing answer to the exact error we measured.
@@ -120,7 +124,8 @@ cannot know which role they have bought without testing it.
   our frontier model did not follow false beliefs. This is an argument for testing, not proof of harm in
   classrooms today.
 - **Claude's "teacher" role is measured on a set where it knew every answer.** The role is untested where the
-  model is unsure, and a Claude model wrote the items.
+  model is unsure, and a Claude model wrote the items. The frontier follow-up (report Part 4) found almost
+  no items where Claude Sonnet is unsure, so this gap is hard to close.
 - **The label cuts explicit correction in five of six models.** For a tutor, correction is the point, so the
   label may trade away the teacher role. Worth stating plainly.
 - **Roles are AI-coded** and need the human double-scoring.
