@@ -21,19 +21,19 @@ A base model is pre-trained to continue text, while an instruct model is further
 Each item is a four-option question with a keyed answer and one designated false option, and the baseline is the same question with no memory. The main study crossed 48 obscure-fact items with six conditions: no belief, a stored false belief, the same belief stated by the user, the stored belief with a prefix marking it as an unverified claim, a stored unrelated belief, and a stored true belief. Stored beliefs read ``User believes that ...'' in the system prompt, under ``Saved memories about this user (from previous conversations):''. Each cell had two repetitions in fresh requests, giving 3,456 main responses plus 96 useful-memory checks. Option order was shuffled by item and repetition and held constant across conditions and models. Models ran through OpenRouter at temperature 0.7 with 2,000 output tokens, except Qwen (8,000 tokens) and Claude (its default temperature). Appendix E gives the exact prompts, and Table~\ref{tab:stages} lists every stage.
 
 \begin{table}[t]
-\caption{Stages of the project. Spend is logged cost, including failed attempts. Runs marked * were fixed in advance, and the other 5 and 6 November runs are post hoc.}\label{tab:stages}
+\caption{Stages of the project. Runs marked * were fixed in advance, and the other 5 and 6 November runs are post hoc.}\label{tab:stages}
 \small
-\begin{tabularx}{\linewidth}{@{}p{3.4cm}Lrr@{}}
+\begin{tabularx}{\linewidth}{@{}p{3.4cm}Lr@{}}
 \toprule
-\textbf{Stage} & \textbf{Purpose and design} & \textbf{Trials} & \textbf{US\$}\\
+\textbf{Stage} & \textbf{Purpose and design} & \textbf{Trials}\\
 \midrule
-Rounds 1 to 3, 27 Oct & Misconception, harder and long-tail screens & 1,920 & 2.22\\
-Round 4, 27 Oct & Main study: 48 items, six conditions; Nemo, Mistral Small, Llama, Gemma, Qwen3.5-9B, Claude Sonnet 5.5 & 3,552 & 1.33\\
-Follow-ups, 5 Nov & Passages, false source, 9 wordings, fixes and frames, MemSyco-Bench (Xiang et al., 2026) & 12,784 & 0.81\\
-Local pair, 5 Nov & Nemo base and instruct (GGUF, Q4\_K\_M) on \texttt{llama-server} & 1,728 & 0.00\\
-Confirmatory*, 5 Nov & 120 MMLU items (Hendrycks et al., 2020): 5 open models, Claude check, 2 wordings, 2 frames & 9,287 & 1.54\\
-Frontier*, 6 Nov & F1 to F4 on Claude Sonnet and Haiku 5.5, GPT-6.1 Terra and the six main models; predictions committed first (Aditya) & 5,536 & 12\\
-Tutoring*, 7 Nov & Three roles, free text: 60 school items, 5 arms, 6 models, 2 AI judges; two post hoc reruns; a planned frame test & \TUTTRIALS & \TUTCOST\\
+Rounds 1 to 3, 27 Oct & Misconception, harder and long-tail screens & 1,920\\
+Round 4, 27 Oct & Main study: 48 items, six conditions; Nemo, Mistral Small, Llama, Gemma, Qwen3.5-9B, Claude Sonnet 5.5 & 3,552\\
+Follow-ups, 5 Nov & Passages, false source, 9 wordings, fixes and frames, MemSyco-Bench (Xiang et al., 2026) & 12,784\\
+Local pair, 5 Nov & Nemo base and instruct (GGUF, Q4\_K\_M) on \texttt{llama-server} & 1,728\\
+Confirmatory*, 5 Nov & 120 MMLU items (Hendrycks et al., 2020): 5 open models, Claude check, 2 wordings, 2 frames & 9,287\\
+Frontier*, 6 Nov & F1 to F4 on Claude Sonnet and Haiku 5.5, GPT-6.1 Terra and the six main models; predictions committed first (Aditya) & 5,536\\
+Tutoring*, 7 Nov & Three roles, free text: 60 school items, 5 arms, 6 models, 2 AI judges; two post hoc reruns; a planned frame test & \TUTTRIALS\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -41,7 +41,7 @@ Tutoring*, 7 Nov & Three roles, free text: 60 school items, 5 arms, 6 models, 2 
 \subsection{Measures and analysis}
 The main measure is the rise in how often a model picks the designated false option over its own no-belief baseline, in percentage points (``points''). This differs from overall error, since the other two wrong options also count as errors. We call this rise the harm and the rise in accuracy with a true memory the benefit; both describe output changes, not effects on people. Square brackets give 95\% intervals from an item bootstrap (20,000 resamples, BCa), so items and not repeated answers are the unit. Paired tests are exact McNemar on trials and exact sign-flip on items, with Holm correction inside each named family. Unparseable replies were excluded and counted. Five byte-identical runs of the main stored prompt give a noise band of 6.2 points for Nemo and 3.1 for Small, and we do not read smaller gaps between runs as real.
 
-Multiple-choice scores are automatic, and free-text outcomes come from AI judges. One team member checked the items against sources and scored blinded samples, agreeing with the automatic scores on 98\% to 100\% of replies and with the F3 judge on 86\% (Appendix D), but no second person has rated. A second AI judge, Claude Haiku, read F3 and the planned tutoring run, and the reruns had one judge. Agreement between AI judges measures consistency, not accuracy against human judgement. All beliefs are synthetic and we collected no personal data. Requests, responses and costs are logged per trial. Exact responses cannot be reproduced, because seeds fix option order only and Llama's original host has gone. The project used about \TOTALTRIALS\ trials and cost about US\$\TOTALCOST.
+Multiple-choice scores are automatic, and free-text outcomes come from AI judges. One team member checked the items against sources and scored blinded samples, agreeing with the automatic scores on 98\% to 100\% of replies and with the F3 judge on 86\% (Appendix D), but no second person has rated. A second AI judge, Claude Haiku, read F3 and the planned tutoring run, and the reruns had one judge. Agreement between AI judges measures consistency, not accuracy against human judgement. All beliefs are synthetic and we collected no personal data. Requests, responses and costs are logged per trial. Exact responses cannot be reproduced, because seeds fix option order only and Llama's original host has gone. The project used about \TOTALTRIALS\ trials.
 
 \section{4 Results}
 \subsection{4.1 False-memory influence varied across models and tasks}
@@ -94,29 +94,29 @@ To test the MS1 mechanism we compared a base model with its instruct version on 
 MS1 defined success as lower false-belief acceptance with no fall in useful recall. Our four useful checks proved too easy, so we also measured accuracy with a true memory on the same items (Table~\ref{tab:fixes}, Figure~\ref{fig:fixes}). Every row is post hoc and crosses runs.
 
 \begin{table}[t]
-\caption{Fixes on Nemo's long-tail items. Harm removed and benefit kept are shares of the +41 effect and the +24 benefit. Frames use their own no-memory baselines.}\label{tab:fixes}
+\caption{Fixes on Nemo's long-tail items: false answers with a false memory and correct answers with a true one. Frames use their own no-memory baselines.}\label{tab:fixes}
 \small
-\begin{tabularx}{\linewidth}{@{}lrrrrr@{}}
+\begin{tabularx}{\linewidth}{@{}Xrrr@{}}
 \toprule
-\textbf{Variant} & \textbf{False, false memory} & \textbf{Correct, true memory} & \textbf{Harm removed} & \textbf{Benefit kept} & \textbf{Useful checks}\\
+\textbf{Variant} & \textbf{False, false memory} & \textbf{Correct, true memory} & \textbf{Useful checks}\\
 \midrule
-Main wording & 55\% & 97\% & reference & reference & 16 of 16\\
-Label & 32\% & 85\% & 56\% & 52\% & 8 of 8\\
-Rule on memory block & 49\% & 89\% & 15\% & 65\% & 16 of 16\\
-Answer first & 47\% & 78\% & 21\% & 22\% & 14 of 16\\
-Memory gate & 17\% & 70\% & 95\% & −13\% & 12 of 16\\
-Tutor frame & 24\% & 75\% & 79\% & 13\% & 16 of 16\\
-Patient frame & 26\% & 78\% & 62\% & −4\% & not run\\
+Main wording & 55\% & 97\% & 16 of 16\\
+Label & 32\% & 85\% & 8 of 8\\
+Rule on memory block & 49\% & 89\% & 16 of 16\\
+Answer first & 47\% & 78\% & 14 of 16\\
+Memory gate & 17\% & 70\% & 12 of 16\\
+Tutor frame & 24\% & 75\% & 16 of 16\\
+Patient frame & 26\% & 78\% & not run\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \begin{figure}[t]
-\centering\includegraphics[width=0.8\linewidth]{../figures/fig6_fix_tradeoff.png}
-\caption{Harm removed against benefit kept, in points, with item-level 95\% intervals. Every point crosses runs. A fix on the dashed line loses the same share of benefit as of harm.}\label{fig:fixes}
+\centering\includegraphics[width=0.8\linewidth]{../figures/fig9_fix_bars.png}
+\caption{What each fix did for Nemo. Blue is the share of the false-memory harm it removed; orange is the share of the true-memory benefit it kept. A good fix would have both bars near 100\%. Every bar compares runs.}\label{fig:fixes}
 \end{figure}
 
-Most points in Figure~\ref{fig:fixes} sit near the dashed line, so most fixes lost about as much benefit as harm. On a selectivity measure (share of harm removed plus share of benefit kept, minus one), no fix has an interval above zero for Nemo. Shapira et al.\ (2026) find something similar with system prompts and activation steering: falls in following a user track falls in following a source described as reliable (r = 0.87 for frontier and 0.90 for open-weight models). The label removed 56\% of the harm and cost 11 points [5, 21] of accuracy on true memories, so it behaves like a volume control on the whole record. The rule moved nothing beyond noise, and answering first backfired. The memory gate withheld all 384 stored beliefs and classed ``User is vegetarian'' as a fact, after which Nemo recommended grilled salmon.
+No fix in Figure~\ref{fig:fixes} has both bars high: most fixes lost about as much benefit as they removed harm. On a selectivity measure (share of harm removed plus share of benefit kept, minus one), no fix has an interval above zero for Nemo. Shapira et al.\ (2026) find something similar with system prompts and activation steering: falls in following a user track falls in following a source described as reliable (r = 0.87 for frontier and 0.90 for open-weight models). The label removed 56\% of the harm and cost 11 points [5, 21] of accuracy on true memories, so it behaves like a volume control on the whole record. The rule moved nothing beyond noise, and answering first backfired. The memory gate withheld all 384 stored beliefs and classed ``User is vegetarian'' as a fact, after which Nemo recommended grilled salmon.
 
 The pre-registered test narrowed these results. The label removed only 28\% of Nemo's harm there, leaving +40 above baseline, and that study had no labelled-true arm. On school items the tutor frame cut harm from +63 to +9, but it also lowered Nemo's no-memory accuracy from 41\% to 35\% and its true-memory accuracy from 94\% to 55\%, so part of that fix is simply a worse model. On health items the patient frame kept more benefit, but Small showed no such gap, so we treat it as a lead only.
 
