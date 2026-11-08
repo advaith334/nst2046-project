@@ -1,11 +1,11 @@
 ## Appendix A: AI use
 
-Claude Code (Claude Opus 5.5) contributed to planning, code, most project-written items, execution, analysis and initial report drafts. Firecrawl supported literature searches; Wispr Flow supplied an AI summary of lecturer feedback as well as logging meetings. ChatGPT and Codex assisted with restructuring, critical review and editing. Codex also implemented and ran Tony's local Qwen study and performed the 8 November repository checks. One team member has completed the first round of human checks (Appendix D). Model-generated experimental responses came from the harness. AI assistance is disclosed here regardless of its omission from Git co-author metadata.
+Claude Code (Claude Opus 5.5) contributed to planning, code, most project-written items, execution, analysis and initial report drafts. Firecrawl supported literature searches; Wispr Flow supplied an AI summary of lecturer feedback as well as logging meetings. ChatGPT and Codex assisted with restructuring, critical review and editing. Codex also implemented and ran Tony's local Qwen study and performed the 8 November repository checks. Tony and Elkan independently checked the item keys and passages and scored a blinded sample of replies by hand (Appendix D). Model-generated experimental responses came from the harness. AI assistance is disclosed here regardless of its omission from Git co-author metadata.
 
 | Work | AI contribution and checks |
 |---|---|
 | Design and implementation | Claude Code proposed designs and wrote the harness, configurations and tests. Automated tests and prompt-regeneration checks were reported; these do not constitute independent human code review. |
-| Items and sources | Most project-specific questions and evidence passages were AI-drafted. The MMLU and MemSyco-Bench studies used external benchmark items. AI audits checked keys and source metadata; one team member has since checked the items against sources, and a second check remains. Literature tools supplied leads and summaries; an AI check of every cited source was done on 7 November. |
+| Items and sources | Most project-specific questions and evidence passages were AI-drafted. The MMLU and MemSyco-Bench studies used external benchmark items. AI audits checked keys and source metadata; two members then checked the keys and passages by hand (Appendix D); the MMLU keys were not checked. Literature tools supplied leads and summaries; an AI check of every cited source was done on 7 November. |
 | Scoring and analysis | Multiple-choice answers were parsed automatically. DeepSeek V4 Flash judged MemSyco-Bench; AI judges scored tutoring and frontier writing. Second-judge checks covered the planned tutoring run and frontier writing, not all reruns. |
 | Errors and revisions | Parser errors involving multiple answer lines and responses such as "C, Silicon" were corrected and reports rebuilt. Truncation prompted separately reported tutoring reruns. Claims that some models were generally unaffected or that the tutor role removed the effect were withdrawn. |
 | Human challenge | Advaith questioned the proposed SycophancyEval dataset's relevance. The proposal was withdrawn before execution and MemSyco-Bench was used instead. |
@@ -24,6 +24,7 @@ The repository's report/ and tutoring/ records retain the detailed analyses and 
 | 5 to 6 Nov | Run frontier tests F1 to F4. | Aditya chose tests and budget options. Ceiling performance left 14 selected items, below the planned threshold of 20. |
 | 6 to 7 Nov | Make tutoring the lead application and test a scripted interaction. | Aditya, Advaith and Tony discussed the framing; Tony proposed the three-role simulation. AI ran it under Advaith's authorisation. |
 | 7 Nov | Rerun truncated replies and test role wording. | AI retained planned results beside post hoc 1,500-token reruns. The later planned frame test did not support the role explanation. |
+| 8 Nov | Two-member human check of the items and a blinded sample of scores. | Tony and Elkan checked independently, then settled every disagreement by adopting Tony's answer. 50 keys verified; two kept with caveats. |
 
 ## Appendix C: Contributions
 
@@ -31,21 +32,21 @@ The repository's report/ and tutoring/ records retain the detailed analyses and 
 |---|---|
 | Advaith | Built the technical artefact. Approved runs and budgets, provided computing access and credit, challenged the benchmark choice, and developed the societal framing with the team. AI assistance was used for this work (Appendix A). |
 | Aditya Kittur | Proposed the frontier-evaluation question, selected F1 to F4, wrote predictions, ran the frontier tracks using his credit, and proposed tutoring as the lead application. Directed the subsequent argument, structure and language revisions with AI assistance. Drafted the report and brought together various experiments towards one conclusion. |
-| Tony Nguyen | Supported the tutoring focus and proposed the three-role simulation. Tony directed a separate Codex-assisted local Qwen2.5 experiment on 28 October. Codex implemented the harness, ran 1,536 trials with the 1.5B and 3B Instruct models, and prepared the analysis and reviewer materials. The local archive records the prompts, responses and reproducibility checks. |
-| Elkan Chan | Evaluated the responses from the various models, and scored responses as a human checker. Developed the societal and philosophical arguments and ensured that they were grounded in real concepts. |
+| Tony Nguyen | Supported the tutoring focus and proposed the three-role simulation. Tony directed a separate Codex-assisted local Qwen2.5 experiment on 28 October. Codex implemented the harness, ran 1,536 trials with the 1.5B and 3B Instruct models, and prepared the analysis and reviewer materials. The local archive records the prompts, responses and reproducibility checks. Tony acted as the first human checker, checking all 52 item keys and 96 evidence passages against their sources and scoring a blinded sample of 60 multiple-choice replies, 40 qualitative codes and 64 frontier writing replies. |
+| Elkan Chan | Evaluated the responses from the various models, and was the second human checker of the item keys, passages and scored replies. Developed the societal and philosophical arguments and ensured that they were grounded in real concepts. |
 
 ## Appendix D: Verification status
 
-One team member (Elkan Chan) completed the human checks below on 8 November 2026. The sheets hid the model, the condition and the AI scores. Agreement is between the human rater and the automatic or AI scores.
+Tony Nguyen and Elkan Chan each completed the human checks below independently on 8 November 2026, working from the sheets in `report/human_pack/` and `frontier/judge_check/`, which hid the model, the condition and the AI scores. They then went through every disagreement together and adopted Tony's answer on each (`report/human_pack/settled.md`). No reported result changed.
 
 | Check | What was done | Result |
 |---|---|---|
-| Questions and passages | 52 questions and 96 evidence passages checked against their sources | 123 confirmed, 22 unsure, 3 marked wrong (passage details on potato chromosomes, beriberi and the Swiss franc). Two keys depend on definitions: most islands, and largest freshwater lake |
-| Blind scoring | 60 multiple-choice replies scored without the model or condition | Agreed with automatic scoring on accuracy in 60 of 60, and on accepting the false belief in 57 of 58 (κ 0.96) |
-| Qualitative codes | 40 replies coded for how the model justified its answer | Agreed with the AI coder on the main code in 95% (κ 0.93); invented details were the weakest (82%, κ 0.48) |
-| F3 judge | 64 free-text replies about myths | Agreed with the DeepSeek judge in 86% (κ 0.79) and with the Claude Haiku judge in 75% (κ 0.65) |
+| Questions and passages | 52 questions and 96 evidence passages checked against their sources | The checkers agreed on 129 of 148 rows. Both confirmed 50 of 52 keys and neither judged a key wrong. Two depend on definitions and stay unverified, with caveats: most islands (dropping it leaves Nemo's +41 unchanged) and largest freshwater lake. Both confirmed 73 of 96 passages; 23 have a doubtful side detail, such as a date or distance, and none changes the answer the passage points to |
+| Blind scoring | 60 multiple-choice replies scored without the model or condition, over-representing wrong answers | The checkers agreed on accuracy in 60 of 60 and on accepting the false belief in 59 of 60 (κ 0.97). Wherever they agreed, the automatic score matched |
+| Qualitative codes | 40 false answers coded for how the model justified them | The checkers agreed on the main code in 39 of 40 (κ 0.97); invented details were the weakest (33 of 40, κ 0.43), so counts of invented detail are approximate. The settled codes match the AI coder in 38 of 40 (κ 0.93) |
+| F3 judge | 64 free-text replies about myths | The checkers agreed on 59 (92%, κ 0.88). Each agreed with the DeepSeek judge on 55 (86%, κ 0.79); the settled outcomes agreed with the Claude Haiku judge on 48 of 61 (79%, κ 0.70) |
 
-**Still not done.** A second human rater for any sheet, so there is no agreement between people; the 120 MMLU answer keys; the tutoring judges; a human code review; and a human check of the cited sources (an AI check was done on 7 November).
+**Still not done.** The 120 MMLU answer keys; the tutoring replies and their judges; MemSyco-Bench beyond 4 sampled replies; a human code review; and a human check of the cited sources (an AI check was done on 7 November).
 
 ## Appendix E: Prompts and reproducibility
 
