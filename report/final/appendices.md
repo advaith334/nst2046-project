@@ -25,13 +25,12 @@ AI tools were used throughout the project. The table follows the course format a
 | 5 to 6 Nov | Run frontier tests F1 to F4 | Test whether frontier models are "benchmaxxed" | Predictions committed first | Aditya |
 | 6 to 7 Nov | Make tutoring the lead case and run a three-role simulation | The team's chosen societal case | Team chat; tutoring plan | Aditya, Tony, Advaith |
 | 7 Nov | Withdraw the tutor-role claim | A planned frame test did not support it | Frame test: Nemo +6 against +7 | Team |
-| 8 Nov | Shorten and rewrite the report | Readability and page limits | This revision | Aditya |
 
 ## Appendix C: Contribution statement
 
 | Member | Intellectual and practical work |
 |---|---|
-| Advaith | Directed the main study through Claude Code, approved runs and budgets, provided computing access and credit, challenged the benchmark choice, developed the societal framing with the team, and built the technical artefact with AI assistance. AI wrote the harness and much of the analysis under this direction |
+| Advaith | Built the technical artefact. Approved runs and budgets, provided computing access and credit, challenged the benchmark choice, and developed the societal framing with the team. AI assistance was used for this work (Appendix A) |
 | Aditya Kittur | Proposed the frontier-evaluation question, selected F1 to F4, wrote the predictions, ran the frontier tracks on his own credit, and proposed tutoring as the lead case. Directed the argument, structure and language of this report and brought the experiments together towards one conclusion |
 | Tony Nguyen | Supported the tutoring focus and proposed the three-role simulation. Directed a separate Codex-assisted local Qwen2.5 study (1.5B and 3B Instruct, 1,536 trials) with archived prompts, responses and checks |
 | Elkan Chan | Developed the societal and philosophical arguments and grounded them in the concepts used. Carried out the human checks in Appendix D: the item and passage check, blind scoring, qualitative coding and the F3 judge check |
