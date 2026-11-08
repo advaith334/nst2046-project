@@ -36,6 +36,7 @@ def inline(s: str) -> str:
         return stash(r"\texttt{" + body + "}")
 
     s2 = re.sub(r"`([^`]+)`", code, s2)
+    s2 = re.sub(r'"([^"\x00]*)"', "\u201c\\1\u201d", s2)  # straight double quotes outside code -> curly
     s2 = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", lambda m: stash(r"\href{" + m.group(2).replace("%", r"\%").replace("#", r"\#") + "}{" + esc(m.group(1)) + "}"), s2)
     s2 = re.sub(r"(?<![\w(])(https?://[^\s|)]+)", lambda m: stash(r"\url{" + m.group(1).replace("%", r"\%").replace("#", r"\#") + "}"), s2)
     s2 = re.sub(r"\[(TEAM TO (?:COMPLETE|READ)[^\]]*|CHECK SOURCE)\]", lambda m: stash(r"\todo{" + esc(m.group(1)) + "}"), s2)
@@ -86,7 +87,7 @@ def convert(md: str) -> str:
             i += 1
             out.append(r"\begin{lstlisting}" + "\n" + "\n".join(block) + "\n" + r"\end{lstlisting}")
         elif line.startswith("## "):
-            out.append(r"\section*{" + inline(line[3:]) + "}\n" + r"\addcontentsline{toc}{section}{" + inline(line[3:]) + "}")
+            out.append(r"\section*{" + inline(line[3:]) + "}")
             i += 1
         elif line.startswith("### "):
             out.append(r"\subsection*{" + inline(line[4:]) + "}")
