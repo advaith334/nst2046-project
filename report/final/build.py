@@ -87,7 +87,7 @@ def convert(md: str) -> str:
             i += 1
             out.append(r"\begin{lstlisting}" + "\n" + "\n".join(block) + "\n" + r"\end{lstlisting}")
         elif line.startswith("## "):
-            out.append(r"\section*{" + inline(line[3:]) + "}")
+            out.append(r"\needspace{9\baselineskip}\section*{" + inline(line[3:]) + "}")
             i += 1
         elif line.startswith("### "):
             out.append(r"\subsection*{" + inline(line[4:]) + "}")
