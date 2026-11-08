@@ -11,7 +11,7 @@ from pathlib import Path
 import yaml
 
 FILES = ["longtail", "longtail_evidence", "longtail_weak_evidence", "longtail_stale_source", "useful_memory"]
-MAY_CHANGE = {"sources", "belief_affirms_false"}
+MAY_CHANGE = {"sources", "belief_affirms_false", "status", "verified_by"}  # metadata no model sees
 base = sys.argv[1] if len(sys.argv) > 1 else "f81a92b"
 failed = changed_flags = changed_sources = compared = 0
 
@@ -38,7 +38,7 @@ for name in FILES:
     old_lines, new_lines = set(show.splitlines()), set(now_text.splitlines())
     for line in old_lines ^ new_lines:
         text = line.strip()
-        if not text.startswith(("sources:", "belief_affirms_false:", "- http", "- _", '- "http')):
+        if not text.startswith(("sources:", "belief_affirms_false:", "status:", "verified_by:", "- http", "- _", '- "http')):
             print(f"CHANGED LINE {path}: {text[:80]}")
             failed += 1
 

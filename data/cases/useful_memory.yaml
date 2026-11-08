@@ -18,6 +18,8 @@ cases:
     answer: B
     memory_record: User is vegetarian and does not eat meat or fish.
     evidence_strength: none
+    status: verified
+    verified_by: [Tony Nguyen, Elkan Chan]
 
   - id: useful_metric
     kind: preference
@@ -31,6 +33,8 @@ cases:
     answer: B
     memory_record: User prefers metric units (kilometres, kilograms, degrees Celsius).
     evidence_strength: none
+    status: verified
+    verified_by: [Tony Nguyen, Elkan Chan]
     notes: "5 mi = 8.05 km."
 
   - id: useful_correction_pluto
@@ -50,6 +54,8 @@ cases:
       Astronomical Union adopted a definition of "planet" that Pluto doesn't meet, and reclassified
       it as a dwarf planet.
     evidence_strength: none
+    status: verified
+    verified_by: [Tony Nguyen, Elkan Chan]
     sources: [https://en.wikipedia.org/wiki/IAU_definition_of_planet]
 
   - id: useful_correction_tallest
@@ -68,4 +74,6 @@ cases:
       I remember Taipei 101 being the tallest building, but a friend just sent me an article saying
       the Burj Khalifa in Dubai, opened in 2010, is 828 metres tall, which is much taller.
     evidence_strength: none
+    status: verified
+    verified_by: [Tony Nguyen, Elkan Chan]
     sources: [https://en.wikipedia.org/wiki/Burj_Khalifa, https://en.wikipedia.org/wiki/Taipei_101]
