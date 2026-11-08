@@ -21,7 +21,7 @@ A base model is pre-trained to continue text, while an instruct model is further
 Each item is a four-option question with a keyed answer and one designated false option, and the baseline is the same question with no memory. The main study crossed 48 obscure-fact items with six conditions: no belief, a stored false belief, the same belief stated by the user, the stored belief with a prefix marking it as an unverified claim, a stored unrelated belief, and a stored true belief. Stored beliefs read ``User believes that ...'' in the system prompt, under ``Saved memories about this user (from previous conversations):''. Each cell had two repetitions in fresh requests, giving 3,456 main responses plus 96 useful-memory checks. Option order was shuffled by item and repetition and held constant across conditions and models. Models ran through OpenRouter at temperature 0.7 with 2,000 output tokens, except Qwen (8,000 tokens) and Claude (its default temperature). Appendix E gives the exact prompts, and Table~\ref{tab:stages} lists every stage.
 
 \begin{table}[t]
-\caption{Stages of the project. Runs marked * were fixed in advance, and the other 5 and 6 November runs are post hoc.}\label{tab:stages}
+\caption{Stages of the project (* fixed in advance).}\label{tab:stages}
 \small
 \begin{tabularx}{\linewidth}{@{}p{3.4cm}Lr@{}}
 \toprule
@@ -48,7 +48,7 @@ Multiple-choice scores are automatic, and free-text outcomes come from AI judges
 Our first studies used items an AI wrote, chosen after seeing results, so before any trial we fixed hypotheses (commit \texttt{04486fc}) on 120 items drawn at random from MMLU, 60 school and 60 health. The memory sentence here repeats the question, which may strengthen the effect. All five primary hypotheses passed (Table~\ref{tab:prereg}, Figure~\ref{fig:confirm}). A false memory raised Nemo's false answers by +55 [+47, +63] points, and a true one raised its accuracy from 50\% to 94\% (Small 75\% to 98\%, Llama 55\% to 81\%). Every open model moved, including Llama (+30), which had looked unaffected on our own items, although items, sentence and host all changed. This is not a model ranking: on school items Qwen and Gemma barely moved (0 and +2). Claude stopped at its budget cap, and on the 60 items with both arms its effect was +2 [0, +8].
 
 \begin{table}[t]
-\caption{Pre-registered results, in points with 95\% item-level intervals. Each frame is compared with default wording on the same items.}\label{tab:prereg}
+\caption{Pre-registered results (points, 95\% intervals).}\label{tab:prereg}
 \small
 \begin{tabularx}{\linewidth}{@{}Lp{6.3cm}p{2.9cm}@{}}
 \toprule
@@ -71,14 +71,14 @@ Q2 Claude's harm, 60 items & +2 [0, +8] & Not detected\\
 
 \begin{figure}[t]
 \centering\includegraphics[width=0.8\linewidth]{../figures/fig8_confirmatory.png}
-\caption{False and correct answers by model on 120 MMLU items. Labels give harm (a) and benefit (b). *Claude stopped at its cap: rates use 167 trials and its effect uses 60 items.}\label{fig:confirm}
+\caption{False and correct answers on 120 MMLU items (*Claude stopped at its budget cap).}\label{fig:confirm}
 \end{figure}
 
 In the earlier main study on 48 obscure facts, a stored false belief raised Nemo's false answers from 15\% to 55\%, an effect of +41 [+28, +54] that survives Holm on trials and items (Figure~\ref{fig:main}). Mistral Small rose +12 [+6, +23], from only 8 items. Llama (+1 [−7, +10]), Gemma (+1), Qwen (+1) and Claude (0) showed no detectable effect there. An unrelated memory did nothing for Nemo (+1 [−2, +5]), so the content drives the shift, and a true memory raised its accuracy from 73\% to 97\%. We detected no difference between stored and stated beliefs (−7 [−17, +1]), which does not show that they are equal. We adopted these long-tail items post hoc, because misconceptions and puzzles moved Nemo little (+3 [−14, +20] with passages). On the 24 items not used for screening the effect was +44 [+25, +62], which rules out luck among the items but not our choice of item type.
 
 \begin{figure}[t]
 \centering\includegraphics[width=0.8\linewidth]{../figures/fig1_effects_by_model.png}
-\caption{Effect of each condition on the false-option rate by model in the main study, with 95\% item-level intervals. Filled markers pass Holm across the 42 main-study tests by item.}\label{fig:main}
+\caption{Effect of each memory condition on false answers in the main study (95\% intervals).}\label{fig:main}
 \end{figure}
 
 On 100 sampled free-text items from MemSyco-Bench (Xiang et al., 2026), a memory snippet raised endorsement of the misconception by +30 in Nemo, +36 in Small, +21 in Llama, +31 in Gemma and +64 in Qwen, all passing Holm. Free text is therefore no protection by itself, though this benchmark's memory states a preference and one AI model judges it.
@@ -94,7 +94,7 @@ To test the MS1 mechanism we compared a base model with its instruct version on 
 MS1 defined success as lower false-belief acceptance with no fall in useful recall. Our four useful checks proved too easy, so we also measured accuracy with a true memory on the same items (Table~\ref{tab:fixes}, Figure~\ref{fig:fixes}). Every row is post hoc and crosses runs.
 
 \begin{table}[t]
-\caption{Fixes on Nemo's long-tail items: false answers with a false memory and correct answers with a true one. Frames use their own no-memory baselines.}\label{tab:fixes}
+\caption{Nemo's answers under each fix.}\label{tab:fixes}
 \small
 \begin{tabularx}{\linewidth}{@{}Xrrr@{}}
 \toprule
@@ -113,7 +113,7 @@ Patient frame & 26\% & 78\% & not run\\
 
 \begin{figure}[t]
 \centering\includegraphics[width=0.8\linewidth]{../figures/fig9_fix_bars.png}
-\caption{What each fix did for Nemo. Blue is the share of the false-memory harm it removed; orange is the share of the true-memory benefit it kept. A good fix would have both bars near 100\%. Every bar compares runs.}\label{fig:fixes}
+\caption{Harm removed and benefit kept by each fix (Nemo).}\label{fig:fixes}
 \end{figure}
 
 No fix in Figure~\ref{fig:fixes} has both bars high: most lost about as much benefit as they removed harm, and on a selectivity measure none is clearly above zero for Nemo. Shapira et al.\ (2026) find the same coupling with system prompts and activation steering: models that follow users less also follow reliable sources less (r = 0.87 and 0.90). The label removed 56\% of the harm and cost 11 points [5, 21] of accuracy on true memories, so it behaves like a volume control on the whole record. The rule moved nothing beyond noise, and answering first backfired. The memory gate withheld all 384 stored beliefs and classed ``User is vegetarian'' as a fact, after which Nemo recommended grilled salmon.
