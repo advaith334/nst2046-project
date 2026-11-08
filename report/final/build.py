@@ -64,7 +64,7 @@ def table(rows: list[str]) -> str:
         widths = [max(w, fl) for w, fl in zip(widths, floors)]
         widths = [w / sum(widths) for w in widths]
     # Wider text columns are justified like the body. Narrow columns stay left-aligned, because justifying them leaves large gaps.
-    align = lambda w: r"\justifying" if w >= 0.22 else r"\RaggedRight"  # noqa: E731
+    align = lambda w: r"\justifying" if w >= 0.34 else r"\RaggedRight"  # noqa: E731
     spec = "".join(">{" + align(w) + r"\arraybackslash}p{" + f"{w * 0.985:.3f}" + r"\dimexpr\linewidth-" + f"{2 * n}" + r"\tabcolsep\relax}" for w in widths)
     lines = [r"\begin{longtable}{@{}" + spec + "@{}}", r"\toprule", " & ".join(r"\textbf{" + inline(h) + "}" for h in head) + r" \\",
              r"\midrule", r"\endhead"]
